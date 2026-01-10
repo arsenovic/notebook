@@ -1,0 +1,197 @@
+html {
+    background-color: #e8e8e8;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Inter", "Helvetica Neue", Arial, sans-serif;
+ 
+    line-height: 1.7;
+    color: #333333;
+    background-color: #f5f5f5;
+    /* center the body content */
+    margin-left: auto;
+    margin-right: auto;
+    
+    /* add a shadowlike border around the content */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1), 0 8px 24px rgba(0,0,0,0.08);
+    
+    border-radius: 8px;
+    padding: 40px 20px;
+    max-width: 1000px;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 60px 50px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1), 0 4px 16px rgba(0,0,0,0.08);
+    border-radius: 4px;
+}
+
+h1, h2, h3 {
+    color: #2b2a5e;
+}
+
+h1 {
+    font-size: 5em;
+    margin: 30px 0 20px 0;
+    padding-bottom: 5px;
+    padding-top: 15px;
+    border-bottom: 3px solid currentColor;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+h2 {
+    font-size: 2.5em;
+    margin: 28px 0 16px 0;
+    padding-top: 15px;
+    border-bottom: 2px solid #eeeeee;
+    /*display: inline-block;*/
+    font-weight: 600;
+}
+
+h3 {
+    font-size: 1.8em;
+    margin: 20px 0 12px 0;
+    font-weight: 600;
+}
+
+p {
+    font-size: 1.1em;
+    margin: 15px 0;
+    line-height: 1.9;
+    margin-left: 20px;
+    padding-left: 20px;
+}
+
+.cell {
+    margin: 25px 0;
+    padding: 18px;
+    background-color: #f8f9fa;
+    border-left: 5px solid #007bff;
+    border-radius: 6px;
+}
+
+ 
+ 
+
+.cell-code-toggle {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 0;
+    user-select: none;
+    font-weight: 600;
+    color: #007bff;
+}
+
+.cell-code-toggle:hover {
+    color: #0052a3;
+}
+
+.cell-code-toggle::before {
+    content: '▶';
+    display: inline-block;
+    transition: transform 0.3s ease;
+    font-size: 0.85em;
+}
+
+.cell-code-toggle.expanded::before {
+    transform: rotate(90deg);
+}
+
+.cell-code {
+    font-family: 'Fira Code', 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    background-color: #2d2d30;
+    color: #d4d4d4;
+    padding: 16px;
+    border-radius: 6px;
+    overflow-x: auto;
+    font-size: 1.18em;
+    line-height: 1.6;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+
+.highlight {
+    font-size: 1.1em;
+    /* change color to  faint yellow */
+    background-color: #f5f4ed;
+}
+
+.cell-code.expanded {
+    max-height: 2000px;
+}
+
+/* nbconvert code cell collapse styles */
+.jp-Cell-inputWrapper.collapsed {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+
+.jp-Cell-inputWrapper.expanded {
+    max-height: 2000px;
+    overflow: visible;
+    transition: max-height 0.3s ease;
+}
+
+.output {
+    margin-top: 15px;
+    padding: 16px;
+    background-color: #fafbfc;
+    border: 1px solid #e1e8ed;
+    border-radius: 6px;
+}
+
+.widget-embed {
+    margin: 20px 0;
+    padding: 15px;
+    background-color: #fff;
+    border: 2px solid #007bff;
+    border-radius: 8px;
+}
+
+.widget-output {
+    width: 100%;
+    min-height: 400px;
+}
+
+code {
+    background-color: #f1f3f5;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-family: 'Fira Code', 'Monaco', monospace;
+    font-size: 0.92em;
+    color: #d63384;
+}
+
+pre {
+    overflow-x: auto;
+}
+
+a {
+    color: #0066cc;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    text-decoration: underline;
+    color: #0052a3;
+}
+
+footer {
+    text-align: center;
+    margin-top: 50px;
+    padding-top: 20px;
+    border-top: 1px solid #e1e8ed;
+    color: #7f8c8d;
+    font-size: 0.95em;
+}
+
+/* Collapsible code cells for nbconvert */
