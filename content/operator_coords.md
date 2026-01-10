@@ -226,49 +226,45 @@ next to compute the tangent frame. In geodesy, the standard tangenth frame is de
 We also vectorize the parameters using meshgrid.
 
 ```python
+if False: # some broacsting bug here. . .
+
  
-from kingdon.numerical import exp # work around https://github.com/tBuLi/kingdon/issues/109
- 
-# operators
-T  = lambda x1,x2,x3: exp(-e0*(x1*e1 + x2*e2 + x3*e3)/2) 
-R  = lambda theta, phi : exp(-theta*e12/2)*exp(-phi*e13/2) 
+    # operators
+    T  = lambda x1,x2,x3: exp(-e0*(x1*e1 + x2*e2 + x3*e3)/2) 
+    R  = lambda theta, phi : exp(-theta*e12/2)*exp(-phi*e13/2) 
 
-# parameters
-thetas = np.linspace(-pi,pi,21)              
-phis   = np.linspace(-pi/2,pi/2,11)[1:-1]  
-theta, phi = np.meshgrid(thetas,phis)
-rho    = 2 
+    # parameters
+    thetas = np.linspace(-pi,pi,21)              
+    phis   = np.linspace(-pi/2,pi/2,11)[1:-1]  
+    theta, phi = np.meshgrid(thetas,phis)
+    rho    = 2 
 
-# objects
-o     = e0.dual() # origin 
-tmag  = rho/10 # magnitude of tangent vectors
+    # objects
+    o     = e0.dual() # origin 
+    tmag  = rho/10 # magnitude of tangent vectors
 
-east  = (o, T(0,tmag,0)>>o) # e2
-north = (o, T(0,0,tmag)>>o) # e3
-up    = (o, T(tmag,0,0)>>o) # e1
+    east  = (o, T(0,tmag,0)>>o) # e2
+    north = (o, T(0,0,tmag)>>o) # e3
+    up    = (o, T(tmag,0,0)>>o) # e1
 
-# operator
-Rs     = R(theta,phi)*T(rho,0,0)  # you could set rho=earth_radius+altitude 
+    # operator
+    Rs     = R(theta,phi)#*T(rho,0,0)  # you could set rho=earth_radius+altitude 
+    [R(theta, phi)>>null_island for theta in thetas for phi in phis ]
 
+    points = Rs>>o
+    easts  = Rs>>east  
+    norths = Rs>>north
+    ups    = Rs>>up
 
-points = Rs>>o
-easts  = Rs>>east  
-norths = Rs>>north
-ups    = Rs>>up
+    # helper to unzip tuples of arrays
+    format_for_ganja = lambda x: list(zip( *( [k.flatten() for k in x] ) )) 
+    easts, norths, ups = map(format_for_ganja, (easts, norths, ups))
 
-# helper to unzip tuples of arrays
-format_for_ganja = lambda x: list(zip( *( [k.flatten() for k in x] ) )) 
-easts, norths, ups = map(format_for_ganja, (easts, norths, ups))
-
-pga.graph(
-    c[0], *points.flatten(),
-    c[1], *easts,
-    c[2], *norths,
-    c[3], *ups,
-    grid=False, lineWidth=5,
-)
-```
-
-```python
-
+    pga.graph(
+        c[0], *points.flatten(),
+        c[1], *easts,
+        c[2], *norths,
+        c[3], *ups,
+        grid=False, lineWidth=5,
+    )
 ```
