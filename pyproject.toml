@@ -1,0 +1,34 @@
+[project]
+name = "arsenovic-notebook"
+version = "0.1.0"
+description = "Alex Arsenovic's Notebook"
+readme = "README.md"
+requires-python = ">=3.11"
+license = {text = "CC BY-NC-ND 4.0"}
+authors = [
+    {name = "arsenovic", email = "arsenovic@example.com"}
+]
+
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: Other/Proprietary License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+
+dependencies = [
+    "jupyter",
+    "jupyterlab",
+    "pandas",
+    "numpy",
+    "matplotlib",
+    "jupytext>=1.18.1",
+    "kingdon@file:///home/alex/code/kingdon",
+    "nbconvert>=7.16.6",
+    "notebook>=7.5.1",
+]
+
+[tool.setuptools]
+packages = []
