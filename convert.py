@@ -54,8 +54,8 @@ def convert_md_to_html() -> None:
             # Add reference to external style.css right before </body> so it overrides nbconvert styles
             html_content = body.replace("</body>", '<link rel="stylesheet" href="style.css">\n</body>')
 
-            # Add reference to external collapse script
-            script_ref = '<script src="collapse.js"></script>'
+            # Add reference to external helpers script
+            script_ref = '<script src="helpers.js"></script>'
             html_content = html_content.replace("</html>", script_ref + "\n</html>")
 
             html_file = output_path / md_file.with_suffix(".html").name
