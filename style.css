@@ -185,6 +185,21 @@ a:hover {
     color: #0052a3;
 }
 
+/* Hide the paragraph symbols (¶) from heading anchor links */
+a.anchor-link {
+    display: none;
+}
+
+/* Table of contents styles */
+#toc-container a::after {
+    display: none;
+}
+
+#toc-container a {
+    color: #0066cc !important;
+    text-decoration: none;
+}
+
 footer {
     text-align: center;
     margin-top: 50px;
