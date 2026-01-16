@@ -25,10 +25,11 @@ dependencies = [
     "numpy",
     "matplotlib",
     "jupytext>=1.18.1",
-    #"kingdon@file:///home/alex/code/kingdon",
+    "kingdon@file:///home/alex/code/kingdon",
     "nbconvert>=7.16.6",
     "notebook>=7.5.1",
-    "kingdon>=1.4.0",
+    #"kingdon>=1.4.0",
+    "torch>=2.9.1",
 ]
 
 [tool.setuptools]

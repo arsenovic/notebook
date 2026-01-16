@@ -70,11 +70,7 @@ exp = lambda x: x.exp()
 pga = Algebra(2,0,1,start_index=0) 
 locals().update(pga.blades)
 
-T     = lambda x1,x2: exp(-e0*(x1*e1 + x2*e2)/2)  # translation operator 
-dists = np.linspace(-1,1,11)                 # parameters
-o     = e0.dual()                            # origin 
-
-points   = [T(x1,x2)>>o for x1 in dists for x2 in dists] # Create points by moving origin around 
+   
 
 pga.graph(*points, grid=False ) 
 ```
@@ -86,12 +82,13 @@ expand the above a little bit by connecting the points together using tuples of 
 from itertools import pairwise,chain
  
 # create grid by making line-segments connecting points (tuples in ganja)
-x_lines = [pairwise( [T(x,y)>>o for y in dists]) for x in dists]
-y_lines = [pairwise( [T(x,y)>>o for x in dists]) for y in dists]
+h_lines = [pairwise( [T(x1,x2)>>o for x1 in dists]) for x2 in dists]
+v_lines = [pairwise( [T(x1,x2)>>o for x2 in dists]) for x1 in dists]
+
 
 pga.graph(
-    *list(chain(*x_lines)),
-    *list(chain(*y_lines)),
+    *list(chain(*h_lines)),
+    *list(chain(*v_lines)),
     *points,
     grid=False, lineWidth=3, 
 )
@@ -100,7 +97,7 @@ pga.graph(
 ## 2D Polar 
 Next we look at a polar coordinates system which can be implemented with the combination of a Translation and Rotation. 
 
-$$R_\theta = e^{-\frac{\theta}{2} e_{12}}$$
+$$R_\rho = e^{-\frac{\rho}{2} e_{01}}, \qquad R_\theta = e^{-\frac{\theta}{2} e_{12}}$$
 
 where $\rho$ is the radial distance and $\theta$ is the angle. The combined operator is:
 
@@ -108,7 +105,9 @@ $$RT_{\rho,\theta} = R_\theta T_\rho = e^{-\frac{\theta}{2} e_{12}} e^{-\frac{\r
 
 This gives us a point in polar coordinates as:
 
-$$x =  e^{-\frac{\theta}{2} e_{12}} e^{-\frac{\rho}{2} e_{01}}o   e^{\frac{\rho}{2} e_{01}}e^{\frac{\theta}{2} e_{12}} =  RT_{\rho,\theta} >> o$$
+$$x =  e^{-\frac{\theta}{2} e_{12}} e^{-\frac{\rho}{2} e_{01}}o   e^{\frac{\rho}{2} e_{01}}e^{\frac{\theta}{2} e_{12}} ,$$
+
+which we implement with  $$ RT_{\rho,\theta} >> o$$
 
 Below we visualize the polar grid with both angular and radial lines.
 
@@ -149,11 +148,12 @@ from sympy import symbols, sin, cos, pretty
 # Use Greek letter unicode in symbol names for display
 rho, theta = symbols('ρ θ', real=True, positive=True)
 
-R_ = lambda t: cos(t/2)*e - sin(t/2)*e12
-T_ = lambda r: 1 - e01*r/2
+R_  = lambda t: cos(t/2)*e - sin(t/2)*e12
+T_  = lambda r: 1 + e01*r/2
 RT_ = lambda r, t: R_(t)*T_(r)
-o = e0.dual()
-(RT_(rho, theta) >> o).dual()
+o   = e0.dual()
+(RT_(rho, theta) >> o).dual().proj(e12)
+
 ```
 
 ### Tangent Frame 
@@ -226,45 +226,37 @@ next to compute the tangent frame. In geodesy, the standard tangenth frame is de
 We also vectorize the parameters using meshgrid.
 
 ```python
-if False: # some broacsting bug here. . .
+# def operators 
+T  = lambda x1,x2,x3: exp(-e0*(x1*e1 + x2*e2 + x3*e3)/2) 
+R  = lambda theta, phi : exp(-theta*e12/2)*exp(-phi*e13/2) 
 
+# parameters
+thetas = np.linspace(-pi,pi,21)              
+phis   = np.linspace(-pi/2,pi/2,11)[1:-1]  
+#theta, phi = np.meshgrid(thetas,phis)
+rho    = 1.5
+
+# objects
+o     = e0.dual() # origin 
+tmag  = rho/10 # magnitude of tangent vectors
+east  = (o, T(0,tmag,0)>>o) # e2
+north = (o, T(0,0,tmag)>>o) # e3
+up    = (o, T(tmag,0,0)>>o) # e1
+
+# create operator
+Rs     = [R(theta,phi)*T(rho,0,0) for theta in thetas for phi in phis]
+
+# operate 
+points = [R>>o for R in Rs]
+easts  = [R>>east for R in Rs]
+norths = [R>>north for R in Rs]
+ups    = [R>>up for R in Rs]
  
-    # operators
-    T  = lambda x1,x2,x3: exp(-e0*(x1*e1 + x2*e2 + x3*e3)/2) 
-    R  = lambda theta, phi : exp(-theta*e12/2)*exp(-phi*e13/2) 
-
-    # parameters
-    thetas = np.linspace(-pi,pi,21)              
-    phis   = np.linspace(-pi/2,pi/2,11)[1:-1]  
-    theta, phi = np.meshgrid(thetas,phis)
-    rho    = 2 
-
-    # objects
-    o     = e0.dual() # origin 
-    tmag  = rho/10 # magnitude of tangent vectors
-
-    east  = (o, T(0,tmag,0)>>o) # e2
-    north = (o, T(0,0,tmag)>>o) # e3
-    up    = (o, T(tmag,0,0)>>o) # e1
-
-    # operator
-    Rs     = R(theta,phi)#*T(rho,0,0)  # you could set rho=earth_radius+altitude 
-    [R(theta, phi)>>null_island for theta in thetas for phi in phis ]
-
-    points = Rs>>o
-    easts  = Rs>>east  
-    norths = Rs>>north
-    ups    = Rs>>up
-
-    # helper to unzip tuples of arrays
-    format_for_ganja = lambda x: list(zip( *( [k.flatten() for k in x] ) )) 
-    easts, norths, ups = map(format_for_ganja, (easts, norths, ups))
-
-    pga.graph(
-        c[0], *points.flatten(),
-        c[1], *easts,
-        c[2], *norths,
-        c[3], *ups,
-        grid=False, lineWidth=5,
-    )
+pga.graph(
+    c[0], *points,
+    c[1], *easts,
+    c[2], *norths,
+    c[3], *ups,
+    grid=False, lineWidth=5,
+)
 ```

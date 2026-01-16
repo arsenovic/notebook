@@ -209,4 +209,17 @@ footer {
     font-size: 0.95em;
 }
 
+/* Image styling */
+img {
+    display: block;
+    margin: 20px auto;
+    max-width: 90%;
+    height: auto;
+}
+
+/* SVG-specific sizing */
+img[src$=".svg"] {
+    width: 300px;
+}
+
 /* Collapsible code cells for nbconvert */
