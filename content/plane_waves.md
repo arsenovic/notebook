@@ -55,7 +55,7 @@ So far we have changed nothing from STA. If we re-express $F_x$ in terms of the 
 $$ e^{K\wedge x}F_0 = e^{Kx-xK}F_0 \stackrel{?}{=} e^{Kx}F_0e^{-xK}. $$
 
 (we ignore all factors of 1/2 untill we need to precise answer).  For the last  equality to hold, $F_0$ must commute with the bivector $K\cdot x$. However, since $x$ is an independent variable, this cannot be guaranteed without more assumptions. So,  there are two possibilities 
-1) this reverse engineered formula is useless
+1) This reverse engineered formula is useless
 2) The plane-wave forumula is making implicit assumptions which justify the commutation assumption. 
 
 For now, lets proceed and  see what such a forumla provides. Expanding the product 
@@ -67,14 +67,12 @@ Since the psuedoscalar commutes with $F_0$, we can then write,
 
 $$  e^{ K\wedge x} e^{K\cdot x} F_0e^{-K \cdot x} = e^{ \alpha I }e^{B}F_0e^{-B}   $$
 
-This is interepreted as a STA **position-dependent lorentz rotation** (and duality rotation).  Since $B$ is typically called the *generator*, we call $K$ the *pre-generator*, as it generates the generator. Along certain axis, namely $x\cdot K = 0$, the lorentz transforms disappears and this reduces to the normal plane wave.
+This is interepreted as a STA **position-dependent lorentz rotation** (and duality rotation).  Along certain axis, namely $x\cdot K = 0$, the lorentz transforms disappears and this reduces to the normal plane wave. It is reasonable to extend this to spacially varying $K$, $K\rightarrow K(x)$.
 
 
 <!-- #endregion -->
-
-
-### Simulate
-Since is somewhat easier to simulate than to work out the maths, below are some field simulations of this wave function 
+## Simulate
+Since is somewhat easier to simulate than to work out the maths, below are some field simulations of this wave function. The simulations generate the field for a variety of $K$'s . The fields are mapped from STA into 3dPGA for visualization. Since kingdown allows pytorch.tensors as coefficient this computation is all done on the GPU. 
 
 <div style="display: flex; justify-content: center; gap: 80px; flex-wrap: wrap;">
   <div>
@@ -111,6 +109,8 @@ Since is somewhat easier to simulate than to work out the maths, below are some 
 
 
 ## Extensions
+### A-field 
+The F-field can also be generated from a vector potential field, $A$. The same equation is used for $A$, and then the $F$ is computed by using a numerical implementation of the geometric derivative. 
 
 * trivector pregenerator becomes trivector+vector to model loss $K\rightarrow K+k  \stackrel{?}{=} e^{\alpha I }K$
 * extend  $F$ to be a arbitrary multivector $M$
@@ -126,7 +126,7 @@ $$ M_x = e^{K_x x}M_0e^{-xK_x}. $$
 
 
 ## Numerical Tests
-Tests of the maths to ensure we are not inconsistent. 
+Tests of the maths to ensure we are consistent. 
 
 ```python
 from kingdon import Algebra
@@ -145,6 +145,7 @@ F0 = D.random_bivector()
 k = K.dual()
 
 # try to run this block up to 3 times, and break if all assertions pass
+# need this because its seeded with random values, and its numerical 
 for _ in range(3):
     try:
         assert is_close(I*(k|x) , x^K)
