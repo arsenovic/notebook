@@ -3,13 +3,47 @@ document.addEventListener('DOMContentLoaded', function() {
     const inputWrappers = document.querySelectorAll('.jp-Cell-inputWrapper');
     console.log('Found ' + inputWrappers.length + ' input wrappers');
     
+    // Create and insert the index button at the top
+    const indexButton = document.createElement('a');
+    indexButton.id = 'index-button';
+    indexButton.href = 'index.html';
+    indexButton.textContent = 'Index';
+    indexButton.style.cssText = `
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        z-index: 1000;
+        padding: 10px 20px;
+        background-color: #808080;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 600;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.2s ease;
+        display: inline-block;
+        text-decoration: none;
+    `;
+    
+    indexButton.addEventListener('mouseover', function() {
+        indexButton.style.backgroundColor = '#606060';
+    });
+    
+    indexButton.addEventListener('mouseout', function() {
+        indexButton.style.backgroundColor = '#808080';
+    });
+    
+    document.body.appendChild(indexButton);
+    
     // Create and insert the hide/show code button at the top
     const button = document.createElement('button');
     button.id = 'toggle-code-button';
     button.textContent = 'Hide Code';
     button.style.cssText = `
         position: fixed;
-        top: 20px;
+        top: 60px;
         left: 20px;
         z-index: 1000;
         padding: 10px 20px;
@@ -40,7 +74,7 @@ document.addEventListener('DOMContentLoaded', function() {
     tocButton.textContent = 'Contents';
     tocButton.style.cssText = `
         position: fixed;
-        top: 60px;
+        top: 100px;
         left: 20px;
         z-index: 1000;
         padding: 10px 20px;
@@ -70,7 +104,7 @@ document.addEventListener('DOMContentLoaded', function() {
     tocContainer.id = 'toc-container';
     tocContainer.style.cssText = `
         position: fixed;
-        top: 110px;
+        top: 150px;
         left: 20px;
         z-index: 999;
         background-color: white;
