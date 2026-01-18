@@ -180,10 +180,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             
             const li = document.createElement('li');
-            li.style.cssText = `
-                margin: 5px 0;
-                font-size: 13px;
-            `;
+            li.style.cssText = ``;
             
             const link = document.createElement('a');
             link.href = `#${item.id}`;
@@ -294,5 +291,45 @@ document.addEventListener('DOMContentLoaded', function() {
             return false;
         }, true);
     });
+    
+    // Add copy button to code blocks
+    const highlightDivs = document.querySelectorAll('.highlight');
+    highlightDivs.forEach((highlightDiv) => {
+        // Create wrapper for copy button
+        const wrapper = document.createElement('div');
+        wrapper.className = 'highlight-wrapper';
+        highlightDiv.parentNode.insertBefore(wrapper, highlightDiv);
+        wrapper.appendChild(highlightDiv);
+        
+        // Create copy button
+        const copyButton = document.createElement('button');
+        copyButton.className = 'copy-button';
+        copyButton.textContent = 'Copy';
+        copyButton.setAttribute('title', 'Copy code to clipboard');
+        
+        wrapper.insertBefore(copyButton, highlightDiv);
+        
+        // Copy functionality
+        copyButton.addEventListener('click', function() {
+            const pre = highlightDiv.querySelector('pre');
+            if (pre) {
+                const text = pre.innerText;
+                navigator.clipboard.writeText(text).then(() => {
+                    // Show feedback
+                    const originalText = copyButton.textContent;
+                    copyButton.textContent = 'Copied!';
+                    copyButton.classList.add('copied');
+                    
+                    setTimeout(() => {
+                        copyButton.textContent = originalText;
+                        copyButton.classList.remove('copied');
+                    }, 2000);
+                }).catch(err => {
+                    console.error('Failed to copy:', err);
+                });
+            }
+        });
+    });
 });
+
 

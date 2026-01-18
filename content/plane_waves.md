@@ -14,10 +14,16 @@ jupyter:
     name: python3
 ---
 
+<div style="text-align: right;">
+written 01/17/2026<br>
+<a href="mailto:alex@810lab.com">alex@810lab.com</a>
+</div>
+
+
 <!-- #region -->
 # Plane Waves 
 
-## summary 
+## Summary 
 An equation is reverse engineered from the STA EM plane wave  equation which follows conjugation. 
 
 
@@ -34,7 +40,7 @@ where;
 
 This equation is interpreted as a duality rotation of a fixed bivector $F_0$, parameterized by $k$, with $x$ being  an independent variable. It can also be written as 
 
-$$ F_x = e^{(Ik)\wedge x}F_0 =  e^{K\wedge x}F_0$$
+$$ e^{I(k\cdot x)}F_0  = e^{(Ik)\wedge x}F_0 =  e^{K\wedge x}F_0$$
 
 where $K$ is a trivector dual to $k$. ( We prefer trivectors  for propagation constants since the units match the grade ( rad/m rad/s), but keeping with dual vectors works just as good.) This function solves the equation, 
 $$ \nabla F_x= KF_x. $$
@@ -61,160 +67,66 @@ Since the psuedoscalar commutes with $F_0$, we can then write,
 
 $$  e^{ K\wedge x} e^{K\cdot x} F_0e^{-K \cdot x} = e^{ \alpha I }e^{B}F_0e^{-B}   $$
 
-This is interepreted as a STA position-dependent lorentz rotation and a duality rotation. Along certain axis, namely $x\cdot K = 0$, the lorentz transforms disappears and this reduces to the normal plane wave.
+This is interepreted as a STA **position-dependent lorentz rotation** (and duality rotation).  Since $B$ is typically called the *generator*, we call $K$ the *pre-generator*, as it generates the generator. Along certain axis, namely $x\cdot K = 0$, the lorentz transforms disappears and this reduces to the normal plane wave.
 
-### Derivative
 
 <!-- #endregion -->
 
 
-```python
+### Simulate
+Since is somewhat easier to simulate than to work out the maths, below are some field simulations of this wave function 
 
-```
+<div style="display: flex; justify-content: center; gap: 80px; flex-wrap: wrap;">
+  <div>
+    <video width="400" autoplay muted loop>
+      <source src="https://www.dropbox.com/scl/fi/aomtyu22x4c4f99vx0d0n/traveling_wave.mp4?rlkey=kr37kpdy4kgejnvgcit53au19&st=wnvwnpgy&dl=1&raw=1" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </div>    
 
-## extensions
+  <div>
+    <video width="400" autoplay muted loop>
+      <source src="https://www.dropbox.com/scl/fi/i2dr9ka3t5j7i4wh97gdq/oscillator.mp4?rlkey=dgs6rdcrnn96etz5qe77zskhb&st=z2gksssc&dl=1&raw=1" type="video/mp4">
+      
+      Your browser does not support the video tag.
+    </video>
+  </div>
+</div>
 
-* trivector pregenerator becomes trivector+vector to model loss $K\rightarrow K+k$
+<div style="display: flex; justify-content: center; gap: 80px; flex-wrap: wrap;">
+  <div>
+    <video width="400" autoplay muted loop>
+      <source src="https://www.dropbox.com/scl/fi/5rrkecj9p9bk4ki47nlfv/sheets_wave.mp4?rlkey=qhi28km6v8pwiphrijfrp1fn0&st=yggsxk8l&dl=1&raw=1" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </div>    
+
+<div style= "">
+  <img src="https://www.dropbox.com/scl/fi/ujvinrv8dttc2qfath3wh/P-d123-p5d012-A0-d1-sweep_v3mag.gif?rlkey=9z06knp3j0ddfzou2ccgprr60&st=mgp14a0g&dl=1&raw=1" width="400" alt="Swirl animation">
+</div>
+</div>
+
+ 
+
+
+
+## Extensions
+
+* trivector pregenerator becomes trivector+vector to model loss $K\rightarrow K+k  \stackrel{?}{=} e^{\alpha I }K$
 * extend  $F$ to be a arbitrary multivector $M$
-* trivector/vector pregenerator to also be a function of position, $K\rightarrow K_x$ 
+* trivector/vector pre-generator to also be a function of position, $K\rightarrow K(x)$ 
 
 $$ M_x = e^{K_x x}M_0e^{-xK_x}. $$
 
- ## some Details 
+ ## Details 
  * order of $xK$ vs $Kx$,  and + vs -
  * re-work in terms fo vector $k$ 
 
 
 
 
-## Field Visualization 
-
-```python
-from kingdon import Algebra
-from kingdon.numerical import exp
-from kingdon.calculus import d
-from kingdon.blademap import BladeMap
-import numpy as np 
-from timeit import default_timer
-c = [0, 1810039, 14245634, 7696563, 15149450, 6727198, 15117058, 10909213, 6710886]  # colors 
-
-sta = Algebra(1,3,start_index=0)
-D = sta.blades
-DI  = sta.pseudoscalar([1])
-
-
-pga = Algebra(3,0,1,start_index=0)
-P = pga.blades
-bm = BladeMap(alg1=sta, alg2 =pga) 
-up = lambda x: (x+P.e0).dual()
-
-
-
-
-def graph_func():
-    t = default_timer() / 100000
-    #print(t)
-
-    N=2
-    x1, x2 = np.mgrid[-1:1:N*1j, -1:1:N*1j]
-    x = x1*D.e1+x2*D.e2+t*D.e0
-    xs= x.flatten()
-
-    F0 = D.e01 + D.e02.dual # E1+H2
-    K = D.e123
-    F = lambda x: exp(K^x)*F0
-
-    ## convert to cga to display 
-
-    Fs = [F(x) for x in xs]
-    E,H = zip(*[(F.proj(D.e0), F.proj(D.e0.dual).dual()) for F in Fs])
-    E= [k.normalize() for k in E]
-    H= [k.normalize() for k in H]
-    E = list(map(bm,E))
-    H = list(map(bm,H))
-    Xs = list(map(up, (map(bm, xs))))
-    vmag = .2
-    ve = [(x,.5*exp(vmag*k)>>x) for x,k in zip(Xs,E)]
-    vh = [(x,.5*exp(vmag*k)>>x) for x,k in zip(Xs,H)]
-
-    return  [
-        *Xs, 
-        c[1],*ve,
-        c[2],*vh,
-                  ]
-pga.graph(graph_func,animate=True,lineWidth=4,grid=True)
-
-```
-
-```python
-E,H
-```
-
-```python
-
-
-
-Xs = map(bm, xs) 
-T = lambda x: exp(1/2*(x^P.e0))
-Ts = [T(x) for x in Xs]
-o = e0.dual()
-
-points = [T>>o for T in Ts]
-
-
-cga.graph(*points,
-          
-          conformal=True)
-
-```
-
-```python
-
-pga = Algebra(3,0,1,start_index=0)
-P = cga.blades
-
-blade_map_list = [
-    (D['e0'], P['e4']),
-    (D['e1'], C['e1']),
-    (D['e2'], C['e2']),
-    (D['e3'], C['e3']),
-    (D['e01'], C['e14']),
-    (D['e02'], C['e24']),
-    (D['e03'], C['e34']),
-    (D['e12'], C['e12']),
-    (D['e13'], C['e13']),
-    (D['e23'], C['e23']),
-    (D['e012'], C['e124']),
-    (D['e013'], C['e134']),
-    (D['e023'], C['e234']),
-    (D['e123'], C['e123']),
-    (D['e0123'], C['e1234']),
-]
-
-bm = BladeMap(blade_map_list)
-ni = C.e4+C.e3
-no = 0.5*(C.e4-C.e3)
-#point = lambda x,y: no + x*C.e1 + y*C.e2 + 0.5*(x*x+y*y)*ni
-Xs = map(bm, xs)
-point  = lambda x: no + x + 0.5*x**2*ni
-T = lambda x: exp(1/2*(x^ni))
-Ts = [T(x) for x in Xs]
-
-
-points = [T>>no for T in Ts]
-
-
-cga.graph(*points,
-          
-          conformal=True)
-
-```
-
-```python
-BladeMap
-```
-
 ## Numerical Tests
+Tests of the maths to ensure we are not inconsistent. 
 
 ```python
 from kingdon import Algebra
@@ -232,161 +144,148 @@ F0 = D.random_bivector()
 
 k = K.dual()
 
-assert is_close(I*(k|x) , x^K)
-assert is_close(d(D,lambda x: exp(x^K))(x),K*exp(x^K))
+# try to run this block up to 3 times, and break if all assertions pass
+for _ in range(3):
+    try:
+        assert is_close(I*(k|x) , x^K)
+        assert is_close(d(D,lambda x: exp(x^K))(x),K*exp(x^K))
 
-assert is_close(exp(K*x) , exp(K|x) *exp(K^x))
-assert is_close(exp(K^x), exp((K*x-x*K)/2)) 
-assert is_close(exp(K^x), exp(K*x/2)*exp(-x*K/2)) 
-assert is_close(exp(x*K)*F0*exp(-K*x) , exp(2*x^K)*exp(x|K)*F0*exp(-x|K))
+        assert is_close(exp(x*K) , exp(x|K) *exp(x^K))
+        assert is_close(exp(x^K), exp((x*K-K*x)/2)) 
+        assert is_close(exp(x^K), exp(x*K/2)*exp(-K*x/2)) 
+        assert is_close(exp(x*K)*F0*exp(-K*x) , exp(2*x^K)*exp(x|K)*F0*exp(-x|K))
+        assert is_close(exp(x*K)*F0*exp(-K*x) , exp(x*K)>>F0)
 
-assert is_close(d(D,lambda x: x^K)(x),K)
-assert is_close(d(D,lambda x: x|K)(x),3*K)
-
+        assert is_close(d(D,lambda x: x^K)(x),K)
+        assert is_close(d(D,lambda x: x|K)(x),3*K)
+    except AssertionError:
+        continue
+    break
 ```
 
-```python
-
-```
-
-```python
-Fx = lambda x: exp(x*K)*F0*exp(-K*x)
-Fx(x) *K
-```
+## Field Visualization 
+code used to generate the Field-animations. Various values for K, x .
 
 ```python
-exp(P^x), exp(P*x/2)*exp(-x*P/2)
-```
+from kingdon import Algebra
+from kingdon.numerical import exp  as exp_
+exp = lambda x: exp_(x,n=50) # precision control of exp
 
-```python
-from kingdon import Algebra 
+from kingdon.calculus import d
+from kingdon.blademap import BladeMap
 import numpy as np 
-exp = lambda X: X.exp()
-normalize = lambda x:(x/np.sqrt((x**2).e))
-#cga_norm = lambda x: x/(x|ni).e
-
-def b2pp(B):
-    F = normalize(B)
-    P  =  0.5*F + 0.5
-    P_ = -0.5*F + 0.5
-    A = -(P_ * (B | ni))
-    B =  (P  * (B | ni))
-    return A, B
-
-
-
-cga = Algebra(3,1,0,start_index=1)
-locals().update(cga.blades)
-I = cga.pseudoscalar()
-ni = e4+e3
-no = 0.5*(e4-e3)
-point = lambda x,y: no + x*e1 + y*e2 + 0.5*(x*x+y*y)*ni
-
-
-T = lambda x1,x2: exp(1/2*ni*(x1*e1 + x2*e2))
-R = lambda theta: exp(-1/2*theta*e12)
-
-B1 = no^point(1,0) 
-B2 = no^point(0,1) 
-
-
-cga.graph(b2pp(T(1,0)>>B1),
-          grid=True,conformal=True,lineWidth=4)
-```
-
-```python
-B1*B2
-```
-
-viewing field bivectors in  cga , does it help at all.
-well, what does this even mean?  the plane reprents all null points, so the idea of a location being a point makes this limited to fields on the null cone 
-
-```python
-from kingdon import Algebra 
-import numpy as np 
-from kingdon.numerical import exp
-
-
-normalize = lambda x:(x/np.sqrt((x**2).e))
-#cga_norm = lambda x: x/(x|ni).e
-
-def bivector_to_point_pair(B):
-    F = normalize(B)
-    P  =  0.5*F + 0.5
-    P_ = -0.5*F + 0.5
-    A = -(P_ * (B | ni))
-    B =  (P  * (B | ni))
-    return A, B
-
-format_for_ganja = lambda x: list(zip( *( [k.flatten() for k in x] ) )) 
+import torch
+from timeit import default_timer
+c = [0, 1810039, 14245634, 7696563, 15149450, 6727198, 15117058, 10909213, 6710886]  # colors 
  
+  
+# Use GPU if available
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+## Set up algebras and blade map
+sta = Algebra(1,3,start_index=0)
+D   = sta.blades
+DI  = sta.pseudoscalar([1])
+
+pga = Algebra(3,0,1)
+P   = pga.blades
+up  = lambda x: (x +  P.e0).broadcast().dual()
+to_numpy = lambda x:x.cpu().numpy()
+
+bm  = BladeMap(alg1=sta, alg2 =pga) 
+torch_kw = {'device':device, 'dtype':torch.float64} # you need float64 for calculus to work.
+
+def make_x(e12_N, e12_bounds, e0_N, e0_bounds, e3_N, e3_bounds):
+    ''' Create a grid of 'x' (events)  '''
+    x0_range = torch.linspace(-e0_bounds, e0_bounds, e0_N, **torch_kw)
+    x1_range = torch.linspace(-e12_bounds, e12_bounds, e12_N, **torch_kw)
+    x2_range = torch.linspace(-e12_bounds, e12_bounds, e12_N, **torch_kw)
+    x3_range = torch.linspace(-e3_bounds, e3_bounds, e3_N, **torch_kw)
+    x0,x1,x2,x3= torch.meshgrid(x0_range, x1_range, x2_range, x3_range, indexing='ij')
+    return x0*D.e0 + x1*D.e1 + x2*D.e2 + x3*D.e3
+
+def render_frames(x,Fx,vector_scale=1):
+    '''Create E/H fields representation in PGA from a F-field in STA and
+    render each frame for a ganja.js visualization
+    Args:
+        x: grid of events (vectors)
+        Fx: EM field   at each event (bivectors)
+        vector_scale: scaling factor for the field vectors'''
+    E = Fx.proj(D.e0)
+    H = Fx.proj(D.e0.dual).dual()
+    frames = []
+    N_frames = x.shape[1]
+
+    # TODO move x_, E_, H_ calculation outside loop
+    # TODO pass numpy array straight to pga.graph to avoid flattening
+    for frame_idx in range(N_frames):
+        mid = int(N_frames/2)
+        s = (frame_idx, slice(None), slice(None), slice(None))
+        x_, E_, H_ = [X[s] for X in (x, E, H)]
+        x_ = up(bm(x_.proj(D.e123)))
+        E_ = bm(E_)
+        H_ = bm(H_)
+        
+        vmag = 1/x.shape[2]*vector_scale
+        x_flat = x_.map(to_numpy).flatten()
+        ve_flat = (exp(vmag*E_).broadcast()>>x_).map(to_numpy).flatten()
+        vh_flat = (exp(vmag*H_).broadcast()>>x_).map(to_numpy).flatten()
+        
+        
+        frames.append([c[1], *[(a,b) for a,b in zip(x_flat, ve_flat)],
+                       c[2], *[(a,b) for a,b in zip(x_flat, vh_flat)]])
+    return frames
+
+def make_graph_func(frames,speed ):
+    '''light wrapper to create a graph function that cycles through frames'''
+    def graph_func():
+        t = int(default_timer()*speed)
+        num_frames = len(frames)
+        
+        cycle_length = 2 * (num_frames - 1)
+        t_mod = t % cycle_length
+        
+        if t_mod < num_frames:
+            frame_idx = t_mod
+        else:
+            frame_idx = cycle_length - t_mod
+        
+        return frames[frame_idx]
+    return graph_func
 
 
-sta = Algebra(3,1,0,start_index=1)
-locals().update(sta.blades)
-I = sta.pseudoscalar()
-ni = e4+e3
-no = 0.5*(e4-e3)
-point = lambda x,y: no + x*e1 + y*e2 + 0.5*(x*x+y*y)*ni
+scale=1/(2*2)
+speed = 50
+vector_scale =2
+x = make_x(e12_bounds = 6,
+           e0_bounds  = 4,
+           e3_bounds  = 0,
+           e12_N      = 21,
+           e0_N       = 100,
+           e3_N       = 1,
+           )
+def F(x):
+    F0 = D.e01 + D.e13
+    K  = (D.e123 + .01 * D.e012)#*exp(-.1*D.e0123)
+    xK = x*K
+    return exp(xK) >> F0
 
+def A(x):
+    A0 = D.e3
+    #K  = lambda x: exp((.1*(D.e0 )|x)*D.e12)>>(D.e123 +  .5*D.e013)#*exp(-1*D.e0123)
+    K  = lambda x: (D.e12/D.e3 +  .5*D.e13/D.e0)#*exp(-1*D.e0123)
+    xK = x*K(x)
+    return exp(xK)>>A0
 
-dists = np.linspace(1,2,3)
-#X1,X2,X3,X4 = np.meshgrid(dists,dists,dists,dists)
-#X = X1*e1 + X2*e2 + X3*e3 #+ X4*e4
+# Fx = F(x) # make F-field directly
+Fx =  d(sta, A)(x)  # make F-field from potential A
+frames     = render_frames(x, Fx, vector_scale=vector_scale)
+graph_func = make_graph_func(frames, speed)
+vector_scale = float(Fx[0].values()[0].max())
 
-#P = e123+e124*.33
-#F = exp(x^P,30)*(e13)
-
-#[k^P for k in x.flatten()]
-X = [sta.vector([x1,x2,x3,0]) for x1 in dists for x2 in dists for x3 in dists]
-F = [exp((x|e3)*I)*(e12+.1*e34)  for x in X] 
-#As,Bs = bivector_to_point_pair(F)
-
+## uncomment to animate
+#pga.graph(graph_func, grid=True,lineWidth=2,animate=True,scale=.15,height='700px')
 
 ```
 
-```python
-sta.vector([1,2,3,4])
-```
-
-```python
-sta.graph(*list(zip(As.flatten(), Bs.flatten())),
-          grid=True,conformal=True,lineWidth=3)
-```
-
-```python
-bivector_to_point_pair(F)
-```
-
-```python
-a=point(1,0)
-b=point(1,.5)
-B = a^b
-
-normalize = lambda x:(x/np.sqrt((x**2).e))
-#cga_norm = lambda x: x/(x|ni).e
-
-def bivector_to_point_pair(B):
-    F = normalize(B)
-    P  =  0.5*F + 0.5
-    P_ = -0.5*F + 0.5
-    A = -(P_ * (B | ni))
-    B =  (P  * (B | ni))
-    return A, B
-
-sta.graph(*bivector_to_point_pair(B),
-          bivector_to_point_pair(B),grid=True,conformal=True,lineWidth=3)
-
-```
-
-```python
-
-```
-
-```python
-
-```
-
-```python
-
-```
+And thats all we got for now. 

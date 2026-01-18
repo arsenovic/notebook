@@ -70,7 +70,12 @@ exp = lambda x: x.exp()
 pga = Algebra(2,0,1,start_index=0) 
 locals().update(pga.blades)
 
-   
+T     = lambda x1,x2: exp(-e0*(x1*e1 + x2*e2)/2)  # translation operator 
+dists = np.linspace(-1,1,11)                 # parameters
+o     = e0.dual()                            # origin 
+
+points   = [T(x1,x2)>>o for x1 in dists for x2 in dists] # Create points by moving origin around 
+  
 
 pga.graph(*points, grid=False ) 
 ```

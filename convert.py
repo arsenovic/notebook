@@ -20,8 +20,8 @@ EXECUTION_TIMEOUT = 300
 NBCONVERT_KWARGS = {
     "template_name": "lab",
     #"theme": "dark"
-    "exclude_input": False,
-    "exclude_output": False,
+    #"exclude_input": False,
+    #"exclude_output": False,
 }
 
 JUPYTEXT_KWARGS = {}
@@ -57,20 +57,11 @@ def convert_md_to_html() -> None:
 
             (body, resources) = exporter.from_notebook_node(notebook)
 
-            # Extract nbconvert styles on first run
-            if nbconvert_styles is None:
-                import re
-                style_match = re.search(r'<style[^>]*>(.*?)</style>', body, re.DOTALL)
-                if style_match:
-                    nbconvert_styles = style_match.group(1)
-            
-            # Remove embedded styles and add external CSS references
-            import re
-            html_content = re.sub(r'<style[^>]*>.*?</style>', '', body, flags=re.DOTALL)
-            html_content = html_content.replace("</head>", 
-                '<link rel="stylesheet" href="nbconvert.css">\n' +
-                '<link rel="stylesheet" href="style.css">\n</head>')
+            # Add reference to external style.css right before </body> so it overrides nbconvert styles
+            html_content = body.replace("</body>", '<link rel="stylesheet" href="style.css">\n</body>')
 
+            # Add reference to external collapse script
+            script_ref = '<script src="collapse.js"></script>'
             # Add reference to external helpers script
             script_ref = '<script src="helpers.js"></script>'
             html_content = html_content.replace("</html>", script_ref + "\n</html>")
@@ -82,12 +73,7 @@ def convert_md_to_html() -> None:
 
         except Exception as e:
             print(f"Error converting {md_file.name}: {e}", file=sys.stderr)
-    
-    # Save extracted nbconvert styles to nbconvert.css
-    if nbconvert_styles:
-        nbconvert_css_file = output_path / "nbconvert.css"
-        nbconvert_css_file.write_text(nbconvert_styles)
-        print(f"Saved nbconvert styles to {nbconvert_css_file}")
+
 
     # Copy img folder to html output directory
     img_source = input_path / "img"
