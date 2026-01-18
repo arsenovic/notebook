@@ -11,6 +11,13 @@ jupyter:
       jupytext_version: 1.18.1
 ---
 
+<div style="text-align: right;">
+written 01/17/2026<br>
+<a href="mailto:alex@810lab.com">alex@810lab.com</a>
+</div>
+
+
+
 # Alex Arsenovic's Notebook 
 
 <img src="img/me.jpg" alt="Alex Arsenovic" style="float: right; margin: 0 0 20px 20px; max-width: 300px; border-radius: 80px; padding: 50px; background-color: white;">
