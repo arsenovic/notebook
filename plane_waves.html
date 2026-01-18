@@ -7511,7 +7511,7 @@ a.anchor-link {
 <!-- End of mermaid configuration --></head>
 <body class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
 <main>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=a8409cde">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=87fff49a">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7525,7 +7525,7 @@ written 01/17/2026<br/>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=8890b0bf">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=1c53a758">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7548,7 +7548,7 @@ $$ \nabla F_x= KF_x. $$</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=23cbd760">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=87737fab">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7558,25 +7558,25 @@ $$ \nabla F_x= KF_x. $$</p>
 <p>$$ e^{K\wedge x}F_0 = e^{Kx-xK}F_0 \stackrel{?}{=} e^{Kx}F_0e^{-xK}. $$</p>
 <p>(we ignore all factors of 1/2 untill we need to precise answer).  For the last  equality to hold, $F_0$ must commute with the bivector $K\cdot x$. However, since $x$ is an independent variable, this cannot be guaranteed without more assumptions. So,  there are two possibilities</p>
 <ol>
-<li>this reverse engineered formula is useless</li>
+<li>This reverse engineered formula is useless</li>
 <li>The plane-wave forumula is making implicit assumptions which justify the commutation assumption.</li>
 </ol>
 <p>For now, lets proceed and  see what such a forumla provides. Expanding the product</p>
 <p>$$xK = x\cdot K + x \wedge K  = B+\alpha I  $$</p>
 <p>Since the psuedoscalar commutes with $F_0$, we can then write,</p>
 <p>$$  e^{ K\wedge x} e^{K\cdot x} F_0e^{-K \cdot x} = e^{ \alpha I }e^{B}F_0e^{-B}   $$</p>
-<p>This is interepreted as a STA <strong>position-dependent lorentz rotation</strong> (and duality rotation).  Since $B$ is typically called the <em>generator</em>, we call $K$ the <em>pre-generator</em>, as it generates the generator. Along certain axis, namely $x\cdot K = 0$, the lorentz transforms disappears and this reduces to the normal plane wave.</p>
+<p>This is interepreted as a STA <strong>position-dependent lorentz rotation</strong> (and duality rotation).  Along certain axis, namely $x\cdot K = 0$, the lorentz transforms disappears and this reduces to the normal plane wave. It is reasonable to extend this to spacially varying $K$, $K\rightarrow K(x)$.</p>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=ca5c8700">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=c12af8dc">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Simulate">Simulate<a class="anchor-link" href="#Simulate">¶</a></h3><p>Since is somewhat easier to simulate than to work out the maths, below are some field simulations of this wave function</p>
+<h2 id="Simulate">Simulate<a class="anchor-link" href="#Simulate">¶</a></h2><p>Since is somewhat easier to simulate than to work out the maths, below are some field simulations of this wave function. The simulations generate the field for a variety of $K$'s . The fields are mapped from STA into 3dPGA for visualization. Since kingdown allows pytorch.tensors as coefficient this computation is all done on the GPU.</p>
 <div style="display: flex; justify-content: center; gap: 80px; flex-wrap: wrap;">
 <div>
 <video autoplay="" loop="" muted="" width="400">
@@ -7607,13 +7607,14 @@ $$ \nabla F_x= KF_x. $$</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=a9178e12">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=6c84dfec">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Extensions">Extensions<a class="anchor-link" href="#Extensions">¶</a></h2><ul>
+<h2 id="Extensions">Extensions<a class="anchor-link" href="#Extensions">¶</a></h2><h3 id="A-field">A-field<a class="anchor-link" href="#A-field">¶</a></h3><p>The F-field can also be generated from a vector potential field, $A$. The same equation is used for $A$, and then the $F$ is computed by using a numerical implementation of the geometric derivative.</p>
+<ul>
 <li>trivector pregenerator becomes trivector+vector to model loss $K\rightarrow K+k  \stackrel{?}{=} e^{\alpha I }K$</li>
 <li>extend  $F$ to be a arbitrary multivector $M$</li>
 <li>trivector/vector pre-generator to also be a function of position, $K\rightarrow K(x)$</li>
@@ -7627,17 +7628,17 @@ $$ \nabla F_x= KF_x. $$</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=11bd10fb">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=5af8291b">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Numerical-Tests">Numerical Tests<a class="anchor-link" href="#Numerical-Tests">¶</a></h2><p>Tests of the maths to ensure we are not inconsistent.</p>
+<h2 id="Numerical-Tests">Numerical Tests<a class="anchor-link" href="#Numerical-Tests">¶</a></h2><p>Tests of the maths to ensure we are consistent.</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=a0284590">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=b8066c0a">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7661,6 +7662,7 @@ $$ \nabla F_x= KF_x. $$</p>
 <span class="n">k</span> <span class="o">=</span> <span class="n">K</span><span class="o">.</span><span class="n">dual</span><span class="p">()</span>
 
 <span class="c1"># try to run this block up to 3 times, and break if all assertions pass</span>
+<span class="c1"># need this because its seeded with random values, and its numerical </span>
 <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="k">assert</span> <span class="n">is_close</span><span class="p">(</span><span class="n">I</span><span class="o">*</span><span class="p">(</span><span class="n">k</span><span class="o">|</span><span class="n">x</span><span class="p">)</span> <span class="p">,</span> <span class="n">x</span><span class="o">^</span><span class="n">K</span><span class="p">)</span>
@@ -7683,7 +7685,7 @@ $$ \nabla F_x= KF_x. $$</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=9472f87a">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=d69237c3">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7693,7 +7695,7 @@ $$ \nabla F_x= KF_x. $$</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=9739349a">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=9456bf5f">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7825,7 +7827,7 @@ $$ \nabla F_x= KF_x. $$</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=477c8ae0">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=04076a2d">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
