@@ -17,6 +17,9 @@ FILE_PATTERN = "*.md"
 EXECUTE_NOTEBOOKS = True
 EXECUTION_TIMEOUT = 300
 
+# Files to exclude from adding JavaScript helper buttons
+EXCLUDE_HELPERS_JS = ["index.md"]
+
 NBCONVERT_KWARGS = {
     "template_name": "lab",
     #"theme": "dark"
@@ -26,7 +29,7 @@ NBCONVERT_KWARGS = {
 
 JUPYTEXT_KWARGS = {}
 
-def convert_md_to_html() -> None:
+def convert_md_to_html(filename: Optional[str] = None) -> None:
     input_path = Path(INPUT_DIR).resolve()
     output_path = Path(OUTPUT_DIR).resolve()
 
@@ -34,7 +37,15 @@ def convert_md_to_html() -> None:
         raise FileNotFoundError(f"Input directory not found: {input_path}")
 
     output_path.mkdir(parents=True, exist_ok=True)
-    md_files = sorted(input_path.glob(FILE_PATTERN))
+    
+    # If filename is provided, only convert that file; otherwise convert all
+    if filename:
+        md_files = [input_path / filename]
+        if not md_files[0].exists():
+            raise FileNotFoundError(f"File not found: {md_files[0]}")
+    else:
+        md_files = sorted(input_path.glob(FILE_PATTERN))
+    
     exporter = HTMLExporter(**NBCONVERT_KWARGS)
     
     if EXECUTE_NOTEBOOKS:
@@ -57,14 +68,13 @@ def convert_md_to_html() -> None:
 
             (body, resources) = exporter.from_notebook_node(notebook)
 
-            # Add reference to external style.css right before </body> so it overrides nbconvert styles
-            html_content = body.replace("</body>", '<link rel="stylesheet" href="style.css">\n</body>')
+            # Add reference to external style.css in the head for highest precedence
+            html_content = body.replace("</head>", '<link rel="stylesheet" href="static/style.css">\n</head>')
 
-            # Add reference to external collapse script
-            script_ref = '<script src="collapse.js"></script>'
-            # Add reference to external helpers script
-            script_ref = '<script src="helpers.js"></script>'
-            html_content = html_content.replace("</html>", script_ref + "\n</html>")
+            # Add reference to external helpers script (skip for files in EXCLUDE_HELPERS_JS)
+            if md_file.name not in EXCLUDE_HELPERS_JS:
+                script_ref = '<script src="static/helpers.js"></script>'
+                html_content = html_content.replace("</html>", script_ref + "\n</html>")
 
             html_file = output_path / md_file.with_suffix(".html").name
             html_file.write_text(html_content)
@@ -84,7 +94,9 @@ def convert_md_to_html() -> None:
 
 
 def main():
-    convert_md_to_html()
+    # Get optional filename argument
+    filename = sys.argv[1] if len(sys.argv) > 1 else None
+    convert_md_to_html(filename)
 
 
 if __name__ == "__main__":
