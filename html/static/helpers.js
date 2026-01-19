@@ -13,7 +13,8 @@ document.addEventListener('DOMContentLoaded', function() {
         top: 20px;
         left: 20px;
         z-index: 1000;
-        padding: 10px 20px;
+        width: 100px;
+        padding: 10px 0;
         background-color: #808080;
         color: white;
         border: none;
@@ -25,6 +26,8 @@ document.addEventListener('DOMContentLoaded', function() {
         transition: background-color 0.2s ease;
         display: inline-block;
         text-decoration: none;
+        text-align: center;
+        box-sizing: border-box;
     `;
     
     indexButton.addEventListener('mouseover', function() {
@@ -46,7 +49,8 @@ document.addEventListener('DOMContentLoaded', function() {
         top: 60px;
         left: 20px;
         z-index: 1000;
-        padding: 10px 20px;
+        width: 100px;
+        padding: 10px 0;
         background-color: #808080;
         color: white;
         border: none;
@@ -56,6 +60,8 @@ document.addEventListener('DOMContentLoaded', function() {
         font-weight: 600;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         transition: background-color 0.2s ease;
+        text-align: center;
+        box-sizing: border-box;
     `;
     
     button.addEventListener('mouseover', function() {
@@ -77,7 +83,8 @@ document.addEventListener('DOMContentLoaded', function() {
         top: 100px;
         left: 20px;
         z-index: 1000;
-        padding: 10px 20px;
+        width: 100px;
+        padding: 10px 0;
         background-color: #808080;
         color: white;
         border: none;
@@ -87,6 +94,8 @@ document.addEventListener('DOMContentLoaded', function() {
         font-weight: 600;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         transition: background-color 0.2s ease;
+        text-align: center;
+        box-sizing: border-box;
     `;
     
     tocButton.addEventListener('mouseover', function() {

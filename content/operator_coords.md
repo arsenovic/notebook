@@ -80,27 +80,8 @@ points   = [T(x1,x2)>>o for x1 in dists for x2 in dists] # Create points by movi
 pga.graph(*points, grid=False ) 
 ```
 
-### Add a Grid 
-expand the above a little bit by connecting the points together using tuples of points 
-
-```python
-from itertools import pairwise,chain
- 
-# create grid by making line-segments connecting points (tuples in ganja)
-h_lines = [pairwise( [T(x1,x2)>>o for x1 in dists]) for x2 in dists]
-v_lines = [pairwise( [T(x1,x2)>>o for x2 in dists]) for x1 in dists]
-
-
-pga.graph(
-    *list(chain(*h_lines)),
-    *list(chain(*v_lines)),
-    *points,
-    grid=False, lineWidth=3, 
-)
-```
-
 ## 2D Polar 
-Next we look at a polar coordinates system which can be implemented with the combination of a Translation and Rotation. 
+Polar coordinates  can be implemented with the combination of a Translation and Rotation. 
 
 $$R_\rho = e^{-\frac{\rho}{2} e_{01}}, \qquad R_\theta = e^{-\frac{\theta}{2} e_{12}}$$
 

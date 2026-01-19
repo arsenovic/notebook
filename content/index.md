@@ -32,7 +32,11 @@ Welcome!
 
 ## Contact Me
 
- [**Email**](mailto:alex@810lab.com)  |   [**GitHub**](https://github.com/arsenovic) | [**LinkedIn**](https://www.linkedin.com/in/alex-arsenovic-39516957/)
+ [**Email**](mailto:alex@810lab.com)  |
+ [**GitHub**](https://github.com/arsenovic) |
+ [**ResearchGate**](https://www.researchgate.net/profile/A-Arsenovic) | 
+ [**LinkedIn**](https://www.linkedin.com/in/alex-arsenovic-39516957/) | 
+ [**CV**](https://www.dropbox.com/scl/fi/q2qj7q28y2837b5f6fnu8/AlexArsenovicResume.pdf?rlkey=ptsgkfm50lsy7hl4lzjbqnbrh&st=so9hlads&dl=1)
 
 
 
