@@ -7512,7 +7512,7 @@ a.anchor-link {
 </head>
 <body class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
 <main>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=ce5eb35e">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=a37ce0d7">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7526,28 +7526,320 @@ written 01/17/2026<br/>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=5fc8fe66">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=8e55b8e1">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h1 id="Alex-Arsenovic's-Notebook">Alex Arsenovic's Notebook<a class="anchor-link" href="#Alex-Arsenovic's-Notebook">¶</a></h1><img alt="Alex Arsenovic" src="img/me.jpg" style="float: right; margin: 0 0 20px 20px; max-width: 300px; border-radius: 80px; padding: 50px; background-color: white;"/>
-<p>Welcome!</p>
-<h2 id="Pages">Pages<a class="anchor-link" href="#Pages">¶</a></h2><ul>
-<li><a href="plane_waves.html">Plane Waves</a></li>
-<li><a href="operator_coords.html">Operatorationalizing Coordinates</a></li>
-<li><a href="Reflections.html">Reflections</a></li>
+<h1 id="Plane-Waves">Plane Waves<a class="anchor-link" href="#Plane-Waves">¶</a></h1><h2 id="Summary">Summary<a class="anchor-link" href="#Summary">¶</a></h2><p>An equation is reverse engineered from the STA EM plane wave  equation which follows conjugation.</p>
+<h2 id="Idea">Idea<a class="anchor-link" href="#Idea">¶</a></h2><p>Consider  the form of a EM plane wave given in Hestenes' Spacetime Algebra</p>
+<p>$$ F(x)= F_x = e^{I(k\cdot x)}F_0 $$</p>
+<p>where;</p>
+<ul>
+<li>$x$ is a location in spacetime</li>
+<li>$k$ is the propagation vector</li>
+<li>$I$ is psuedoscalar.</li>
 </ul>
-<h2 id="Contact-Me">Contact Me<a class="anchor-link" href="#Contact-Me">¶</a></h2><p><a href="mailto:alex@810lab.com"><strong>Email</strong></a>  |
-<a href="https://github.com/arsenovic"><strong>GitHub</strong></a> |
-<a href="https://www.researchgate.net/profile/A-Arsenovic"><strong>ResearchGate</strong></a> |
-<a href="https://www.linkedin.com/in/alex-arsenovic-39516957/"><strong>LinkedIn</strong></a> |
-<a href="https://www.dropbox.com/scl/fi/q2qj7q28y2837b5f6fnu8/AlexArsenovicResume.pdf?rlkey=ptsgkfm50lsy7hl4lzjbqnbrh&amp;st=so9hlads&amp;dl=1"><strong>CV</strong></a></p>
+<p>This equation is interpreted as a duality rotation of a fixed bivector $F_0$, parameterized by $k$, with $x$ being  an independent variable. It can also be written as</p>
+<p>$$ e^{I(k\cdot x)}F_0  = e^{(Ik)\wedge x}F_0 =  e^{K\wedge x}F_0$$</p>
+<p>where $K$ is a trivector dual to $k$. ( We prefer trivectors  for propagation constants since the units match the grade ( rad/m rad/s), but keeping with dual vectors works just as good.) This function solves the equation,
+$$ \nabla F_x= KF_x. $$</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=fa935230">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>So far we have changed nothing from STA. If we re-express $F_x$ in terms of the geometric product, it suggests to us a formula which employs conjugation, such as</p>
+<p>$$ e^{K\wedge x}F_0 = e^{Kx-xK}F_0 \stackrel{?}{=} e^{Kx}F_0e^{-xK}. $$</p>
+<p>(we ignore all factors of 1/2 untill we need to precise answer).  For the last  equality to hold, $F_0$ must commute with the bivector $K\cdot x$. However, since $x$ is an independent variable, this cannot be guaranteed without more assumptions. So,  there are two possibilities</p>
+<ol>
+<li>This reverse engineered formula is useless</li>
+<li>The plane-wave forumula is making implicit assumptions which justify the commutation assumption.</li>
+</ol>
+<p>For now, lets proceed and  see what such a forumla provides. Expanding the product</p>
+<p>$$xK = x\cdot K + x \wedge K  = B+\alpha I  $$</p>
+<p>Since the psuedoscalar commutes with $F_0$, we can then write,</p>
+<p>$$  e^{ K\wedge x} e^{K\cdot x} F_0e^{-K \cdot x} = e^{ \alpha I }e^{B}F_0e^{-B}   $$</p>
+<p>This is interepreted as a STA <strong>position-dependent lorentz rotation</strong> (and duality rotation).  Along certain axis, namely $x\cdot K = 0$, the lorentz transforms disappears and this reduces to the normal plane wave. It is reasonable to extend this to spacially varying $K$, $K\rightarrow K(x)$.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=e0a6c0b3">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="Simulate">Simulate<a class="anchor-link" href="#Simulate">¶</a></h2><p>Since is somewhat easier to simulate than to work out the maths, below are some field simulations of this wave function. The simulations generate the field for a variety of $K$'s . The fields are mapped from STA into 3dPGA for visualization. Since kingdown allows pytorch.tensors as coefficient this computation is all done on the GPU.</p>
+<div style="display: flex; justify-content: center; gap: 80px; flex-wrap: wrap;">
+<div>
+<video autoplay="" loop="" muted="" width="400">
+<source src="https://www.dropbox.com/scl/fi/aomtyu22x4c4f99vx0d0n/traveling_wave.mp4?rlkey=kr37kpdy4kgejnvgcit53au19&amp;st=wnvwnpgy&amp;dl=1&amp;raw=1" type="video/mp4"/>
+      Your browser does not support the video tag.
+    </video>
+</div>
+<div>
+<video autoplay="" loop="" muted="" width="400">
+<source src="https://www.dropbox.com/scl/fi/i2dr9ka3t5j7i4wh97gdq/oscillator.mp4?rlkey=dgs6rdcrnn96etz5qe77zskhb&amp;st=z2gksssc&amp;dl=1&amp;raw=1" type="video/mp4"/>
+<pre><code>  
+  Your browser does not support the video tag.
+&lt;/video&gt;</code></pre>
+<p></p></video></div>
+</div>
+<div style="display: flex; justify-content: center; gap: 80px; flex-wrap: wrap;">
+<div>
+<video autoplay="" loop="" muted="" width="400">
+<source src="https://www.dropbox.com/scl/fi/5rrkecj9p9bk4ki47nlfv/sheets_wave.mp4?rlkey=qhi28km6v8pwiphrijfrp1fn0&amp;st=yggsxk8l&amp;dl=1&amp;raw=1" type="video/mp4"/>
+      Your browser does not support the video tag.
+    </video>
+</div>
+<div style="">
+<img alt="Swirl animation" src="https://www.dropbox.com/scl/fi/ujvinrv8dttc2qfath3wh/P-d123-p5d012-A0-d1-sweep_v3mag.gif?rlkey=9z06knp3j0ddfzou2ccgprr60&amp;st=mgp14a0g&amp;dl=1&amp;raw=1" width="400"/>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=8d50fad6">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="Extensions">Extensions<a class="anchor-link" href="#Extensions">¶</a></h2><h3 id="A-field">A-field<a class="anchor-link" href="#A-field">¶</a></h3><p>The F-field can also be generated from a vector potential field, $A$. The same equation is used for $A$, and then the $F$ is computed by using a numerical implementation of the geometric derivative.</p>
+<ul>
+<li>trivector pregenerator becomes trivector+vector to model loss $K\rightarrow K+k  \stackrel{?}{=} e^{\alpha I }K$</li>
+<li>extend  $F$ to be a arbitrary multivector $M$</li>
+<li>trivector/vector pre-generator to also be a function of position, $K\rightarrow K(x)$</li>
+</ul>
+<p>$$ M_x = e^{K_x x}M_0e^{-xK_x}. $$</p>
+<h2 id="Details">Details<a class="anchor-link" href="#Details">¶</a></h2><ul>
+<li>order of $xK$ vs $Kx$,  and + vs -</li>
+<li>re-work in terms fo vector $k$</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=51eff441">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="Numerical-Tests">Numerical Tests<a class="anchor-link" href="#Numerical-Tests">¶</a></h2><p>Tests of the maths to ensure we are consistent.</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=74d2f4da">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [1]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">kingdon</span><span class="w"> </span><span class="kn">import</span> <span class="n">Algebra</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">kingdon.numerical</span><span class="w"> </span><span class="kn">import</span> <span class="n">is_close</span><span class="p">,</span><span class="n">exp</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">kingdon.calculus</span><span class="w"> </span><span class="kn">import</span> <span class="n">d</span>
+
+
+<span class="n">D</span> <span class="o">=</span> <span class="n">Algebra</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="n">start_index</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="nb">locals</span><span class="p">()</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">D</span><span class="o">.</span><span class="n">blades</span><span class="p">)</span>
+<span class="n">I</span>  <span class="o">=</span> <span class="n">D</span><span class="o">.</span><span class="n">pseudoscalar</span><span class="p">([</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="n">K</span>  <span class="o">=</span> <span class="n">D</span><span class="o">.</span><span class="n">random_trivector</span><span class="p">()</span> 
+<span class="n">x</span>  <span class="o">=</span> <span class="n">D</span><span class="o">.</span><span class="n">random_vector</span><span class="p">()</span>
+<span class="n">F0</span> <span class="o">=</span> <span class="n">D</span><span class="o">.</span><span class="n">random_bivector</span><span class="p">()</span>
+
+<span class="n">k</span> <span class="o">=</span> <span class="n">K</span><span class="o">.</span><span class="n">dual</span><span class="p">()</span>
+
+<span class="c1"># try to run this block up to 3 times, and break if all assertions pass</span>
+<span class="c1"># need this because its seeded with random values, and its numerical </span>
+<span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">assert</span> <span class="n">is_close</span><span class="p">(</span><span class="n">I</span><span class="o">*</span><span class="p">(</span><span class="n">k</span><span class="o">|</span><span class="n">x</span><span class="p">)</span> <span class="p">,</span> <span class="n">x</span><span class="o">^</span><span class="n">K</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">is_close</span><span class="p">(</span><span class="n">d</span><span class="p">(</span><span class="n">D</span><span class="p">,</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">exp</span><span class="p">(</span><span class="n">x</span><span class="o">^</span><span class="n">K</span><span class="p">))(</span><span class="n">x</span><span class="p">),</span><span class="n">K</span><span class="o">*</span><span class="n">exp</span><span class="p">(</span><span class="n">x</span><span class="o">^</span><span class="n">K</span><span class="p">))</span>
+
+        <span class="k">assert</span> <span class="n">is_close</span><span class="p">(</span><span class="n">exp</span><span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="n">K</span><span class="p">)</span> <span class="p">,</span> <span class="n">exp</span><span class="p">(</span><span class="n">x</span><span class="o">|</span><span class="n">K</span><span class="p">)</span> <span class="o">*</span><span class="n">exp</span><span class="p">(</span><span class="n">x</span><span class="o">^</span><span class="n">K</span><span class="p">))</span>
+        <span class="k">assert</span> <span class="n">is_close</span><span class="p">(</span><span class="n">exp</span><span class="p">(</span><span class="n">x</span><span class="o">^</span><span class="n">K</span><span class="p">),</span> <span class="n">exp</span><span class="p">((</span><span class="n">x</span><span class="o">*</span><span class="n">K</span><span class="o">-</span><span class="n">K</span><span class="o">*</span><span class="n">x</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">))</span> 
+        <span class="k">assert</span> <span class="n">is_close</span><span class="p">(</span><span class="n">exp</span><span class="p">(</span><span class="n">x</span><span class="o">^</span><span class="n">K</span><span class="p">),</span> <span class="n">exp</span><span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="n">K</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">K</span><span class="o">*</span><span class="n">x</span><span class="o">/</span><span class="mi">2</span><span class="p">))</span> 
+        <span class="k">assert</span> <span class="n">is_close</span><span class="p">(</span><span class="n">exp</span><span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="n">K</span><span class="p">)</span><span class="o">*</span><span class="n">F0</span><span class="o">*</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">K</span><span class="o">*</span><span class="n">x</span><span class="p">)</span> <span class="p">,</span> <span class="n">exp</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">x</span><span class="o">^</span><span class="n">K</span><span class="p">)</span><span class="o">*</span><span class="n">exp</span><span class="p">(</span><span class="n">x</span><span class="o">|</span><span class="n">K</span><span class="p">)</span><span class="o">*</span><span class="n">F0</span><span class="o">*</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="o">|</span><span class="n">K</span><span class="p">))</span>
+        <span class="k">assert</span> <span class="n">is_close</span><span class="p">(</span><span class="n">exp</span><span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="n">K</span><span class="p">)</span><span class="o">*</span><span class="n">F0</span><span class="o">*</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">K</span><span class="o">*</span><span class="n">x</span><span class="p">)</span> <span class="p">,</span> <span class="n">exp</span><span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="n">K</span><span class="p">)</span><span class="o">&gt;&gt;</span><span class="n">F0</span><span class="p">)</span>
+
+        <span class="k">assert</span> <span class="n">is_close</span><span class="p">(</span><span class="n">d</span><span class="p">(</span><span class="n">D</span><span class="p">,</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">^</span><span class="n">K</span><span class="p">)(</span><span class="n">x</span><span class="p">),</span><span class="n">K</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">is_close</span><span class="p">(</span><span class="n">d</span><span class="p">(</span><span class="n">D</span><span class="p">,</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">|</span><span class="n">K</span><span class="p">)(</span><span class="n">x</span><span class="p">),</span><span class="mi">3</span><span class="o">*</span><span class="n">K</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">AssertionError</span><span class="p">:</span>
+        <span class="k">continue</span>
+    <span class="k">break</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=1e620c3f">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="Field-Visualization">Field Visualization<a class="anchor-link" href="#Field-Visualization">¶</a></h2><p>code used to generate the Field-animations. Various values for K, x .</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=81f72926">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [2]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">kingdon</span><span class="w"> </span><span class="kn">import</span> <span class="n">Algebra</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">kingdon.numerical</span><span class="w"> </span><span class="kn">import</span> <span class="n">exp</span>  <span class="k">as</span> <span class="n">exp_</span>
+<span class="n">exp</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">exp_</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">n</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span> <span class="c1"># precision control of exp</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">kingdon.calculus</span><span class="w"> </span><span class="kn">import</span> <span class="n">d</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">kingdon.blademap</span><span class="w"> </span><span class="kn">import</span> <span class="n">BladeMap</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span> 
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">timeit</span><span class="w"> </span><span class="kn">import</span> <span class="n">default_timer</span>
+<span class="n">c</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1810039</span><span class="p">,</span> <span class="mi">14245634</span><span class="p">,</span> <span class="mi">7696563</span><span class="p">,</span> <span class="mi">15149450</span><span class="p">,</span> <span class="mi">6727198</span><span class="p">,</span> <span class="mi">15117058</span><span class="p">,</span> <span class="mi">10909213</span><span class="p">,</span> <span class="mi">6710886</span><span class="p">]</span>  <span class="c1"># colors </span>
+ 
+  
+<span class="c1"># Use GPU if available</span>
+<span class="n">device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">"cuda"</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="s2">"cpu"</span><span class="p">)</span>
+
+<span class="c1">## Set up algebras and blade map</span>
+<span class="n">sta</span> <span class="o">=</span> <span class="n">Algebra</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="n">start_index</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">D</span>   <span class="o">=</span> <span class="n">sta</span><span class="o">.</span><span class="n">blades</span>
+<span class="n">DI</span>  <span class="o">=</span> <span class="n">sta</span><span class="o">.</span><span class="n">pseudoscalar</span><span class="p">([</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="n">pga</span> <span class="o">=</span> <span class="n">Algebra</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">P</span>   <span class="o">=</span> <span class="n">pga</span><span class="o">.</span><span class="n">blades</span>
+<span class="n">up</span>  <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span> <span class="o">+</span>  <span class="n">P</span><span class="o">.</span><span class="n">e0</span><span class="p">)</span><span class="o">.</span><span class="n">broadcast</span><span class="p">()</span><span class="o">.</span><span class="n">dual</span><span class="p">()</span>
+<span class="n">to_numpy</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+
+<span class="n">bm</span>  <span class="o">=</span> <span class="n">BladeMap</span><span class="p">(</span><span class="n">alg1</span><span class="o">=</span><span class="n">sta</span><span class="p">,</span> <span class="n">alg2</span> <span class="o">=</span><span class="n">pga</span><span class="p">)</span> 
+<span class="n">torch_kw</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'device'</span><span class="p">:</span><span class="n">device</span><span class="p">,</span> <span class="s1">'dtype'</span><span class="p">:</span><span class="n">torch</span><span class="o">.</span><span class="n">float64</span><span class="p">}</span> <span class="c1"># you need float64 for calculus to work.</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">make_x</span><span class="p">(</span><span class="n">e12_N</span><span class="p">,</span> <span class="n">e12_bounds</span><span class="p">,</span> <span class="n">e0_N</span><span class="p">,</span> <span class="n">e0_bounds</span><span class="p">,</span> <span class="n">e3_N</span><span class="p">,</span> <span class="n">e3_bounds</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">''' Create a grid of 'x' (events)  '''</span>
+    <span class="n">x0_range</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="n">e0_bounds</span><span class="p">,</span> <span class="n">e0_bounds</span><span class="p">,</span> <span class="n">e0_N</span><span class="p">,</span> <span class="o">**</span><span class="n">torch_kw</span><span class="p">)</span>
+    <span class="n">x1_range</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="n">e12_bounds</span><span class="p">,</span> <span class="n">e12_bounds</span><span class="p">,</span> <span class="n">e12_N</span><span class="p">,</span> <span class="o">**</span><span class="n">torch_kw</span><span class="p">)</span>
+    <span class="n">x2_range</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="n">e12_bounds</span><span class="p">,</span> <span class="n">e12_bounds</span><span class="p">,</span> <span class="n">e12_N</span><span class="p">,</span> <span class="o">**</span><span class="n">torch_kw</span><span class="p">)</span>
+    <span class="n">x3_range</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="n">e3_bounds</span><span class="p">,</span> <span class="n">e3_bounds</span><span class="p">,</span> <span class="n">e3_N</span><span class="p">,</span> <span class="o">**</span><span class="n">torch_kw</span><span class="p">)</span>
+    <span class="n">x0</span><span class="p">,</span><span class="n">x1</span><span class="p">,</span><span class="n">x2</span><span class="p">,</span><span class="n">x3</span><span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">x0_range</span><span class="p">,</span> <span class="n">x1_range</span><span class="p">,</span> <span class="n">x2_range</span><span class="p">,</span> <span class="n">x3_range</span><span class="p">,</span> <span class="n">indexing</span><span class="o">=</span><span class="s1">'ij'</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">x0</span><span class="o">*</span><span class="n">D</span><span class="o">.</span><span class="n">e0</span> <span class="o">+</span> <span class="n">x1</span><span class="o">*</span><span class="n">D</span><span class="o">.</span><span class="n">e1</span> <span class="o">+</span> <span class="n">x2</span><span class="o">*</span><span class="n">D</span><span class="o">.</span><span class="n">e2</span> <span class="o">+</span> <span class="n">x3</span><span class="o">*</span><span class="n">D</span><span class="o">.</span><span class="n">e3</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">render_frames</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">Fx</span><span class="p">,</span><span class="n">vector_scale</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">'''Create E/H fields representation in PGA from a F-field in STA and</span>
+<span class="sd">    render each frame for a ganja.js visualization</span>
+<span class="sd">    Args:</span>
+<span class="sd">        x: grid of events (vectors)</span>
+<span class="sd">        Fx: EM field   at each event (bivectors)</span>
+<span class="sd">        vector_scale: scaling factor for the field vectors'''</span>
+    <span class="n">E</span> <span class="o">=</span> <span class="n">Fx</span><span class="o">.</span><span class="n">proj</span><span class="p">(</span><span class="n">D</span><span class="o">.</span><span class="n">e0</span><span class="p">)</span>
+    <span class="n">H</span> <span class="o">=</span> <span class="n">Fx</span><span class="o">.</span><span class="n">proj</span><span class="p">(</span><span class="n">D</span><span class="o">.</span><span class="n">e0</span><span class="o">.</span><span class="n">dual</span><span class="p">)</span><span class="o">.</span><span class="n">dual</span><span class="p">()</span>
+    <span class="n">frames</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">N_frames</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="c1"># TODO move x_, E_, H_ calculation outside loop</span>
+    <span class="c1"># TODO pass numpy array straight to pga.graph to avoid flattening</span>
+    <span class="k">for</span> <span class="n">frame_idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N_frames</span><span class="p">):</span>
+        <span class="n">mid</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">N_frames</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="p">(</span><span class="n">frame_idx</span><span class="p">,</span> <span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">),</span> <span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">),</span> <span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">))</span>
+        <span class="n">x_</span><span class="p">,</span> <span class="n">E_</span><span class="p">,</span> <span class="n">H_</span> <span class="o">=</span> <span class="p">[</span><span class="n">X</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="k">for</span> <span class="n">X</span> <span class="ow">in</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">E</span><span class="p">,</span> <span class="n">H</span><span class="p">)]</span>
+        <span class="n">x_</span> <span class="o">=</span> <span class="n">up</span><span class="p">(</span><span class="n">bm</span><span class="p">(</span><span class="n">x_</span><span class="o">.</span><span class="n">proj</span><span class="p">(</span><span class="n">D</span><span class="o">.</span><span class="n">e123</span><span class="p">)))</span>
+        <span class="n">E_</span> <span class="o">=</span> <span class="n">bm</span><span class="p">(</span><span class="n">E_</span><span class="p">)</span>
+        <span class="n">H_</span> <span class="o">=</span> <span class="n">bm</span><span class="p">(</span><span class="n">H_</span><span class="p">)</span>
+        
+        <span class="n">vmag</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">*</span><span class="n">vector_scale</span>
+        <span class="n">x_flat</span> <span class="o">=</span> <span class="n">x_</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">to_numpy</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+        <span class="n">ve_flat</span> <span class="o">=</span> <span class="p">(</span><span class="n">exp</span><span class="p">(</span><span class="n">vmag</span><span class="o">*</span><span class="n">E_</span><span class="p">)</span><span class="o">.</span><span class="n">broadcast</span><span class="p">()</span><span class="o">&gt;&gt;</span><span class="n">x_</span><span class="p">)</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">to_numpy</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+        <span class="n">vh_flat</span> <span class="o">=</span> <span class="p">(</span><span class="n">exp</span><span class="p">(</span><span class="n">vmag</span><span class="o">*</span><span class="n">H_</span><span class="p">)</span><span class="o">.</span><span class="n">broadcast</span><span class="p">()</span><span class="o">&gt;&gt;</span><span class="n">x_</span><span class="p">)</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">to_numpy</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+        
+        
+        <span class="n">frames</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">c</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="o">*</span><span class="p">[(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)</span> <span class="k">for</span> <span class="n">a</span><span class="p">,</span><span class="n">b</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">x_flat</span><span class="p">,</span> <span class="n">ve_flat</span><span class="p">)],</span>
+                       <span class="n">c</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="o">*</span><span class="p">[(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)</span> <span class="k">for</span> <span class="n">a</span><span class="p">,</span><span class="n">b</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">x_flat</span><span class="p">,</span> <span class="n">vh_flat</span><span class="p">)]])</span>
+    <span class="k">return</span> <span class="n">frames</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">make_graph_func</span><span class="p">(</span><span class="n">frames</span><span class="p">,</span><span class="n">speed</span> <span class="p">):</span>
+<span class="w">    </span><span class="sd">'''light wrapper to create a graph function that cycles through frames'''</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">graph_func</span><span class="p">():</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">default_timer</span><span class="p">()</span><span class="o">*</span><span class="n">speed</span><span class="p">)</span>
+        <span class="n">num_frames</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">frames</span><span class="p">)</span>
+        
+        <span class="n">cycle_length</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">num_frames</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">t_mod</span> <span class="o">=</span> <span class="n">t</span> <span class="o">%</span> <span class="n">cycle_length</span>
+        
+        <span class="k">if</span> <span class="n">t_mod</span> <span class="o">&lt;</span> <span class="n">num_frames</span><span class="p">:</span>
+            <span class="n">frame_idx</span> <span class="o">=</span> <span class="n">t_mod</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">frame_idx</span> <span class="o">=</span> <span class="n">cycle_length</span> <span class="o">-</span> <span class="n">t_mod</span>
+        
+        <span class="k">return</span> <span class="n">frames</span><span class="p">[</span><span class="n">frame_idx</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">graph_func</span>
+
+
+<span class="n">scale</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">speed</span> <span class="o">=</span> <span class="mi">50</span>
+<span class="n">vector_scale</span> <span class="o">=</span><span class="mi">2</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">make_x</span><span class="p">(</span><span class="n">e12_bounds</span> <span class="o">=</span> <span class="mi">6</span><span class="p">,</span>
+           <span class="n">e0_bounds</span>  <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>
+           <span class="n">e3_bounds</span>  <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+           <span class="n">e12_N</span>      <span class="o">=</span> <span class="mi">21</span><span class="p">,</span>
+           <span class="n">e0_N</span>       <span class="o">=</span> <span class="mi">100</span><span class="p">,</span>
+           <span class="n">e3_N</span>       <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+           <span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">F</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="n">F0</span> <span class="o">=</span> <span class="n">D</span><span class="o">.</span><span class="n">e01</span> <span class="o">+</span> <span class="n">D</span><span class="o">.</span><span class="n">e13</span>
+    <span class="n">K</span>  <span class="o">=</span> <span class="p">(</span><span class="n">D</span><span class="o">.</span><span class="n">e123</span> <span class="o">+</span> <span class="mf">.01</span> <span class="o">*</span> <span class="n">D</span><span class="o">.</span><span class="n">e012</span><span class="p">)</span><span class="c1">#*exp(-.1*D.e0123)</span>
+    <span class="n">xK</span> <span class="o">=</span> <span class="n">x</span><span class="o">*</span><span class="n">K</span>
+    <span class="k">return</span> <span class="n">exp</span><span class="p">(</span><span class="n">xK</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="n">F0</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">A</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="n">A0</span> <span class="o">=</span> <span class="n">D</span><span class="o">.</span><span class="n">e3</span>
+    <span class="c1">#K  = lambda x: exp((.1*(D.e0 )|x)*D.e12)&gt;&gt;(D.e123 +  .5*D.e013)#*exp(-1*D.e0123)</span>
+    <span class="n">K</span>  <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">D</span><span class="o">.</span><span class="n">e12</span><span class="o">/</span><span class="n">D</span><span class="o">.</span><span class="n">e3</span> <span class="o">+</span>  <span class="mf">.5</span><span class="o">*</span><span class="n">D</span><span class="o">.</span><span class="n">e13</span><span class="o">/</span><span class="n">D</span><span class="o">.</span><span class="n">e0</span><span class="p">)</span><span class="c1">#*exp(-1*D.e0123)</span>
+    <span class="n">xK</span> <span class="o">=</span> <span class="n">x</span><span class="o">*</span><span class="n">K</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">exp</span><span class="p">(</span><span class="n">xK</span><span class="p">)</span><span class="o">&gt;&gt;</span><span class="n">A0</span>
+
+<span class="c1"># Fx = F(x) # make F-field directly</span>
+<span class="n">Fx</span> <span class="o">=</span>  <span class="n">d</span><span class="p">(</span><span class="n">sta</span><span class="p">,</span> <span class="n">A</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>  <span class="c1"># make F-field from potential A</span>
+<span class="n">frames</span>     <span class="o">=</span> <span class="n">render_frames</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">Fx</span><span class="p">,</span> <span class="n">vector_scale</span><span class="o">=</span><span class="n">vector_scale</span><span class="p">)</span>
+<span class="n">graph_func</span> <span class="o">=</span> <span class="n">make_graph_func</span><span class="p">(</span><span class="n">frames</span><span class="p">,</span> <span class="n">speed</span><span class="p">)</span>
+<span class="n">vector_scale</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">Fx</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
+
+<span class="c1">## uncomment to animate</span>
+<span class="c1">#pga.graph(graph_func, grid=True,lineWidth=2,animate=True,scale=.15,height='700px')</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=b1eb96de">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>And thats all we got for now.</p>
 </div>
 </div>
 </div>
 </div>
 </main>
 </body>
+<script src="static/helpers.js"></script>
 </html>

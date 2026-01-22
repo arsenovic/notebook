@@ -7512,42 +7512,236 @@ a.anchor-link {
 </head>
 <body class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
 <main>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=ce5eb35e">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=a145973c">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <div style="text-align: right;">
-written 01/17/2026<br/>
-<a href="mailto:alex@810lab.com">alex@810lab.com</a>
+written 01/22/2026<br/>
+<a href="mailto:alex@810lab.com">alex@810lab.com</a><br/>
 </div>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=5fc8fe66">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=4f141b63">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h1 id="Alex-Arsenovic's-Notebook">Alex Arsenovic's Notebook<a class="anchor-link" href="#Alex-Arsenovic's-Notebook">¶</a></h1><img alt="Alex Arsenovic" src="img/me.jpg" style="float: right; margin: 0 0 20px 20px; max-width: 300px; border-radius: 80px; padding: 50px; background-color: white;"/>
-<p>Welcome!</p>
-<h2 id="Pages">Pages<a class="anchor-link" href="#Pages">¶</a></h2><ul>
-<li><a href="plane_waves.html">Plane Waves</a></li>
-<li><a href="operator_coords.html">Operatorationalizing Coordinates</a></li>
-<li><a href="Reflections.html">Reflections</a></li>
-</ul>
-<h2 id="Contact-Me">Contact Me<a class="anchor-link" href="#Contact-Me">¶</a></h2><p><a href="mailto:alex@810lab.com"><strong>Email</strong></a>  |
-<a href="https://github.com/arsenovic"><strong>GitHub</strong></a> |
-<a href="https://www.researchgate.net/profile/A-Arsenovic"><strong>ResearchGate</strong></a> |
-<a href="https://www.linkedin.com/in/alex-arsenovic-39516957/"><strong>LinkedIn</strong></a> |
-<a href="https://www.dropbox.com/scl/fi/q2qj7q28y2837b5f6fnu8/AlexArsenovicResume.pdf?rlkey=ptsgkfm50lsy7hl4lzjbqnbrh&amp;st=so9hlads&amp;dl=1"><strong>CV</strong></a></p>
+<h1 id="Operator-Class">Operator Class<a class="anchor-link" href="#Operator-Class">¶</a></h1><h2 id="Summary">Summary<a class="anchor-link" href="#Summary">¶</a></h2><p>A Operator class is created.  An example application to the differential is explored .</p>
+<h2 id="Context">Context<a class="anchor-link" href="#Context">¶</a></h2><p>Geometric calcus requires operators, which are functions that take and return functions.  Perhaps we can apply it to the 'differential' or 'a-derivative'</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=0af5580c">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>For example :
+The forward differential in the a-direction $ \partial_a $ applied to a function $f$ over a linear manifold is defined by</p>
+<p>\begin{align}
+\partial_a f &amp;\equiv \frac{f(x+\tau a )- f(x)}{\tau} \\
+\end{align}</p>
+<p>Consider defining the backward differential with a reverse symmetry,<br>
+\begin{align}
+\  f \partial_a &amp;\equiv \frac{f(x)-f(x-\tau a )}{\tau} \\
+\end{align}</br></p>
+<p>The central differential is then seen as an inner product</p>
+<p>\begin{align}
+\partial_a \cdot f \equiv \frac{1}{2}(\partial_a f + f\partial_a ) 
+=\frac{ f(x+\tau a ) - f(x-\tau a )}{2\tau}
+\end{align}
+lets look at an implementation</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=d5182688">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="Implementation">Implementation<a class="anchor-link" href="#Implementation">¶</a></h2>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=238c5c97">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [1]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Operator</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        A non-commutative operator that can be applied to functions</span>
+
+<span class="sd">        Summary of operations</span>
+<span class="sd">        - self * func: applies operator on the right</span>
+<span class="sd">        - func * self: applies operator on the left</span>
+<span class="sd">        - self ^ func: 1/2 * (right - left)</span>
+<span class="sd">        - self | func: 1/2 * (right + left)</span>
+
+<span class="sd">    </span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            right: A function that takes a function f and returns the operator applied to f on the right</span>
+<span class="sd">            left: A function that takes a function f and returns the operator applied to f on the left</span>
+<span class="sd">            *args, **kw: Additional arguments to be passed to the right and left functions</span>
+<span class="sd">        """</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_right</span> <span class="o">=</span> <span class="n">right</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_left</span> <span class="o">=</span> <span class="n">left</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">f</span><span class="p">:</span> <span class="n">right</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">left</span>  <span class="o">=</span> <span class="k">lambda</span> <span class="n">f</span><span class="p">:</span>  <span class="n">left</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""return a new Operator with the same left and right but updated args/kw"""</span>
+        <span class="k">return</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)(</span><span class="bp">self</span><span class="o">.</span><span class="n">_right</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_left</span><span class="p">,</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">op</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""operator * func: applies operator on the right"""</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">"Addition of Operators is not implemented yet."</span><span class="p">)</span>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__mul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""operator * func: applies operator on the right"""</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="fm">__rmul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""func * operator: applies operator on the left"""</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="fm">__xor__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""operator ^ func: antisymmetric combination = 1/2 * (self * f - f * self)"""</span>
+        <span class="k">return</span> <span class="k">lambda</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">((</span><span class="bp">self</span><span class="o">*</span><span class="n">f</span><span class="p">)(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="n">f</span><span class="o">*</span><span class="bp">self</span><span class="p">)(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">))</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="fm">__rxor__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""operator ^ func: antisymmetric combination = 1/2 * (f*self - self * f)"""</span>
+        <span class="k">return</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="fm">__xor__</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>  <span class="c1"># subtraction is antisymmetric</span>
+
+    
+    <span class="k">def</span><span class="w"> </span><span class="fm">__or__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""operator | func: symmetric combination = 1/2 * (self * f + f * self)"""</span>
+        <span class="k">return</span> <span class="k">lambda</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">((</span><span class="bp">self</span><span class="o">*</span><span class="n">f</span><span class="p">)(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">f</span><span class="o">*</span><span class="bp">self</span><span class="p">)(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">))</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="fm">__ror__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""operator | func: symmetric combination = 1/2 * (f*self + self * f)"""</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__or__</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>  <span class="c1"># addition is symmetric</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=d8f7f124">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="Test">Test<a class="anchor-link" href="#Test">¶</a></h2>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=f159192f">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [2]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">kingdon</span><span class="w"> </span><span class="kn">import</span> <span class="n">calculus</span> <span class="k">as</span> <span class="n">calc</span> 
+<span class="kn">from</span><span class="w"> </span><span class="nn">kingdon</span><span class="w"> </span><span class="kn">import</span> <span class="n">Algebra</span>
+<span class="n">sta</span> <span class="o">=</span> <span class="n">Algebra</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="n">start_index</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="nb">locals</span><span class="p">()</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">sta</span><span class="o">.</span><span class="n">blades</span><span class="p">)</span>
+
+ 
+
+<span class="n">da</span> <span class="o">=</span> <span class="n">Operator</span><span class="p">(</span><span class="n">right</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">f</span><span class="p">,</span><span class="n">a</span><span class="p">:</span> <span class="n">calc</span><span class="o">.</span><span class="n">da</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s1">'forward'</span><span class="p">),</span>
+              <span class="n">left</span>  <span class="o">=</span> <span class="k">lambda</span> <span class="n">f</span><span class="p">,</span><span class="n">a</span><span class="p">:</span> <span class="n">calc</span><span class="o">.</span><span class="n">da</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s1">'backward'</span><span class="p">))</span>
+
+
+<span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">2</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="mi">20</span>   <span class="c1"># function with high curvature to see differences in derivative approximations</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">sta</span><span class="o">.</span><span class="n">random_vector</span><span class="p">()</span> <span class="c1"># location at which to evaluate the derivative</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">sta</span><span class="o">.</span><span class="n">random_vector</span><span class="p">()</span> <span class="c1"># direction for the derivative</span>
+
+<span class="p">((</span><span class="n">da</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="n">a</span><span class="p">)</span><span class="o">|</span><span class="n">f</span><span class="p">)(</span><span class="n">x</span><span class="p">),</span>  <span class="c1"># d_a*f +f*d_a</span>
+<span class="n">calc</span><span class="o">.</span><span class="n">da</span><span class="p">(</span><span class="n">f</span><span class="o">=</span><span class="n">f</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="n">a</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s1">'central'</span><span class="p">)(</span><span class="n">x</span><span class="p">),</span>
+<span class="n">calc</span><span class="o">.</span><span class="n">da</span><span class="p">(</span><span class="n">f</span><span class="o">=</span><span class="n">f</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="n">a</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s1">'forward'</span><span class="p">)(</span><span class="n">x</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[2]:</div>
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
+<pre>(0.86 + -8.25e-10 𝐞₀₁ + -4.24e-09 𝐞₀₂ + 1.06e-09 𝐞₀₃ + 3.45e-09 𝐞₁₂ + 2.06e-09 𝐞₁₃ + 1.45e-09 𝐞₂₃ + 6.08e-25 𝐞₀₁₂₃,
+ 0.86 + -8.25e-10 𝐞₀₁ + -4.24e-09 𝐞₀₂ + 1.06e-09 𝐞₀₃ + 3.45e-09 𝐞₁₂ + 2.06e-09 𝐞₁₃ + 1.45e-09 𝐞₂₃ + 6.08e-25 𝐞₀₁₂₃,
+ 0.86 + -2.18e-08 𝐞₀₁ + -1.22e-08 𝐞₀₂ + -9.79e-10 𝐞₀₃ + -5.34e-09 𝐞₁₂ + -7.91e-10 𝐞₁₃ + 3.38e-09 𝐞₂₃ + 2.18e-24 𝐞₀₁₂₃)</pre>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=cfeb72ab">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [3]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="p">((</span><span class="n">da</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="n">a</span><span class="p">)</span><span class="o">*</span><span class="n">f</span><span class="p">)</span><span class="o">*</span><span class="n">da</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="n">a</span><span class="p">))(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[3]:</div>
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
+<pre>-6.94 + -42.0 𝐞₀₁ + -16.0 𝐞₀₂ + -4.07 𝐞₀₃ + -17.6 𝐞₁₂ + -5.7 𝐞₁₃ + 3.85 𝐞₂₃ + 3.14e-15 𝐞₀₁₂₃</pre>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=4f225bd6">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
 </div>
 </div>
 </div>
 </div>
 </main>
 </body>
+<script src="static/helpers.js"></script>
 </html>
