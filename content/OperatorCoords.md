@@ -99,6 +99,7 @@ Below we visualize the polar grid with both angular and radial lines.
 
 ```python
 from numpy import pi 
+from itertools import chain, pairwise
 
 # operators
 T  = lambda x1,x2: exp(-e0*(x1*e1 + x2*e2)/2) 
@@ -124,22 +125,6 @@ pga.graph(
     c[0],  *points,
     grid=False, lineWidth=4, 
 )
-```
-
-### Symbolics 
-kingdon can make use of sympy symbolics. 
-
-```python
-from sympy import symbols, sin, cos, pretty
-# Use Greek letter unicode in symbol names for display
-rho, theta = symbols('ρ θ', real=True, positive=True)
-
-R_  = lambda t: cos(t/2)*e - sin(t/2)*e12
-T_  = lambda r: 1 + e01*r/2
-RT_ = lambda r, t: R_(t)*T_(r)
-o   = e0.dual()
-(RT_(rho, theta) >> o).dual().proj(e12)
-
 ```
 
 ### Tangent Frame 
@@ -238,11 +223,62 @@ easts  = [R>>east for R in Rs]
 norths = [R>>north for R in Rs]
 ups    = [R>>up for R in Rs]
  
+t=.4
 pga.graph(
     c[0], *points,
     c[1], *easts,
     c[2], *norths,
     c[3], *ups,
-    grid=False, lineWidth=5,
+    grid=False, lineWidth=5, camera =np.cos(t)+np.sin(t)*e23,
 )
+
+```
+
+```python
+if 0:
+    # def operators 
+    T  = lambda x1,x2,x3: exp(-e0*(x1*e1 + x2*e2 + x3*e3)/2) 
+    R  = lambda theta, phi : exp(-theta*e12/2)*exp(-phi*e13/2) 
+
+    # parameters
+    thetas = np.linspace(-pi,pi,21)              
+    phis   = np.linspace(-pi/2,pi/2,11)[1:-1]  
+    #theta, phi = np.meshgrid(thetas,phis)
+    rho    = 1.5
+
+    # objects
+    o     = e0.dual() # origin 
+    tmag  = rho/10 # magnitude of tangent vectors
+    east  = (o, T(0,tmag,0)>>o) # e2
+    north = (o, T(0,0,tmag)>>o) # e3
+    up    = (o, T(tmag,0,0)>>o) # e1
+
+    # create operator
+    Rs     = [R(theta,phi)*T(rho,0,0) for theta in thetas for phi in phis]
+
+    # operate 
+    points = [R>>o for R in Rs]
+    easts  = [R>>east for R in Rs]
+    norths = [R>>north for R in Rs]
+    ups    = [R>>up for R in Rs]
+    
+    from timeit import default_timer
+
+    def graph_func():    
+        t = default_timer()
+        camera = (np.cos(t) + np.sin(t)*e23)
+        return  (c[0], *points,
+                c[1], *easts,
+                c[2], *norths,
+                c[3], *ups,
+                dict(grid=True, lineWidth=5,camera = camera),
+                
+                ) 
+        
+    
+    pga.graph(graph_func, animate=True)
+```
+
+```python
+
 ```
