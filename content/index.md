@@ -26,9 +26,9 @@ Welcome!
 
 ## Pages
 
-- [Plane Waves](plane_waves.html)
-- [Operatorationalizing Coordinates](operator_coords.html)
-- [Reflections](Reflections.html)
+- [Plane Waves](PlaneWaves.html)
+- [Operationalizing Coordinates](OperatorCoords.html)
+- [Operator Class](OperatorClass.html)
 
 ## Contact Me
 

@@ -182,12 +182,13 @@ points      = [R(theta, phi)>>null_island for theta in thetas for phi in phis ]
 lat_lines = [pairwise( [R(theta,phi)>>null_island for theta in thetas]) for phi in phis]
 lon_lines = [pairwise( [R(theta,phi)>>null_island for phi in phis]) for theta in thetas]
 
+t=.4
 pga.graph(
     c[0], *points,
     c[5], null_island,
     c[1], *list(chain(*lat_lines)),
     c[2], *list(chain(*lon_lines)),
-    grid=False, lineWidth=3,
+    grid=False, lineWidth=3, camera =np.cos(t)+np.sin(t)*e23,
 )
 ```
 
@@ -271,7 +272,7 @@ if 0:
                 c[1], *easts,
                 c[2], *norths,
                 c[3], *ups,
-                dict(grid=True, lineWidth=5,camera = camera),
+                dict(grid=True, lineWidth=5,camera = camera.map(float)),
                 
                 ) 
         

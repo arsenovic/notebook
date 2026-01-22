@@ -20,7 +20,6 @@ written 01/17/2026<br>
 </div>
 
 
-<!-- #region -->
 # Plane Waves 
 
 ## Summary 
@@ -46,9 +45,6 @@ where $K$ is a trivector dual to $k$. ( We prefer trivectors  for propagation co
 $$ \nabla F_x= KF_x. $$
 
 
-<!-- #endregion -->
-
-<!-- #region -->
 
 So far we have changed nothing from STA. If we re-express $F_x$ in terms of the geometric product, it suggests to us a formula which employs conjugation, such as  
 
@@ -70,7 +66,7 @@ $$  e^{ K\wedge x} e^{K\cdot x} F_0e^{-K \cdot x} = e^{ \alpha I }e^{B}F_0e^{-B}
 This is interepreted as a STA **position-dependent lorentz rotation** (and duality rotation).  Along certain axis, namely $x\cdot K = 0$, the lorentz transforms disappears and this reduces to the normal plane wave. It is reasonable to extend this to spacially varying $K$, $K\rightarrow K(x)$.
 
 
-<!-- #endregion -->
+
 ## Simulate
 Since is somewhat easier to simulate than to work out the maths, below are some field simulations of this wave function. The simulations generate the field for a variety of $K$'s . The fields are mapped from STA into 3dPGA for visualization. Since kingdown allows pytorch.tensors as coefficient this computation is all done on the GPU. 
 
@@ -182,7 +178,7 @@ c = [0, 1810039, 14245634, 7696563, 15149450, 6727198, 15117058, 10909213, 67108
   
 # Use GPU if available
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-
+print("Using device:", device)
 ## Set up algebras and blade map
 sta = Algebra(1,3,start_index=0)
 D   = sta.blades
@@ -285,7 +281,7 @@ graph_func = make_graph_func(frames, speed)
 vector_scale = float(Fx[0].values()[0].max())
 
 ## uncomment to animate
-#pga.graph(graph_func, grid=True,lineWidth=2,animate=True,scale=.15,height='700px')
+pga.graph(graph_func, grid=True,lineWidth=2,animate=True,scale=.15,height='700px')
 
 ```
 
