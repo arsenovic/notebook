@@ -44,8 +44,5 @@ This content and infrastructure for project is held in [this repo](https://githu
 It can built by `uv build.py` and build details can be found in that file. 
 
 
-```python
-
-```
 
 <div style="height: 200px;"></div>
