@@ -272,7 +272,7 @@ if 0:
                 c[1], *easts,
                 c[2], *norths,
                 c[3], *ups,
-                dict(grid=True, lineWidth=5,camera = camera.map(float)),
+                dict(grid=True, lineWidth=5,camera = camera),
                 
                 ) 
         

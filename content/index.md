@@ -17,12 +17,13 @@ written 01/17/2026<br>
 </div>
 
 
-
 # Alex Arsenovic's Notebook 
 
 <img src="img/me.jpg" alt="Alex Arsenovic" style="float: right; margin: 0 0 20px 20px; max-width: 300px; border-radius: 80px; padding: 50px; background-color: white;">
 
-Welcome! 
+## Summary 
+* This is a collection of math/physics ideas.
+* Feedback and comments welcome!  
 
 ## Pages
 
@@ -30,7 +31,7 @@ Welcome!
 - [Operationalizing Coordinates](OperatorCoords.html)
 - [Operator Class](OperatorClass.html)
 
-## Contact Me
+## Contact/About Me
 
  [**Email**](mailto:alex@810lab.com)  |
  [**GitHub**](https://github.com/arsenovic) |
@@ -38,6 +39,13 @@ Welcome!
  [**LinkedIn**](https://www.linkedin.com/in/alex-arsenovic-39516957/) | 
  [**CV**](https://www.dropbox.com/scl/fi/q2qj7q28y2837b5f6fnu8/AlexArsenovicResume.pdf?rlkey=ptsgkfm50lsy7hl4lzjbqnbrh&st=so9hlads&dl=1)
 
+## Source
+This content and infrastructure for project is held in [this repo](https://github.com/arsenovic/notebook), and  licensed under [CC BY-NC-ND](static/LICENSE.txt). 
+It can built by `uv build.py` and build details can be found in that file. 
 
 
+```python
 
+```
+
+<div style="height: 200px;"></div>

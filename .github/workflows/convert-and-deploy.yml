@@ -32,7 +32,7 @@ jobs:
       run: uv sync
     
     - name: Run conversion script
-      run: uv run ./convert.py
+      run: uv run ./build.py
     
     - name: Deploy to GitHub Pages
       if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main'

@@ -23,7 +23,7 @@ written 01/17/2026<br>
 # Plane Waves 
 
 ## Summary 
-An equation is reverse engineered from the STA EM plane wave  equation which follows conjugation. 
+Starting from the electromagnetic plane wave equation in [Spacetime Algebra](https://en.wikipedia.org/wiki/Spacetime_algebra), a similar equation is reverse engineered which follows conjugation. It is not known to be useful. 
 
 
 ## Idea
@@ -281,7 +281,7 @@ graph_func = make_graph_func(frames, speed)
 vector_scale = float(Fx[0].values()[0].max())
 
 ## uncomment to animate
-pga.graph(graph_func, grid=True,lineWidth=2,animate=True,scale=.15,height='700px')
+#pga.graph(graph_func, grid=True,lineWidth=2,animate=True,scale=.15,height='700px')
 
 ```
 

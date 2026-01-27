@@ -1,5 +1,20 @@
 #!/usr/bin/env python3
+"""
+Convert markdown notebooks to executable HTML with optional code execution.
 
+What it does:
+    - Executes code cells (configurable timeout)
+    - Injects static/style.css for custom styling
+    - Injects static/helpers.js for interactive buttons (skipped for index.md)
+    - Copies img/ folder to output directory
+    - Integrated CI using gh-pages. see  .github/workflows/convert-and-deploy.yml
+    
+Usage:
+    python build.py              # Convert all .md files in ./content
+    python build.py filename.md  # Convert specific file
+    
+Outputs HTML to ./html directory.
+"""
 import os
 import sys
 import shutil
@@ -11,22 +26,18 @@ import nbformat
 from nbconvert import HTMLExporter
 from nbconvert.preprocessors import ExecutePreprocessor
 
-INPUT_DIR = "./content"
-OUTPUT_DIR = "./html"
-FILE_PATTERN = "*.md" 
-EXECUTE_NOTEBOOKS = True
-EXECUTION_TIMEOUT = 300
-
-# Files to exclude from adding JavaScript helper buttons
-EXCLUDE_HELPERS_JS = ["index.md"]
-
+INPUT_DIR = "./content"  # Source directory for markdown files
+OUTPUT_DIR = "./html"  # Destination directory for HTML output
+FILE_PATTERN = "*.md"  # File glob pattern to match
+EXECUTE_NOTEBOOKS = True  # Run code cells during conversion
+EXECUTION_TIMEOUT = 300  # Seconds allowed per cell execution
+EXCLUDE_HELPERS_JS = ["index.md"]# Files to exclude from adding JavaScript helper buttons
 NBCONVERT_KWARGS = {
     "template_name": "lab",
     #"theme": "dark"
     #"exclude_input": False,
     #"exclude_output": False,
 }
-
 JUPYTEXT_KWARGS = {}
 
 def convert_md_to_html(filename: Optional[str] = None) -> None:
@@ -56,11 +67,11 @@ def convert_md_to_html(filename: Optional[str] = None) -> None:
 
     for md_file in md_files:
         try:
-            print(f"Converting: {md_file.name}")
+            print(f"{md_file.name}: converting, ", end="")
             notebook = jupytext.read(str(md_file), **JUPYTEXT_KWARGS)
 
             if EXECUTE_NOTEBOOKS:
-                print(f"  Executing notebook...")
+                print(f"executing, ", end="")
                 try:
                     notebook, _ = executor.preprocess(notebook, {"metadata": {"path": str(input_path)}})
                 except Exception as e:
@@ -79,7 +90,7 @@ def convert_md_to_html(filename: Optional[str] = None) -> None:
             html_file = output_path / md_file.with_suffix(".html").name
             html_file.write_text(html_content)
 
-            print(f" {html_file}")
+            print(f"done. {html_file}")
 
         except Exception as e:
             print(f"Error converting {md_file.name}: {e}", file=sys.stderr)
