@@ -3,7 +3,34 @@
 <html lang="en">
 <head><meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Notebook</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>Notebook</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script><script>
+(function() {
+  function addWidgetsRenderer() {
+    var mimeElement = document.querySelector('script[type="application/vnd.jupyter.widget-view+json"]');
+    var scriptElement = document.createElement('script');
+    
+    var widgetRendererSrc = 'https://unpkg.com/@jupyter-widgets/html-manager@*/dist/embed-amd.js';
+    
+    var widgetState;
+
+    // Fallback for older version:
+    try {
+      widgetState = mimeElement && JSON.parse(mimeElement.innerHTML);
+
+      if (widgetState && (widgetState.version_major < 2 || !widgetState.version_major)) {
+        
+        var widgetRendererSrc = 'https://unpkg.com/@jupyter-js-widgets@*/dist/embed.js';
+        
+      }
+    } catch(e) {}
+
+    scriptElement.src = widgetRendererSrc;
+    document.body.appendChild(scriptElement);
+  }
+
+  document.addEventListener('DOMContentLoaded', addWidgetsRenderer);
+}());
+</script>
 <style type="text/css">
     pre { line-height: 125%; }
 td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
@@ -7511,131 +7538,1073 @@ a.anchor-link {
 <!-- End of mermaid configuration --><link rel="stylesheet" href="static/style.css">
 </head>
 <body class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
-<main>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=923c3563">
+<main><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=fdf48033">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<div style="text-align: right;">
-written 01/19/2026<br/>
-<a href="mailto:alex@810lab.com">alex@810lab.com</a>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=90ff1ffb">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h1 id="Maxwell's--Operator">Maxwell's  Operator<a class="anchor-link" href="#Maxwell's--Operator">¶</a></h1><h2 id="Summary">Summary<a class="anchor-link" href="#Summary">¶</a></h2><p>We explore  an operator related to Maxwell's equations, and try to respect differential geometry.</p>
-<h2 id="Idea">Idea<a class="anchor-link" href="#Idea">¶</a></h2><p>Consider the following operator :</p>
-<p>$$e^{\nabla} = 1+\nabla + \nabla^2 + \ldots$$</p>
-<p>Ignore the higher order terms for now. Apply it to the vector potential, $A$.</p>
-<p>\begin{align}
-e^{\nabla}A &amp;= A+\nabla A + \nabla^2 A = A+F + J
-\end{align}</p>
-<p>Which is interesting enough to look more at this operator.  Given a definition of the vector derivative in terms of a basis[1],</p>
-<p>$$\nabla \equiv \sum e^i \partial_i .$$
-where $e^i \equiv e_i^{-1}$, and $\partial_i \equiv \partial_{e_i}$ is the differential in the $e_i$ direction. This implies
-$$ e^{\nabla} = e^{ \sum e^i \partial_i}  \stackrel{?}{=} \prod e^{ e^i \partial_i}$$</p>
-<p>Lets reverse the order of logic and assume $\prod e^{ e^i \partial_i}$ is true. Then under what circumstance does the equality hold:
-$$ \prod e^{ e^i \partial_i}  \stackrel{?}{=} e^{ \sum e^i \partial_i}=e^{\nabla}  $$
-expanded in a cartesian frame in STA,
-$$ e^{  e^0 \partial_0}e^{  e^1 \partial_1}e^{  e^2 \partial_i}e^{  e^3 \partial_3} 
- \stackrel{?}{=} e^{  e^0 \partial_0 + e^1 \partial_1+  e^2 \partial_i+  e^3 \partial_3}  $$</p>
-<p>This is almost identical to the transmission line model used in [2]. In the transmission line case, the  equality was justified by the fact that the rotations were small.  However, the rotations relative magnitude is what produced the range of behavoir.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=f42e38b5">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Curvature">Curvature<a class="anchor-link" href="#Curvature">¶</a></h2><p>For a <em>linear</em> vector manifold, the exponential of the differential, $e^{\tau \partial_a}$, implements a translation in the independent variable when operating on a function $f$.
-$$e^{\tau \partial_a}f = f(x+\tau a)    $$</p>
-<p>for a small $\tau$. Since translations commute,</p>
-<p>$$ f(x+\tau a +\epsilon b) = 
-e^{\tau \partial_a+\epsilon \partial_{b}}\stackrel{?}{=} 
-e^{\tau \partial_a}e^{\epsilon \partial_{b}} $$</p>
-<p>Again,  reverse the logic and assume the product of exponentials is true in general,</p>
-<p>$$e^{\tau \partial_a}e^{\epsilon \partial_{b}} \stackrel{?}{=} 
-e^{\tau \partial_a+\epsilon \partial_{b}} $$</p>
-<p>This is true when $\tau$ and $\epsilon$ are small, but small compared to what? Compared to the curvature. This is  what we are assuming by a <em>linear</em> vector manifold. One way to measure curvature, would be to move along $a$ then $b$, then back along $-a$ then $-b$. Basically reverse your steps in a different order  to get back to the start.<br>
-$$\Delta f 
-= e^{-\tau \partial_a}e^{-\epsilon \partial_b}e^{\tau \partial_a}e^{\epsilon \partial_b}f -f
-=( e^{-\tau \partial_a}e^{-\epsilon \partial_b}e^{\tau \partial_a}e^{\epsilon \partial_b}-1)f
-= (R\tilde{R} -1)f $$
-Another method is to compare the difference in $f$ at some nearby point, going either way .</br></p>
-<p>$$\Delta f 
-= e^{\tau \partial_a}e^{\epsilon \partial_b}f -e^{\epsilon \partial_b}e^{\tau \partial_a}f 
-= (R -\tilde R )f
-$$
-Lets see if we can re-work this in terms of conjugation, because conjugation is  dank.
-$$ e^{\tau \partial_a}e^{\epsilon \partial_b} fe^{\tilde{\epsilon \partial_b}}e^{\tilde{\tau \partial_a}} 
-  =f(x+\tau a +\epsilon b  -\epsilon b -\tau a ) =f(x)  $$
-which is a dumb thing to write when we are in a linear space.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=3f1d7e9e">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Scalar-Curvature">Scalar Curvature<a class="anchor-link" href="#Scalar-Curvature">¶</a></h3><p>The forward differential in the a-direction $ \partial_a $ applied to a function $f$ over a linear manifold is defined by</p>
-<p>\begin{align}
-\partial_a f &amp;\equiv \frac{f(x+\tau a )- f(x)}{\tau} \\
-\end{align}</p>
-<p>Consider defining the backward differential with a reverse symmetry,<br/>
-\begin{align}
-\  f \partial_a &amp;\equiv \frac{f(x)-f(x-\tau a )}{\tau} \\
-\end{align}</p>
-<p>The central differential is then seen as an inner product</p>
-<p>\begin{align}
-\partial_a \cdot f \equiv \frac{1}{2}(\partial_a f + f\partial_a ) 
-=\frac{ f(x+\tau a ) - f(x-\tau a )}{2\tau}
-\end{align}
-The second order central differential is</p>
-<p>\begin{align}
-\frac{1}{2\tau}(\partial_a f - f\partial_a ) = \frac{1}{\tau}\partial_a \wedge f 
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [1]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">kingdon</span><span class="w"> </span><span class="kn">import</span> <span class="n">Algebra</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">kingdon.numerical</span><span class="w"> </span><span class="kn">import</span> <span class="n">exp</span>  <span class="k">as</span> <span class="n">exp_</span>
+<span class="n">exp</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">exp_</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">n</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span> <span class="c1"># precision control of exp</span>
 
-\end{align}</p>
-<p>what is
-\begin{align}
-\partial_a f \partial_a \\
-\end{align}</p>
-<p>the conjugation gives</p>
-<p>\begin{align}
-e^{\tau \partial_a} fe^{-\tau \partial_a} &amp;=T_{\tau a}f \tilde T_{\tau a} 
+<span class="kn">from</span><span class="w"> </span><span class="nn">kingdon.calculus</span><span class="w"> </span><span class="kn">import</span> <span class="n">d</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">kingdon.blademap</span><span class="w"> </span><span class="kn">import</span> <span class="n">BladeMap</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span> 
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">timeit</span><span class="w"> </span><span class="kn">import</span> <span class="n">default_timer</span>
+<span class="n">c</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1810039</span><span class="p">,</span> <span class="mi">14245634</span><span class="p">,</span> <span class="mi">7696563</span><span class="p">,</span> <span class="mi">15149450</span><span class="p">,</span> <span class="mi">6727198</span><span class="p">,</span> <span class="mi">15117058</span><span class="p">,</span> <span class="mi">10909213</span><span class="p">,</span> <span class="mi">6710886</span><span class="p">]</span>  <span class="c1"># colors </span>
 
-\end{align}</p>
-<h3 id="Exponetial-of-a--Differential">Exponetial of a  Differential<a class="anchor-link" href="#Exponetial-of-a--Differential">¶</a></h3><p>\begin{align}
-\partial_a f &amp;\equiv \frac{f(x+\tau a )- f(x)}{\tau} \\
-\partial_a f&amp;= \frac{1}{\tau}(T_{\tau a}-1)f \\
-1+ \tau \partial_a  &amp;= T_{\tau a} \\
-e^{\tau \partial_a} &amp;=T_{\tau a} 
-\end{align}</p>
-<p>The backward differential $  \partial_a $  is<br/>
-\begin{align}
-\  f \partial_a &amp;\equiv \frac{f(x)-f(x-\tau a )}{\tau} \\
-f \partial_a &amp;= f (1-T_{-\tau a})\frac{1}{\tau} \\
-1- \tau \partial_a  &amp;=T_{-\tau a}\\
-e^{-\tau \partial_a} &amp;=\tilde T_{\tau a} 
-\end{align}</p>
+
+<span class="n">device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">"cuda"</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="s2">"cpu"</span><span class="p">);</span><span class="nb">print</span><span class="p">(</span><span class="s2">"Using device:"</span><span class="p">,</span> <span class="n">device</span><span class="p">)</span>
+<span class="n">torch_kw</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'device'</span><span class="p">:</span><span class="n">device</span><span class="p">,</span> <span class="s1">'dtype'</span><span class="p">:</span><span class="n">torch</span><span class="o">.</span><span class="n">float64</span><span class="p">}</span> <span class="c1"># you need float64 for calculus to work.</span>
+
+
+<span class="c1"># e0 is dual origin, e4 = time , e123 is space</span>
+<span class="n">stap</span> <span class="o">=</span> <span class="n">Algebra</span><span class="p">(</span><span class="n">signature</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="n">start_index</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">S</span>    <span class="o">=</span> <span class="n">stap</span><span class="o">.</span><span class="n">blades</span>
+<span class="nb">locals</span><span class="p">()</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">S</span><span class="p">)</span>
+<span class="n">I</span>    <span class="o">=</span> <span class="n">stap</span><span class="o">.</span><span class="n">pseudoscalar</span><span class="p">([</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">up</span>   <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="n">e0123</span> <span class="o">+</span> <span class="mf">1.</span><span class="o">*</span><span class="n">e123</span><span class="p">)</span><span class="o">.</span><span class="n">broadcast</span><span class="p">()</span> <span class="c1"># pga up() done in stap</span>
+<span class="n">to_numpy</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+<span class="n">pga</span> <span class="o">=</span> <span class="n">Algebra</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">bm</span>  <span class="o">=</span> <span class="n">BladeMap</span><span class="p">(</span><span class="n">alg1</span><span class="o">=</span><span class="n">stap</span><span class="p">,</span> <span class="n">alg2</span> <span class="o">=</span><span class="n">pga</span><span class="p">)</span> 
+ 
+
+<span class="n">et</span><span class="p">,</span><span class="n">ek</span> <span class="o">=</span> <span class="n">e4</span><span class="p">,</span><span class="n">e3</span> 
+
+<span class="k">def</span><span class="w"> </span><span class="nf">make_x</span><span class="p">(</span><span class="n">e12_bounds</span><span class="p">,</span> <span class="n">e12_N</span><span class="p">,</span> <span class="n">e3_bounds</span><span class="p">,</span> <span class="n">e3_N</span><span class="p">,</span> <span class="n">e4_bounds</span><span class="p">,</span> <span class="n">e4_N</span><span class="p">,</span> <span class="n">use_torch</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">use_torch</span><span class="p">:</span>
+        <span class="n">x1_range</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="n">e12_bounds</span><span class="p">,</span> <span class="n">e12_bounds</span><span class="p">,</span> <span class="n">e12_N</span><span class="p">,</span> <span class="o">**</span><span class="n">torch_kw</span><span class="p">)</span>
+        <span class="n">x2_range</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="n">e12_bounds</span><span class="p">,</span> <span class="n">e12_bounds</span><span class="p">,</span> <span class="n">e12_N</span><span class="p">,</span> <span class="o">**</span><span class="n">torch_kw</span><span class="p">)</span>
+        <span class="n">x3_range</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="n">e3_bounds</span><span class="p">,</span> <span class="n">e3_bounds</span><span class="p">,</span> <span class="n">e3_N</span><span class="p">,</span> <span class="o">**</span><span class="n">torch_kw</span><span class="p">)</span>
+        <span class="n">x4_range</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="n">e4_bounds</span><span class="p">,</span> <span class="n">e4_bounds</span><span class="p">,</span> <span class="n">e4_N</span><span class="p">,</span> <span class="o">**</span><span class="n">torch_kw</span><span class="p">)</span>
+        <span class="n">x4</span><span class="p">,</span><span class="n">x1</span><span class="p">,</span><span class="n">x2</span><span class="p">,</span><span class="n">x3</span><span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">x4_range</span><span class="p">,</span> <span class="n">x1_range</span><span class="p">,</span> <span class="n">x2_range</span><span class="p">,</span> <span class="n">x3_range</span><span class="p">,</span> <span class="n">indexing</span><span class="o">=</span><span class="s1">'ij'</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">x1_range</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="n">e12_bounds</span><span class="p">,</span> <span class="n">e12_bounds</span><span class="p">,</span> <span class="n">e12_N</span><span class="p">)</span>
+        <span class="n">x2_range</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="n">e12_bounds</span><span class="p">,</span> <span class="n">e12_bounds</span><span class="p">,</span> <span class="n">e12_N</span><span class="p">)</span>
+        <span class="n">x3_range</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="n">e3_bounds</span><span class="p">,</span> <span class="n">e3_bounds</span><span class="p">,</span> <span class="n">e3_N</span><span class="p">)</span>
+        <span class="n">x4_range</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="n">e4_bounds</span><span class="p">,</span> <span class="n">e4_bounds</span><span class="p">,</span> <span class="n">e4_N</span><span class="p">)</span>
+        <span class="n">x4</span><span class="p">,</span><span class="n">x1</span><span class="p">,</span><span class="n">x2</span><span class="p">,</span><span class="n">x3</span><span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">x4_range</span><span class="p">,</span> <span class="n">x1_range</span><span class="p">,</span> <span class="n">x2_range</span><span class="p">,</span> <span class="n">x3_range</span><span class="p">,</span> <span class="n">indexing</span><span class="o">=</span><span class="s1">'ij'</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">x4</span><span class="o">*</span><span class="n">e4</span> <span class="o">+</span> <span class="n">x1</span><span class="o">*</span><span class="n">e1</span> <span class="o">+</span> <span class="n">x2</span><span class="o">*</span><span class="n">e2</span> <span class="o">+</span> <span class="n">x3</span><span class="o">*</span><span class="n">e3</span>  
+
+<span class="k">def</span><span class="w"> </span><span class="nf">make_graph_func</span><span class="p">(</span><span class="n">frames</span><span class="p">,</span><span class="n">speed</span> <span class="p">):</span>
+<span class="w">    </span><span class="sd">'''light wrapper to create a graph function that cycles through frames'''</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">graph_func</span><span class="p">():</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">default_timer</span><span class="p">()</span><span class="o">*</span><span class="n">speed</span><span class="p">)</span>
+        <span class="n">num_frames</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">frames</span><span class="p">)</span>
+        
+        <span class="n">cycle_length</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">num_frames</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">t_mod</span> <span class="o">=</span> <span class="n">t</span> <span class="o">%</span> <span class="n">cycle_length</span>
+        
+        <span class="k">if</span> <span class="n">t_mod</span> <span class="o">&lt;</span> <span class="n">num_frames</span><span class="p">:</span>
+            <span class="n">frame_idx</span> <span class="o">=</span> <span class="n">t_mod</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">frame_idx</span> <span class="o">=</span> <span class="n">cycle_length</span> <span class="o">-</span> <span class="n">t_mod</span>
+        
+        <span class="k">return</span> <span class="n">frames</span><span class="p">[</span><span class="n">frame_idx</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">graph_func</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">render_frames</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">Fx</span><span class="p">,</span><span class="n">vmag</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
+    <span class="n">E</span>  <span class="o">=</span> <span class="p">(</span><span class="n">Fx</span> <span class="o">-</span> <span class="p">(</span><span class="n">et</span><span class="o">&gt;&gt;</span><span class="n">Fx</span><span class="p">))</span><span class="o">/</span><span class="mi">2</span>
+    <span class="n">H</span>  <span class="o">=</span> <span class="p">(</span><span class="n">Fx</span> <span class="o">+</span> <span class="p">(</span><span class="n">et</span><span class="o">&gt;&gt;</span><span class="n">Fx</span><span class="p">))</span><span class="o">/</span><span class="mi">2</span>
+    <span class="n">Eg</span> <span class="o">=</span> <span class="n">E</span><span class="o">*</span><span class="n">et</span><span class="o">.</span><span class="n">dual</span><span class="p">()</span>
+    <span class="n">Hg</span> <span class="o">=</span> <span class="n">H</span><span class="o">*</span><span class="n">e0</span><span class="o">*</span><span class="n">et</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">up</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">ve</span> <span class="o">=</span> <span class="n">exp</span><span class="p">(</span><span class="n">vmag</span><span class="o">*</span><span class="n">Eg</span><span class="p">)</span><span class="o">&gt;&gt;</span><span class="n">x</span>
+    <span class="n">vh</span> <span class="o">=</span> <span class="n">exp</span><span class="p">(</span><span class="n">vmag</span><span class="o">*</span><span class="n">Hg</span><span class="p">)</span><span class="o">&gt;&gt;</span><span class="n">x</span>
+
+    <span class="n">x_flat</span><span class="p">,</span><span class="n">ve_flat</span><span class="p">,</span><span class="n">vh_flat</span><span class="o">=</span> <span class="p">[</span><span class="n">bm</span><span class="p">(</span><span class="n">k</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">ve</span><span class="p">,</span> <span class="n">vh</span><span class="p">)]</span>  <span class="c1"># flatten arrays</span>
+    <span class="n">frames</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">N_frames</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">frame_idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N_frames</span><span class="p">):</span>
+        <span class="n">frames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="p">[</span><span class="n">c</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="o">*</span><span class="p">[(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)</span> <span class="k">for</span> <span class="n">a</span><span class="p">,</span><span class="n">b</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">x_flat</span><span class="p">,</span> <span class="n">ve_flat</span><span class="p">)],</span>
+            <span class="n">c</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="o">*</span><span class="p">[(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)</span> <span class="k">for</span> <span class="n">a</span><span class="p">,</span><span class="n">b</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">x_flat</span><span class="p">,</span> <span class="n">vh_flat</span><span class="p">)]])</span>
+    <span class="k">return</span> <span class="n">frames</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">F</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="n">F0</span> <span class="o">=</span> <span class="n">e1</span><span class="o">*</span><span class="n">et</span> <span class="o">+</span> <span class="n">e1</span><span class="o">*</span><span class="n">ek</span>
+    <span class="n">k</span>  <span class="o">=</span> <span class="n">ek</span><span class="o">+</span><span class="mf">.01</span><span class="o">*</span><span class="n">et</span>
+    <span class="n">xk</span> <span class="o">=</span> <span class="n">x</span><span class="o">*</span><span class="n">k</span>
+    <span class="k">return</span> <span class="n">exp</span><span class="p">(</span><span class="n">xk</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="n">F0</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">make_x</span><span class="p">(</span>
+    <span class="n">e12_bounds</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">e12_N</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> 
+    <span class="n">e3_bounds</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">e3_N</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+    <span class="n">e4_bounds</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">e4_N</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> 
+    <span class="n">use_torch</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">speed</span><span class="o">=</span><span class="mi">1</span>
+
+<span class="n">Fx</span> <span class="o">=</span> <span class="n">F</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">frames</span> <span class="o">=</span> <span class="n">render_frames</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">Fx</span><span class="p">,</span><span class="n">vmag</span><span class="o">=</span><span class="mf">.10</span><span class="p">)</span>
+<span class="n">graph_func</span> <span class="o">=</span> <span class="n">make_graph_func</span><span class="p">(</span><span class="n">frames</span><span class="p">,</span> <span class="n">speed</span><span class="p">)</span>
+<span class="n">pga</span><span class="o">.</span><span class="n">graph</span><span class="p">(</span><span class="o">*</span><span class="n">frames</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">grid</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">lineWidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">scale</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">height</span><span class="o">=</span><span class="s1">'700px'</span><span class="p">)</span>
+</pre></div>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=b8049b7c">
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>Using device: cpu
+</pre>
+</div>
+</div>
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[1]:</div>
+<div class="jupyter-widgets jp-OutputArea-output jp-OutputArea-executeResult" id="728cc7e1-4ec9-48a2-afe2-1eab813b6d5b" tabindex="0">
+<script type="text/javascript">
+var element = document.getElementById('728cc7e1-4ec9-48a2-afe2-1eab813b6d5b');
+</script>
+<script type="application/vnd.jupyter.widget-view+json">
+{"version_major": 2, "version_minor": 1, "model_id": "3a06a883bb5d46c68b8af799df1e9f87"}
+</script>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=fed4d940">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [2]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">x</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[2]:</div>
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
+<pre>(4, 2, 5, 5, 3)</pre>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=f5c084d6">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [3]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1">## uncomment to animate</span>
+<span class="c1">#stap.graph(graph_func, grid=True,lineWidth=2,animate=True,scale=.15,height='700px')</span>
+<span class="n">pga</span><span class="o">.</span><span class="n">graph</span><span class="p">(</span><span class="o">*</span><span class="n">frames</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">grid</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">lineWidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">scale</span><span class="o">=</span><span class="mf">.15</span><span class="p">,</span><span class="n">height</span><span class="o">=</span><span class="s1">'700px'</span><span class="p">)</span>
+<span class="c1">#pga.graph(*x_flat, grid=False,lineWidth=2,scale=.15,height='700px')</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[3]:</div>
+<div class="jupyter-widgets jp-OutputArea-output jp-OutputArea-executeResult" id="5e2a2677-80df-4049-be94-3050cf1fcc0b" tabindex="0">
+<script type="text/javascript">
+var element = document.getElementById('5e2a2677-80df-4049-be94-3050cf1fcc0b');
+</script>
+<script type="application/vnd.jupyter.widget-view+json">
+{"version_major": 2, "version_minor": 1, "model_id": "83d1bd98c84d40c2982d1f2f18316766"}
+</script>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=97a318f7">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [4]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">frames</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[4]:</div>
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
+<pre>[1810039,
+ (1.0 𝐞₀₁₂ + -1.0 𝐞₀₁₃ + 1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  0.986 𝐞₀₁₂ + -1.0 𝐞₀₁₃ + 0.962 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₃ + 1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  -0.102 𝐞₀₁₂ + -1.02 𝐞₀₁₃ + 0.717 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + -1.0 𝐞₀₁₃ + 1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  -1.77 𝐞₀₁₂ + -1.14 𝐞₀₁₃ + -1.11 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + -0.5 𝐞₀₁₃ + 1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  0.998 𝐞₀₁₂ + -0.519 𝐞₀₁₃ + 0.975 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-0.5 𝐞₀₁₃ + 1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  -0.0157 𝐞₀₁₂ + -0.639 𝐞₀₁₃ + 0.816 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + -0.5 𝐞₀₁₃ + 1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  -1.12 𝐞₀₁₂ + -1.54 𝐞₀₁₃ + -0.368 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + 1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  1.0 𝐞₀₁₂ + -0.0269 𝐞₀₁₃ + 1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃, -0.2 𝐞₀₁₃ + 1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + 1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  -1.0 𝐞₀₁₂ + -1.49 𝐞₀₁₃ + 1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + 0.5 𝐞₀₁₃ + 1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  1.0 𝐞₀₁₂ + 0.481 𝐞₀₁₃ + 1.02 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (0.5 𝐞₀₁₃ + 1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  0.0157 𝐞₀₁₂ + 0.361 𝐞₀₁₃ + 1.18 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + 0.5 𝐞₀₁₃ + 1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  -0.879 𝐞₀₁₂ + -0.537 𝐞₀₁₃ + 2.37 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + 1.0 𝐞₀₁₃ + 1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  1.01 𝐞₀₁₂ + 0.998 𝐞₀₁₃ + 1.04 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₃ + 1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  0.102 𝐞₀₁₂ + 0.981 𝐞₀₁₃ + 1.28 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + 1.0 𝐞₀₁₃ + 1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  -0.233 𝐞₀₁₂ + 0.861 𝐞₀₁₃ + 3.11 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + -1.0 𝐞₀₁₃ + 0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  0.996 𝐞₀₁₂ + -0.982 𝐞₀₁₃ + 0.475 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₃ + 0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  -0.0315 𝐞₀₁₂ + -0.863 𝐞₀₁₃ + 0.316 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + -1.0 𝐞₀₁₃ + 0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  -1.24 𝐞₀₁₂ + 0.0152 𝐞₀₁₃ + -0.868 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + -0.5 𝐞₀₁₃ + 0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  1.01 𝐞₀₁₂ + -0.501 𝐞₀₁₃ + 0.484 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-0.5 𝐞₀₁₃ + 0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  0.0384 𝐞₀₁₂ + -0.506 𝐞₀₁₃ + 0.382 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + -0.5 𝐞₀₁₃ + 0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  -0.721 𝐞₀₁₂ + -0.544 𝐞₀₁₃ + -0.376 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + 0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  1.0 𝐞₀₁₂ + -0.0106 𝐞₀₁₃ + 0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃, -0.0786 𝐞₀₁₃ + 0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + 0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  -1.0 𝐞₀₁₂ + -0.581 𝐞₀₁₃ + 0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + 0.5 𝐞₀₁₃ + 0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  0.995 𝐞₀₁₂ + 0.499 𝐞₀₁₃ + 0.516 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (0.5 𝐞₀₁₃ + 0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  -0.0384 𝐞₀₁₂ + 0.494 𝐞₀₁₃ + 0.618 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + 0.5 𝐞₀₁₃ + 0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  -1.28 𝐞₀₁₂ + 0.456 𝐞₀₁₃ + 1.38 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + 1.0 𝐞₀₁₃ + 0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  1.0 𝐞₀₁₂ + 1.02 𝐞₀₁₃ + 0.525 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₃ + 0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  0.0315 𝐞₀₁₂ + 1.14 𝐞₀₁₃ + 0.684 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + 1.0 𝐞₀₁₃ + 0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  -0.757 𝐞₀₁₂ + 2.02 𝐞₀₁₃ + 1.87 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + -1.0 𝐞₀₁₃ + 1.0 𝐞₁₂₃, 1.0 𝐞₀₁₂ + -0.973 𝐞₀₁₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₃ + 1.0 𝐞₁₂₃, 1.35e-05 𝐞₀₁₂ + -0.8 𝐞₀₁₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + -1.0 𝐞₀₁₃ + 1.0 𝐞₁₂₃, -1.01 𝐞₀₁₂ + 0.488 𝐞₀₁₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + -0.5 𝐞₀₁₃ + 1.0 𝐞₁₂₃, 1.01 𝐞₀₁₂ + -0.493 𝐞₀₁₃ + 1.0 𝐞₁₂₃),
+ (-0.5 𝐞₀₁₃ + 1.0 𝐞₁₂₃, 0.0615 𝐞₀₁₂ + -0.451 𝐞₀₁₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + -0.5 𝐞₀₁₃ + 1.0 𝐞₁₂₃, -0.551 𝐞₀₁₂ + -0.132 𝐞₀₁₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + 1.0 𝐞₁₂₃, 1.0 𝐞₀₁₂ + -0.00381 𝐞₀₁₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₁₂₃, -0.0276 𝐞₀₁₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + 1.0 𝐞₁₂₃, -1.0 𝐞₀₁₂ + -0.2 𝐞₀₁₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + 0.5 𝐞₀₁₃ + 1.0 𝐞₁₂₃, 0.992 𝐞₀₁₂ + 0.507 𝐞₀₁₃ + 1.0 𝐞₁₂₃),
+ (0.5 𝐞₀₁₃ + 1.0 𝐞₁₂₃, -0.0615 𝐞₀₁₂ + 0.549 𝐞₀₁₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + 0.5 𝐞₀₁₃ + 1.0 𝐞₁₂₃, -1.45 𝐞₀₁₂ + 0.868 𝐞₀₁₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + 1.0 𝐞₀₁₃ + 1.0 𝐞₁₂₃, 1.0 𝐞₀₁₂ + 1.03 𝐞₀₁₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₃ + 1.0 𝐞₁₂₃, -1.35e-05 𝐞₀₁₂ + 1.2 𝐞₀₁₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + 1.0 𝐞₀₁₃ + 1.0 𝐞₁₂₃, -0.99 𝐞₀₁₂ + 2.49 𝐞₀₁₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + -1.0 𝐞₀₁₃ + -0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  0.996 𝐞₀₁₂ + -0.982 𝐞₀₁₃ + -0.475 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₃ + -0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  -0.0315 𝐞₀₁₂ + -0.863 𝐞₀₁₃ + -0.316 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + -1.0 𝐞₀₁₃ + -0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  -1.24 𝐞₀₁₂ + 0.0152 𝐞₀₁₃ + 0.868 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + -0.5 𝐞₀₁₃ + -0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  1.01 𝐞₀₁₂ + -0.501 𝐞₀₁₃ + -0.484 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-0.5 𝐞₀₁₃ + -0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  0.0384 𝐞₀₁₂ + -0.506 𝐞₀₁₃ + -0.382 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + -0.5 𝐞₀₁₃ + -0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  -0.721 𝐞₀₁₂ + -0.544 𝐞₀₁₃ + 0.376 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + -0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  1.0 𝐞₀₁₂ + -0.0106 𝐞₀₁₃ + -0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃, -0.0786 𝐞₀₁₃ + -0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + -0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  -1.0 𝐞₀₁₂ + -0.581 𝐞₀₁₃ + -0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + 0.5 𝐞₀₁₃ + -0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  0.995 𝐞₀₁₂ + 0.499 𝐞₀₁₃ + -0.516 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (0.5 𝐞₀₁₃ + -0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  -0.0384 𝐞₀₁₂ + 0.494 𝐞₀₁₃ + -0.618 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + 0.5 𝐞₀₁₃ + -0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  -1.28 𝐞₀₁₂ + 0.456 𝐞₀₁₃ + -1.38 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + 1.0 𝐞₀₁₃ + -0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  1.0 𝐞₀₁₂ + 1.02 𝐞₀₁₃ + -0.525 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₃ + -0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  0.0315 𝐞₀₁₂ + 1.14 𝐞₀₁₃ + -0.684 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + 1.0 𝐞₀₁₃ + -0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  -0.757 𝐞₀₁₂ + 2.02 𝐞₀₁₃ + -1.87 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + -1.0 𝐞₀₁₃ + -1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  0.986 𝐞₀₁₂ + -1.0 𝐞₀₁₃ + -0.962 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₃ + -1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  -0.102 𝐞₀₁₂ + -1.02 𝐞₀₁₃ + -0.717 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + -1.0 𝐞₀₁₃ + -1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  -1.77 𝐞₀₁₂ + -1.14 𝐞₀₁₃ + 1.11 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + -0.5 𝐞₀₁₃ + -1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  0.998 𝐞₀₁₂ + -0.519 𝐞₀₁₃ + -0.975 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-0.5 𝐞₀₁₃ + -1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  -0.0157 𝐞₀₁₂ + -0.639 𝐞₀₁₃ + -0.816 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + -0.5 𝐞₀₁₃ + -1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  -1.12 𝐞₀₁₂ + -1.54 𝐞₀₁₃ + 0.368 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + -1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  1.0 𝐞₀₁₂ + -0.0269 𝐞₀₁₃ + -1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃, -0.2 𝐞₀₁₃ + -1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + -1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  -1.0 𝐞₀₁₂ + -1.49 𝐞₀₁₃ + -1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + 0.5 𝐞₀₁₃ + -1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  1.0 𝐞₀₁₂ + 0.481 𝐞₀₁₃ + -1.02 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (0.5 𝐞₀₁₃ + -1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  0.0157 𝐞₀₁₂ + 0.361 𝐞₀₁₃ + -1.18 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + 0.5 𝐞₀₁₃ + -1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  -0.879 𝐞₀₁₂ + -0.537 𝐞₀₁₃ + -2.37 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + 1.0 𝐞₀₁₃ + -1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  1.01 𝐞₀₁₂ + 0.998 𝐞₀₁₃ + -1.04 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₃ + -1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  0.102 𝐞₀₁₂ + 0.981 𝐞₀₁₃ + -1.28 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + 1.0 𝐞₀₁₃ + -1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  -0.233 𝐞₀₁₂ + 0.861 𝐞₀₁₃ + -3.11 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + -1.0 𝐞₀₁₃ + 1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  1.06 𝐞₀₁₂ + -1.05 𝐞₀₁₃ + 0.963 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₃ + 1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  0.451 𝐞₀₁₂ + -1.37 𝐞₀₁₃ + 0.728 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + -1.0 𝐞₀₁₃ + 1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  2.28 𝐞₀₁₂ + -3.69 𝐞₀₁₃ + -0.996 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + -0.5 𝐞₀₁₃ + 1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  1.05 𝐞₀₁₂ + -0.61 𝐞₀₁₃ + 0.976 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-0.5 𝐞₀₁₃ + 1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  0.342 𝐞₀₁₂ + -1.29 𝐞₀₁₃ + 0.823 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + -0.5 𝐞₀₁₃ + 1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  1.49 𝐞₀₁₂ + -6.24 𝐞₀₁₃ + -0.297 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + 1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  1.0 𝐞₀₁₂ + -0.135 𝐞₀₁₃ + 1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃, -0.976 𝐞₀₁₃ + 1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + 1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  -1.0 𝐞₀₁₂ + -7.07 𝐞₀₁₃ + 1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + 0.5 𝐞₀₁₃ + 1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  0.953 𝐞₀₁₂ + 0.39 𝐞₀₁₃ + 1.02 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (0.5 𝐞₀₁₃ + 1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  -0.342 𝐞₀₁₂ + -0.294 𝐞₀₁₃ + 1.18 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + 0.5 𝐞₀₁₃ + 1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  -3.49 𝐞₀₁₂ + -5.24 𝐞₀₁₃ + 2.3 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + 1.0 𝐞₀₁₃ + 1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  0.938 𝐞₀₁₂ + 0.948 𝐞₀₁₃ + 1.04 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₃ + 1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  -0.451 𝐞₀₁₂ + 0.626 𝐞₀₁₃ + 1.27 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + 1.0 𝐞₀₁₃ + 1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  -4.28 𝐞₀₁₂ + -1.69 𝐞₀₁₃ + 3.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + -1.0 𝐞₀₁₃ + 0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  1.09 𝐞₀₁₂ + -1.07 𝐞₀₁₃ + 0.476 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₃ + 0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  0.684 𝐞₀₁₂ + -1.53 𝐞₀₁₃ + 0.323 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + -1.0 𝐞₀₁₃ + 0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  3.97 𝐞₀₁₂ + -4.8 𝐞₀₁₃ + -0.797 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + -0.5 𝐞₀₁₃ + 0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  1.07 𝐞₀₁₂ + -0.649 𝐞₀₁₃ + 0.485 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-0.5 𝐞₀₁₃ + 0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  0.494 𝐞₀₁₂ + -1.58 𝐞₀₁₃ + 0.387 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + -0.5 𝐞₀₁₃ + 0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  2.6 𝐞₀₁₂ + -8.3 𝐞₀₁₃ + -0.331 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + 0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  1.0 𝐞₀₁₂ + -0.182 𝐞₀₁₃ + 0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃, -1.31 𝐞₀₁₃ + 0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + 0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  -1.0 𝐞₀₁₂ + -9.52 𝐞₀₁₃ + 0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + 0.5 𝐞₀₁₃ + 0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  0.932 𝐞₀₁₂ + 0.351 𝐞₀₁₃ + 0.515 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (0.5 𝐞₀₁₃ + 0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  -0.494 𝐞₀₁₂ + -0.579 𝐞₀₁₃ + 0.613 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + 0.5 𝐞₀₁₃ + 0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  -4.6 𝐞₀₁₂ + -7.3 𝐞₀₁₃ + 1.33 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + 1.0 𝐞₀₁₃ + 0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  0.906 𝐞₀₁₂ + 0.926 𝐞₀₁₃ + 0.524 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₃ + 0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  -0.684 𝐞₀₁₂ + 0.471 𝐞₀₁₃ + 0.677 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + 1.0 𝐞₀₁₃ + 0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  -5.97 𝐞₀₁₂ + -2.8 𝐞₀₁₃ + 1.8 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + -1.0 𝐞₀₁₃ + 1.0 𝐞₁₂₃, 1.11 𝐞₀₁₂ + -1.08 𝐞₀₁₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₃ + 1.0 𝐞₁₂₃, 0.776 𝐞₀₁₂ + -1.59 𝐞₀₁₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + -1.0 𝐞₀₁₃ + 1.0 𝐞₁₂₃, 4.65 𝐞₀₁₂ + -5.25 𝐞₀₁₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + -0.5 𝐞₀₁₃ + 1.0 𝐞₁₂₃, 1.08 𝐞₀₁₂ + -0.665 𝐞₀₁₃ + 1.0 𝐞₁₂₃),
+ (-0.5 𝐞₀₁₃ + 1.0 𝐞₁₂₃, 0.554 𝐞₀₁₂ + -1.69 𝐞₀₁₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + -0.5 𝐞₀₁₃ + 1.0 𝐞₁₂₃, 3.04 𝐞₀₁₂ + -9.12 𝐞₀₁₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + 1.0 𝐞₁₂₃, 1.0 𝐞₀₁₂ + -0.2 𝐞₀₁₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₁₂₃, -1.45 𝐞₀₁₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + 1.0 𝐞₁₂₃, -1.0 𝐞₀₁₂ + -10.5 𝐞₀₁₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + 0.5 𝐞₀₁₃ + 1.0 𝐞₁₂₃, 0.924 𝐞₀₁₂ + 0.335 𝐞₀₁₃ + 1.0 𝐞₁₂₃),
+ (0.5 𝐞₀₁₃ + 1.0 𝐞₁₂₃, -0.554 𝐞₀₁₂ + -0.692 𝐞₀₁₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + 0.5 𝐞₀₁₃ + 1.0 𝐞₁₂₃, -5.04 𝐞₀₁₂ + -8.12 𝐞₀₁₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + 1.0 𝐞₀₁₃ + 1.0 𝐞₁₂₃, 0.893 𝐞₀₁₂ + 0.918 𝐞₀₁₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₃ + 1.0 𝐞₁₂₃, -0.776 𝐞₀₁₂ + 0.408 𝐞₀₁₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + 1.0 𝐞₀₁₃ + 1.0 𝐞₁₂₃, -6.65 𝐞₀₁₂ + -3.25 𝐞₀₁₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + -1.0 𝐞₀₁₃ + -0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  1.09 𝐞₀₁₂ + -1.07 𝐞₀₁₃ + -0.476 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₃ + -0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  0.684 𝐞₀₁₂ + -1.53 𝐞₀₁₃ + -0.323 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + -1.0 𝐞₀₁₃ + -0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  3.97 𝐞₀₁₂ + -4.8 𝐞₀₁₃ + 0.797 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + -0.5 𝐞₀₁₃ + -0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  1.07 𝐞₀₁₂ + -0.649 𝐞₀₁₃ + -0.485 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-0.5 𝐞₀₁₃ + -0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  0.494 𝐞₀₁₂ + -1.58 𝐞₀₁₃ + -0.387 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + -0.5 𝐞₀₁₃ + -0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  2.6 𝐞₀₁₂ + -8.3 𝐞₀₁₃ + 0.331 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + -0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  1.0 𝐞₀₁₂ + -0.182 𝐞₀₁₃ + -0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃, -1.31 𝐞₀₁₃ + -0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + -0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  -1.0 𝐞₀₁₂ + -9.52 𝐞₀₁₃ + -0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + 0.5 𝐞₀₁₃ + -0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  0.932 𝐞₀₁₂ + 0.351 𝐞₀₁₃ + -0.515 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (0.5 𝐞₀₁₃ + -0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  -0.494 𝐞₀₁₂ + -0.579 𝐞₀₁₃ + -0.613 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + 0.5 𝐞₀₁₃ + -0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  -4.6 𝐞₀₁₂ + -7.3 𝐞₀₁₃ + -1.33 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + 1.0 𝐞₀₁₃ + -0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  0.906 𝐞₀₁₂ + 0.926 𝐞₀₁₃ + -0.524 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₃ + -0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  -0.684 𝐞₀₁₂ + 0.471 𝐞₀₁₃ + -0.677 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + 1.0 𝐞₀₁₃ + -0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  -5.97 𝐞₀₁₂ + -2.8 𝐞₀₁₃ + -1.8 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + -1.0 𝐞₀₁₃ + -1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  1.06 𝐞₀₁₂ + -1.05 𝐞₀₁₃ + -0.963 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₃ + -1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  0.451 𝐞₀₁₂ + -1.37 𝐞₀₁₃ + -0.728 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + -1.0 𝐞₀₁₃ + -1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  2.28 𝐞₀₁₂ + -3.69 𝐞₀₁₃ + 0.996 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + -0.5 𝐞₀₁₃ + -1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  1.05 𝐞₀₁₂ + -0.61 𝐞₀₁₃ + -0.976 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-0.5 𝐞₀₁₃ + -1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  0.342 𝐞₀₁₂ + -1.29 𝐞₀₁₃ + -0.823 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + -0.5 𝐞₀₁₃ + -1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  1.49 𝐞₀₁₂ + -6.24 𝐞₀₁₃ + 0.297 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + -1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  1.0 𝐞₀₁₂ + -0.135 𝐞₀₁₃ + -1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃, -0.976 𝐞₀₁₃ + -1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + -1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  -1.0 𝐞₀₁₂ + -7.07 𝐞₀₁₃ + -1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + 0.5 𝐞₀₁₃ + -1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  0.953 𝐞₀₁₂ + 0.39 𝐞₀₁₃ + -1.02 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (0.5 𝐞₀₁₃ + -1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  -0.342 𝐞₀₁₂ + -0.294 𝐞₀₁₃ + -1.18 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + 0.5 𝐞₀₁₃ + -1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  -3.49 𝐞₀₁₂ + -5.24 𝐞₀₁₃ + -2.3 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + 1.0 𝐞₀₁₃ + -1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  0.938 𝐞₀₁₂ + 0.948 𝐞₀₁₃ + -1.04 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₃ + -1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  -0.451 𝐞₀₁₂ + 0.626 𝐞₀₁₃ + -1.27 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + 1.0 𝐞₀₁₃ + -1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  -4.28 𝐞₀₁₂ + -1.69 𝐞₀₁₃ + -3.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ 14245634,
+ (1.0 𝐞₀₁₂ + -1.0 𝐞₀₁₃ + 1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  1.01 𝐞₀₁₂ + -1.04 𝐞₀₁₃ + 0.998 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₃ + 1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  0.102 𝐞₀₁₂ + -1.28 𝐞₀₁₃ + 0.981 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + -1.0 𝐞₀₁₃ + 1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  -0.233 𝐞₀₁₂ + -3.11 𝐞₀₁₃ + 0.861 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + -0.5 𝐞₀₁₃ + 1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  1.0 𝐞₀₁₂ + -0.525 𝐞₀₁₃ + 1.02 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-0.5 𝐞₀₁₃ + 1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  0.0315 𝐞₀₁₂ + -0.684 𝐞₀₁₃ + 1.14 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + -0.5 𝐞₀₁₃ + 1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  -0.757 𝐞₀₁₂ + -1.87 𝐞₀₁₃ + 2.02 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + 1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃, 1.0 𝐞₀₁₂ + 1.03 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃, -1.35e-05 𝐞₀₁₂ + 1.2 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + 1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃, -0.99 𝐞₀₁₂ + 2.49 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + 0.5 𝐞₀₁₃ + 1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  1.0 𝐞₀₁₂ + 0.525 𝐞₀₁₃ + 1.02 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (0.5 𝐞₀₁₃ + 1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  0.0315 𝐞₀₁₂ + 0.684 𝐞₀₁₃ + 1.14 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + 0.5 𝐞₀₁₃ + 1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  -0.757 𝐞₀₁₂ + 1.87 𝐞₀₁₃ + 2.02 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + 1.0 𝐞₀₁₃ + 1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  1.01 𝐞₀₁₂ + 1.04 𝐞₀₁₃ + 0.998 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₃ + 1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  0.102 𝐞₀₁₂ + 1.28 𝐞₀₁₃ + 0.981 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + 1.0 𝐞₀₁₃ + 1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  -0.233 𝐞₀₁₂ + 3.11 𝐞₀₁₃ + 0.861 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + -1.0 𝐞₀₁₃ + 0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  1.0 𝐞₀₁₂ + -1.02 𝐞₀₁₃ + 0.481 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₃ + 0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  0.0157 𝐞₀₁₂ + -1.18 𝐞₀₁₃ + 0.361 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + -1.0 𝐞₀₁₃ + 0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  -0.879 𝐞₀₁₂ + -2.37 𝐞₀₁₃ + -0.537 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + -0.5 𝐞₀₁₃ + 0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  0.995 𝐞₀₁₂ + -0.516 𝐞₀₁₃ + 0.499 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-0.5 𝐞₀₁₃ + 0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  -0.0384 𝐞₀₁₂ + -0.618 𝐞₀₁₃ + 0.494 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + -0.5 𝐞₀₁₃ + 0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  -1.28 𝐞₀₁₂ + -1.38 𝐞₀₁₃ + 0.456 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + 0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃, 0.992 𝐞₀₁₂ + 0.507 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃, -0.0615 𝐞₀₁₂ + 0.549 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + 0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃, -1.45 𝐞₀₁₂ + 0.868 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + 0.5 𝐞₀₁₃ + 0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  0.995 𝐞₀₁₂ + 0.516 𝐞₀₁₃ + 0.499 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (0.5 𝐞₀₁₃ + 0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  -0.0384 𝐞₀₁₂ + 0.618 𝐞₀₁₃ + 0.494 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + 0.5 𝐞₀₁₃ + 0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  -1.28 𝐞₀₁₂ + 1.38 𝐞₀₁₃ + 0.456 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + 1.0 𝐞₀₁₃ + 0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  1.0 𝐞₀₁₂ + 1.02 𝐞₀₁₃ + 0.481 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₃ + 0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  0.0157 𝐞₀₁₂ + 1.18 𝐞₀₁₃ + 0.361 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + 1.0 𝐞₀₁₃ + 0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  -0.879 𝐞₀₁₂ + 2.37 𝐞₀₁₃ + -0.537 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + -1.0 𝐞₀₁₃ + 1.0 𝐞₁₂₃,
+  1.0 𝐞₀₁₂ + -1.0 𝐞₀₁₃ + -0.0269 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₃ + 1.0 𝐞₁₂₃, -1.0 𝐞₀₁₃ + -0.2 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + -1.0 𝐞₀₁₃ + 1.0 𝐞₁₂₃,
+  -1.0 𝐞₀₁₂ + -1.0 𝐞₀₁₃ + -1.49 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + -0.5 𝐞₀₁₃ + 1.0 𝐞₁₂₃,
+  1.0 𝐞₀₁₂ + -0.5 𝐞₀₁₃ + -0.0106 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-0.5 𝐞₀₁₃ + 1.0 𝐞₁₂₃, -0.5 𝐞₀₁₃ + -0.0786 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + -0.5 𝐞₀₁₃ + 1.0 𝐞₁₂₃,
+  -1.0 𝐞₀₁₂ + -0.5 𝐞₀₁₃ + -0.581 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + 1.0 𝐞₁₂₃, 1.0 𝐞₀₁₂ + -0.00381 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₁₂₃, -0.0276 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + 1.0 𝐞₁₂₃, -1.0 𝐞₀₁₂ + -0.2 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + 0.5 𝐞₀₁₃ + 1.0 𝐞₁₂₃,
+  1.0 𝐞₀₁₂ + 0.5 𝐞₀₁₃ + -0.0106 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (0.5 𝐞₀₁₃ + 1.0 𝐞₁₂₃, 0.5 𝐞₀₁₃ + -0.0786 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + 0.5 𝐞₀₁₃ + 1.0 𝐞₁₂₃,
+  -1.0 𝐞₀₁₂ + 0.5 𝐞₀₁₃ + -0.581 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + 1.0 𝐞₀₁₃ + 1.0 𝐞₁₂₃,
+  1.0 𝐞₀₁₂ + 1.0 𝐞₀₁₃ + -0.0269 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₃ + 1.0 𝐞₁₂₃, 1.0 𝐞₀₁₃ + -0.2 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + 1.0 𝐞₀₁₃ + 1.0 𝐞₁₂₃,
+  -1.0 𝐞₀₁₂ + 1.0 𝐞₀₁₃ + -1.49 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + -1.0 𝐞₀₁₃ + -0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  0.998 𝐞₀₁₂ + -0.975 𝐞₀₁₃ + -0.519 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₃ + -0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  -0.0157 𝐞₀₁₂ + -0.816 𝐞₀₁₃ + -0.639 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + -1.0 𝐞₀₁₃ + -0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  -1.12 𝐞₀₁₂ + 0.368 𝐞₀₁₃ + -1.54 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + -0.5 𝐞₀₁₃ + -0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  1.01 𝐞₀₁₂ + -0.484 𝐞₀₁₃ + -0.501 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-0.5 𝐞₀₁₃ + -0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  0.0384 𝐞₀₁₂ + -0.382 𝐞₀₁₃ + -0.506 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + -0.5 𝐞₀₁₃ + -0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  -0.721 𝐞₀₁₂ + 0.376 𝐞₀₁₃ + -0.544 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + -0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃, 1.01 𝐞₀₁₂ + -0.493 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃, 0.0615 𝐞₀₁₂ + -0.451 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + -0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃, -0.551 𝐞₀₁₂ + -0.132 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + 0.5 𝐞₀₁₃ + -0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  1.01 𝐞₀₁₂ + 0.484 𝐞₀₁₃ + -0.501 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (0.5 𝐞₀₁₃ + -0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  0.0384 𝐞₀₁₂ + 0.382 𝐞₀₁₃ + -0.506 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + 0.5 𝐞₀₁₃ + -0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  -0.721 𝐞₀₁₂ + -0.376 𝐞₀₁₃ + -0.544 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + 1.0 𝐞₀₁₃ + -0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  0.998 𝐞₀₁₂ + 0.975 𝐞₀₁₃ + -0.519 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₃ + -0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  -0.0157 𝐞₀₁₂ + 0.816 𝐞₀₁₃ + -0.639 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + 1.0 𝐞₀₁₃ + -0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  -1.12 𝐞₀₁₂ + -0.368 𝐞₀₁₃ + -1.54 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + -1.0 𝐞₀₁₃ + -1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  0.986 𝐞₀₁₂ + -0.962 𝐞₀₁₃ + -1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₃ + -1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  -0.102 𝐞₀₁₂ + -0.717 𝐞₀₁₃ + -1.02 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + -1.0 𝐞₀₁₃ + -1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  -1.77 𝐞₀₁₂ + 1.11 𝐞₀₁₃ + -1.14 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + -0.5 𝐞₀₁₃ + -1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  0.996 𝐞₀₁₂ + -0.475 𝐞₀₁₃ + -0.982 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-0.5 𝐞₀₁₃ + -1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  -0.0315 𝐞₀₁₂ + -0.316 𝐞₀₁₃ + -0.863 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + -0.5 𝐞₀₁₃ + -1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  -1.24 𝐞₀₁₂ + 0.868 𝐞₀₁₃ + 0.0152 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + -1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃, 1.0 𝐞₀₁₂ + -0.973 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃, 1.35e-05 𝐞₀₁₂ + -0.8 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + -1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃, -1.01 𝐞₀₁₂ + 0.488 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + 0.5 𝐞₀₁₃ + -1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  0.996 𝐞₀₁₂ + 0.475 𝐞₀₁₃ + -0.982 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (0.5 𝐞₀₁₃ + -1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  -0.0315 𝐞₀₁₂ + 0.316 𝐞₀₁₃ + -0.863 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + 0.5 𝐞₀₁₃ + -1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  -1.24 𝐞₀₁₂ + -0.868 𝐞₀₁₃ + 0.0152 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + 1.0 𝐞₀₁₃ + -1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  0.986 𝐞₀₁₂ + 0.962 𝐞₀₁₃ + -1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₃ + -1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  -0.102 𝐞₀₁₂ + 0.717 𝐞₀₁₃ + -1.02 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + 1.0 𝐞₀₁₃ + -1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  -1.77 𝐞₀₁₂ + -1.11 𝐞₀₁₃ + -1.14 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + -1.0 𝐞₀₁₃ + 1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  0.938 𝐞₀₁₂ + -1.04 𝐞₀₁₃ + 0.948 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₃ + 1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  -0.451 𝐞₀₁₂ + -1.27 𝐞₀₁₃ + 0.626 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + -1.0 𝐞₀₁₃ + 1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  -4.28 𝐞₀₁₂ + -3.0 𝐞₀₁₃ + -1.69 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + -0.5 𝐞₀₁₃ + 1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  0.906 𝐞₀₁₂ + -0.524 𝐞₀₁₃ + 0.926 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-0.5 𝐞₀₁₃ + 1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  -0.684 𝐞₀₁₂ + -0.677 𝐞₀₁₃ + 0.471 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + -0.5 𝐞₀₁₃ + 1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  -5.97 𝐞₀₁₂ + -1.8 𝐞₀₁₃ + -2.8 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + 1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃, 0.893 𝐞₀₁₂ + 0.918 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃, -0.776 𝐞₀₁₂ + 0.408 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + 1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃, -6.65 𝐞₀₁₂ + -3.25 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + 0.5 𝐞₀₁₃ + 1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  0.906 𝐞₀₁₂ + 0.524 𝐞₀₁₃ + 0.926 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (0.5 𝐞₀₁₃ + 1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  -0.684 𝐞₀₁₂ + 0.677 𝐞₀₁₃ + 0.471 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + 0.5 𝐞₀₁₃ + 1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  -5.97 𝐞₀₁₂ + 1.8 𝐞₀₁₃ + -2.8 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + 1.0 𝐞₀₁₃ + 1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  0.938 𝐞₀₁₂ + 1.04 𝐞₀₁₃ + 0.948 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₃ + 1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  -0.451 𝐞₀₁₂ + 1.27 𝐞₀₁₃ + 0.626 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + 1.0 𝐞₀₁₃ + 1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  -4.28 𝐞₀₁₂ + 3.0 𝐞₀₁₃ + -1.69 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + -1.0 𝐞₀₁₃ + 0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  0.953 𝐞₀₁₂ + -1.02 𝐞₀₁₃ + 0.39 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₃ + 0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  -0.342 𝐞₀₁₂ + -1.18 𝐞₀₁₃ + -0.294 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + -1.0 𝐞₀₁₃ + 0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  -3.49 𝐞₀₁₂ + -2.3 𝐞₀₁₃ + -5.24 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + -0.5 𝐞₀₁₃ + 0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  0.932 𝐞₀₁₂ + -0.515 𝐞₀₁₃ + 0.351 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-0.5 𝐞₀₁₃ + 0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  -0.494 𝐞₀₁₂ + -0.613 𝐞₀₁₃ + -0.579 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + -0.5 𝐞₀₁₃ + 0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  -4.6 𝐞₀₁₂ + -1.33 𝐞₀₁₃ + -7.3 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + 0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃, 0.924 𝐞₀₁₂ + 0.335 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃, -0.554 𝐞₀₁₂ + -0.692 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + 0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃, -5.04 𝐞₀₁₂ + -8.12 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + 0.5 𝐞₀₁₃ + 0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  0.932 𝐞₀₁₂ + 0.515 𝐞₀₁₃ + 0.351 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (0.5 𝐞₀₁₃ + 0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  -0.494 𝐞₀₁₂ + 0.613 𝐞₀₁₃ + -0.579 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + 0.5 𝐞₀₁₃ + 0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  -4.6 𝐞₀₁₂ + 1.33 𝐞₀₁₃ + -7.3 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + 1.0 𝐞₀₁₃ + 0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  0.953 𝐞₀₁₂ + 1.02 𝐞₀₁₃ + 0.39 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₃ + 0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  -0.342 𝐞₀₁₂ + 1.18 𝐞₀₁₃ + -0.294 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + 1.0 𝐞₀₁₃ + 0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  -3.49 𝐞₀₁₂ + 2.3 𝐞₀₁₃ + -5.24 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + -1.0 𝐞₀₁₃ + 1.0 𝐞₁₂₃,
+  1.0 𝐞₀₁₂ + -1.0 𝐞₀₁₃ + -0.135 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₃ + 1.0 𝐞₁₂₃, -1.0 𝐞₀₁₃ + -0.976 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + -1.0 𝐞₀₁₃ + 1.0 𝐞₁₂₃,
+  -1.0 𝐞₀₁₂ + -1.0 𝐞₀₁₃ + -7.07 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + -0.5 𝐞₀₁₃ + 1.0 𝐞₁₂₃,
+  1.0 𝐞₀₁₂ + -0.5 𝐞₀₁₃ + -0.182 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-0.5 𝐞₀₁₃ + 1.0 𝐞₁₂₃, -0.5 𝐞₀₁₃ + -1.31 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + -0.5 𝐞₀₁₃ + 1.0 𝐞₁₂₃,
+  -1.0 𝐞₀₁₂ + -0.5 𝐞₀₁₃ + -9.52 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + 1.0 𝐞₁₂₃, 1.0 𝐞₀₁₂ + -0.2 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₁₂₃, -1.45 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + 1.0 𝐞₁₂₃, -1.0 𝐞₀₁₂ + -10.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + 0.5 𝐞₀₁₃ + 1.0 𝐞₁₂₃,
+  1.0 𝐞₀₁₂ + 0.5 𝐞₀₁₃ + -0.182 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (0.5 𝐞₀₁₃ + 1.0 𝐞₁₂₃, 0.5 𝐞₀₁₃ + -1.31 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + 0.5 𝐞₀₁₃ + 1.0 𝐞₁₂₃,
+  -1.0 𝐞₀₁₂ + 0.5 𝐞₀₁₃ + -9.52 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + 1.0 𝐞₀₁₃ + 1.0 𝐞₁₂₃,
+  1.0 𝐞₀₁₂ + 1.0 𝐞₀₁₃ + -0.135 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₃ + 1.0 𝐞₁₂₃, 1.0 𝐞₀₁₃ + -0.976 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + 1.0 𝐞₀₁₃ + 1.0 𝐞₁₂₃,
+  -1.0 𝐞₀₁₂ + 1.0 𝐞₀₁₃ + -7.07 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + -1.0 𝐞₀₁₃ + -0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  1.05 𝐞₀₁₂ + -0.976 𝐞₀₁₃ + -0.61 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₃ + -0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  0.342 𝐞₀₁₂ + -0.823 𝐞₀₁₃ + -1.29 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + -1.0 𝐞₀₁₃ + -0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  1.49 𝐞₀₁₂ + 0.297 𝐞₀₁₃ + -6.24 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + -0.5 𝐞₀₁₃ + -0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  1.07 𝐞₀₁₂ + -0.485 𝐞₀₁₃ + -0.649 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-0.5 𝐞₀₁₃ + -0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  0.494 𝐞₀₁₂ + -0.387 𝐞₀₁₃ + -1.58 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + -0.5 𝐞₀₁₃ + -0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  2.6 𝐞₀₁₂ + 0.331 𝐞₀₁₃ + -8.3 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + -0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃, 1.08 𝐞₀₁₂ + -0.665 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃, 0.554 𝐞₀₁₂ + -1.69 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + -0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃, 3.04 𝐞₀₁₂ + -9.12 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + 0.5 𝐞₀₁₃ + -0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  1.07 𝐞₀₁₂ + 0.485 𝐞₀₁₃ + -0.649 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (0.5 𝐞₀₁₃ + -0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  0.494 𝐞₀₁₂ + 0.387 𝐞₀₁₃ + -1.58 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + 0.5 𝐞₀₁₃ + -0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  2.6 𝐞₀₁₂ + -0.331 𝐞₀₁₃ + -8.3 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + 1.0 𝐞₀₁₃ + -0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  1.05 𝐞₀₁₂ + 0.976 𝐞₀₁₃ + -0.61 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₃ + -0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  0.342 𝐞₀₁₂ + 0.823 𝐞₀₁₃ + -1.29 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + 1.0 𝐞₀₁₃ + -0.5 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  1.49 𝐞₀₁₂ + -0.297 𝐞₀₁₃ + -6.24 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + -1.0 𝐞₀₁₃ + -1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  1.06 𝐞₀₁₂ + -0.963 𝐞₀₁₃ + -1.05 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₃ + -1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  0.451 𝐞₀₁₂ + -0.728 𝐞₀₁₃ + -1.37 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + -1.0 𝐞₀₁₃ + -1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  2.28 𝐞₀₁₂ + 0.996 𝐞₀₁₃ + -3.69 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + -0.5 𝐞₀₁₃ + -1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  1.09 𝐞₀₁₂ + -0.476 𝐞₀₁₃ + -1.07 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-0.5 𝐞₀₁₃ + -1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  0.684 𝐞₀₁₂ + -0.323 𝐞₀₁₃ + -1.53 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + -0.5 𝐞₀₁₃ + -1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  3.97 𝐞₀₁₂ + 0.797 𝐞₀₁₃ + -4.8 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + -1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃, 1.11 𝐞₀₁₂ + -1.08 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃, 0.776 𝐞₀₁₂ + -1.59 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + -1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃, 4.65 𝐞₀₁₂ + -5.25 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + 0.5 𝐞₀₁₃ + -1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  1.09 𝐞₀₁₂ + 0.476 𝐞₀₁₃ + -1.07 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (0.5 𝐞₀₁₃ + -1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  0.684 𝐞₀₁₂ + 0.323 𝐞₀₁₃ + -1.53 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + 0.5 𝐞₀₁₃ + -1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  3.97 𝐞₀₁₂ + -0.797 𝐞₀₁₃ + -4.8 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₂ + 1.0 𝐞₀₁₃ + -1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  1.06 𝐞₀₁₂ + 0.963 𝐞₀₁₃ + -1.05 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (1.0 𝐞₀₁₃ + -1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  0.451 𝐞₀₁₂ + 0.728 𝐞₀₁₃ + -1.37 𝐞₀₂₃ + 1.0 𝐞₁₂₃),
+ (-1.0 𝐞₀₁₂ + 1.0 𝐞₀₁₃ + -1.0 𝐞₀₂₃ + 1.0 𝐞₁₂₃,
+  2.28 𝐞₀₁₂ + -0.996 𝐞₀₁₃ + -3.69 𝐞₀₂₃ + 1.0 𝐞₁₂₃)]</pre>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=92a0e4ac">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [5]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">up</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[5]:</div>
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
+<pre>[[[[ 1. -0. -1.]
+   [ 1. -0. -1.]
+   [ 1. -0. -1.]
+   [ 1. -0. -1.]
+   [ 1. -0. -1.]]
+
+  [[ 1. -0. -1.]
+   [ 1. -0. -1.]
+   [ 1. -0. -1.]
+   [ 1. -0. -1.]
+   [ 1. -0. -1.]]
+
+  [[ 1. -0. -1.]
+   [ 1. -0. -1.]
+   [ 1. -0. -1.]
+   [ 1. -0. -1.]
+   [ 1. -0. -1.]]
+
+  [[ 1. -0. -1.]
+   [ 1. -0. -1.]
+   [ 1. -0. -1.]
+   [ 1. -0. -1.]
+   [ 1. -0. -1.]]
+
+  [[ 1. -0. -1.]
+   [ 1. -0. -1.]
+   [ 1. -0. -1.]
+   [ 1. -0. -1.]
+   [ 1. -0. -1.]]]
+
+
+ [[[ 1. -0. -1.]
+   [ 1. -0. -1.]
+   [ 1. -0. -1.]
+   [ 1. -0. -1.]
+   [ 1. -0. -1.]]
+
+  [[ 1. -0. -1.]
+   [ 1. -0. -1.]
+   [ 1. -0. -1.]
+   [ 1. -0. -1.]
+   [ 1. -0. -1.]]
+
+  [[ 1. -0. -1.]
+   [ 1. -0. -1.]
+   [ 1. -0. -1.]
+   [ 1. -0. -1.]
+   [ 1. -0. -1.]]
+
+  [[ 1. -0. -1.]
+   [ 1. -0. -1.]
+   [ 1. -0. -1.]
+   [ 1. -0. -1.]
+   [ 1. -0. -1.]]
+
+  [[ 1. -0. -1.]
+   [ 1. -0. -1.]
+   [ 1. -0. -1.]
+   [ 1. -0. -1.]
+   [ 1. -0. -1.]]]] 𝐞₀₁₂ + [[[[-1.  -1.  -1. ]
+   [-0.5 -0.5 -0.5]
+   [ 0.   0.   0. ]
+   [ 0.5  0.5  0.5]
+   [ 1.   1.   1. ]]
+
+  [[-1.  -1.  -1. ]
+   [-0.5 -0.5 -0.5]
+   [ 0.   0.   0. ]
+   [ 0.5  0.5  0.5]
+   [ 1.   1.   1. ]]
+
+  [[-1.  -1.  -1. ]
+   [-0.5 -0.5 -0.5]
+   [ 0.   0.   0. ]
+   [ 0.5  0.5  0.5]
+   [ 1.   1.   1. ]]
+
+  [[-1.  -1.  -1. ]
+   [-0.5 -0.5 -0.5]
+   [ 0.   0.   0. ]
+   [ 0.5  0.5  0.5]
+   [ 1.   1.   1. ]]
+
+  [[-1.  -1.  -1. ]
+   [-0.5 -0.5 -0.5]
+   [ 0.   0.   0. ]
+   [ 0.5  0.5  0.5]
+   [ 1.   1.   1. ]]]
+
+
+ [[[-1.  -1.  -1. ]
+   [-0.5 -0.5 -0.5]
+   [ 0.   0.   0. ]
+   [ 0.5  0.5  0.5]
+   [ 1.   1.   1. ]]
+
+  [[-1.  -1.  -1. ]
+   [-0.5 -0.5 -0.5]
+   [ 0.   0.   0. ]
+   [ 0.5  0.5  0.5]
+   [ 1.   1.   1. ]]
+
+  [[-1.  -1.  -1. ]
+   [-0.5 -0.5 -0.5]
+   [ 0.   0.   0. ]
+   [ 0.5  0.5  0.5]
+   [ 1.   1.   1. ]]
+
+  [[-1.  -1.  -1. ]
+   [-0.5 -0.5 -0.5]
+   [ 0.   0.   0. ]
+   [ 0.5  0.5  0.5]
+   [ 1.   1.   1. ]]
+
+  [[-1.  -1.  -1. ]
+   [-0.5 -0.5 -0.5]
+   [ 0.   0.   0. ]
+   [ 0.5  0.5  0.5]
+   [ 1.   1.   1. ]]]] 𝐞₀₁₃ + [[[[ 1.   1.   1. ]
+   [ 1.   1.   1. ]
+   [ 1.   1.   1. ]
+   [ 1.   1.   1. ]
+   [ 1.   1.   1. ]]
+
+  [[ 0.5  0.5  0.5]
+   [ 0.5  0.5  0.5]
+   [ 0.5  0.5  0.5]
+   [ 0.5  0.5  0.5]
+   [ 0.5  0.5  0.5]]
+
+  [[-0.  -0.  -0. ]
+   [-0.  -0.  -0. ]
+   [-0.  -0.  -0. ]
+   [-0.  -0.  -0. ]
+   [-0.  -0.  -0. ]]
+
+  [[-0.5 -0.5 -0.5]
+   [-0.5 -0.5 -0.5]
+   [-0.5 -0.5 -0.5]
+   [-0.5 -0.5 -0.5]
+   [-0.5 -0.5 -0.5]]
+
+  [[-1.  -1.  -1. ]
+   [-1.  -1.  -1. ]
+   [-1.  -1.  -1. ]
+   [-1.  -1.  -1. ]
+   [-1.  -1.  -1. ]]]
+
+
+ [[[ 1.   1.   1. ]
+   [ 1.   1.   1. ]
+   [ 1.   1.   1. ]
+   [ 1.   1.   1. ]
+   [ 1.   1.   1. ]]
+
+  [[ 0.5  0.5  0.5]
+   [ 0.5  0.5  0.5]
+   [ 0.5  0.5  0.5]
+   [ 0.5  0.5  0.5]
+   [ 0.5  0.5  0.5]]
+
+  [[-0.  -0.  -0. ]
+   [-0.  -0.  -0. ]
+   [-0.  -0.  -0. ]
+   [-0.  -0.  -0. ]
+   [-0.  -0.  -0. ]]
+
+  [[-0.5 -0.5 -0.5]
+   [-0.5 -0.5 -0.5]
+   [-0.5 -0.5 -0.5]
+   [-0.5 -0.5 -0.5]
+   [-0.5 -0.5 -0.5]]
+
+  [[-1.  -1.  -1. ]
+   [-1.  -1.  -1. ]
+   [-1.  -1.  -1. ]
+   [-1.  -1.  -1. ]
+   [-1.  -1.  -1. ]]]] 𝐞₀₂₃ + [[[[1. 1. 1.]
+   [1. 1. 1.]
+   [1. 1. 1.]
+   [1. 1. 1.]
+   [1. 1. 1.]]
+
+  [[1. 1. 1.]
+   [1. 1. 1.]
+   [1. 1. 1.]
+   [1. 1. 1.]
+   [1. 1. 1.]]
+
+  [[1. 1. 1.]
+   [1. 1. 1.]
+   [1. 1. 1.]
+   [1. 1. 1.]
+   [1. 1. 1.]]
+
+  [[1. 1. 1.]
+   [1. 1. 1.]
+   [1. 1. 1.]
+   [1. 1. 1.]
+   [1. 1. 1.]]
+
+  [[1. 1. 1.]
+   [1. 1. 1.]
+   [1. 1. 1.]
+   [1. 1. 1.]
+   [1. 1. 1.]]]
+
+
+ [[[1. 1. 1.]
+   [1. 1. 1.]
+   [1. 1. 1.]
+   [1. 1. 1.]
+   [1. 1. 1.]]
+
+  [[1. 1. 1.]
+   [1. 1. 1.]
+   [1. 1. 1.]
+   [1. 1. 1.]
+   [1. 1. 1.]]
+
+  [[1. 1. 1.]
+   [1. 1. 1.]
+   [1. 1. 1.]
+   [1. 1. 1.]
+   [1. 1. 1.]]
+
+  [[1. 1. 1.]
+   [1. 1. 1.]
+   [1. 1. 1.]
+   [1. 1. 1.]
+   [1. 1. 1.]]
+
+  [[1. 1. 1.]
+   [1. 1. 1.]
+   [1. 1. 1.]
+   [1. 1. 1.]
+   [1. 1. 1.]]]] 𝐞₁₂₃ + [[[[-1. -1. -1.]
+   [-1. -1. -1.]
+   [-1. -1. -1.]
+   [-1. -1. -1.]
+   [-1. -1. -1.]]
+
+  [[-1. -1. -1.]
+   [-1. -1. -1.]
+   [-1. -1. -1.]
+   [-1. -1. -1.]
+   [-1. -1. -1.]]
+
+  [[-1. -1. -1.]
+   [-1. -1. -1.]
+   [-1. -1. -1.]
+   [-1. -1. -1.]
+   [-1. -1. -1.]]
+
+  [[-1. -1. -1.]
+   [-1. -1. -1.]
+   [-1. -1. -1.]
+   [-1. -1. -1.]
+   [-1. -1. -1.]]
+
+  [[-1. -1. -1.]
+   [-1. -1. -1.]
+   [-1. -1. -1.]
+   [-1. -1. -1.]
+   [-1. -1. -1.]]]
+
+
+ [[[ 1.  1.  1.]
+   [ 1.  1.  1.]
+   [ 1.  1.  1.]
+   [ 1.  1.  1.]
+   [ 1.  1.  1.]]
+
+  [[ 1.  1.  1.]
+   [ 1.  1.  1.]
+   [ 1.  1.  1.]
+   [ 1.  1.  1.]
+   [ 1.  1.  1.]]
+
+  [[ 1.  1.  1.]
+   [ 1.  1.  1.]
+   [ 1.  1.  1.]
+   [ 1.  1.  1.]
+   [ 1.  1.  1.]]
+
+  [[ 1.  1.  1.]
+   [ 1.  1.  1.]
+   [ 1.  1.  1.]
+   [ 1.  1.  1.]
+   [ 1.  1.  1.]]
+
+  [[ 1.  1.  1.]
+   [ 1.  1.  1.]
+   [ 1.  1.  1.]
+   [ 1.  1.  1.]
+   [ 1.  1.  1.]]]] 𝐞₀₁₂₃₄</pre>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=2a9b9e80">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7650,108 +8619,10 @@ e^{-\tau \partial_a} &amp;=\tilde T_{\tau a}
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=e94b5d3c">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Ortho-not-Normal">Ortho-not-Normal<a class="anchor-link" href="#Ortho-not-Normal">¶</a></h2>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=e0c8a28e">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Curvature--on-a-sphere">Curvature  on a sphere<a class="anchor-link" href="#Curvature--on-a-sphere">¶</a></h2>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=7fd33966">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [1]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">kingdon</span><span class="w"> </span><span class="kn">import</span> <span class="n">Algebra</span><span class="p">,</span> <span class="n">calculus</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">kingdon.numerical</span><span class="w"> </span><span class="kn">import</span> <span class="n">exp</span>  <span class="k">as</span> <span class="n">exp_</span>
-<span class="n">exp</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">exp_</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">n</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span> <span class="c1"># precision control of exp</span>
-
-<span class="n">pga</span> <span class="o">=</span> <span class="n">Algebra</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">start_index</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> 
-<span class="nb">locals</span><span class="p">()</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">pga</span><span class="o">.</span><span class="n">blades</span><span class="p">)</span>
-
-<span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="mi">3</span><span class="o">*</span><span class="n">x</span>
-<span class="n">x</span><span class="o">=</span> <span class="n">pga</span><span class="o">.</span><span class="n">random_vector</span><span class="p">()</span>
-<span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-<span class="k">lambda</span> <span class="n">f</span><span class="p">,</span><span class="n">a</span><span class="p">:</span> <span class="n">f</span><span class="o">+</span><span class="n">da</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="n">a</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[1]:</div>
-<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
-<pre>&lt;function __main__.&lt;lambda&gt;(f, a)&gt;</pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=3596b18c">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Transmission-line-Model">Transmission line Model<a class="anchor-link" href="#Transmission-line-Model">¶</a></h2><p>\begin{align}
-R &amp;\equiv e_{30} − e_{13} \\
-X &amp;\equiv e_{12} − e_{20} \\
-G &amp;\equiv e_{30} + e_{13} \\
-B &amp;\equiv e_{12} + e_{20}
-\end{align}</p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=c331db6a">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Others">Others<a class="anchor-link" href="#Others">¶</a></h2><p>How can split this up by div/curl:</p>
-<p>\begin{align}
-e^{\nabla}\cdot A &amp;= A + J \\
-e^{\nabla}\wedge A &amp;= F
-\end{align}</p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=3c13e1e7">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="References">References<a class="anchor-link" href="#References">¶</a></h2><p>[1]  Hestenes, D. (1984). <em>Clifford Algebra to Geometric Calculus: A Practical Language for Physics</em>. D. Reidel Publishing Company.</p>
-<p>[2]  A. Arsenovic, "Applications of Conformal Geometric Algebra to Transmission Line Theory," in IEEE Access, vol. 5, pp. 19920-19941, 2017, doi: 10.1109/ACCESS.2017.2727819.</p>
-</div>
-</div>
-</div>
-</div>
 </main>
 </body>
+<script type="application/vnd.jupyter.widget-state+json">
+{"state": {"dffab0165dc5413aa381de30dc23d1b2": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets\/base", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets\/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets\/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "3a06a883bb5d46c68b8af799df1e9f87": {"model_name": "AnyModel", "model_module": "anywidget", "model_module_version": "~0.9.*", "state": {"_anywidget_id": "kingdon.graph.GraphWidget", "_dom_classes": [], "_esm": "const ganja_source = sessionStorage.ganja_source ||\n    await fetch(\"https:\/\/enki.ws\/ganja.js\/ganja.js\")\n          .then(x => x.text());\n\nif (!sessionStorage.ganja_source) {sessionStorage.ganja_source = ganja_source};\n\nconst Algebra = (() => {\n    const ctx = {};\n    (new Function('const define=1;' + ganja_source)).apply(ctx);\n    return ctx.Algebra;\n})();\n\nfunction render({ model, el }) {\n    var canvas = Algebra({metric: model.get('signature'), graded: model.get('graded')}).inline((model)=>{\n        \/\/ Define constants\n        var key2idx = model.get('key2idx');\n        var draggable_points_idxs = model.get('draggable_points_idxs');\n        var options = model.get('options');\n        var d = model.get('signature').length;\n\n        function grade(key) {\n            var count = 0;\n            while (key) {\n                count += key & 1;\n                key >>= 1;\n            }\n            return count;\n        }\n\n        \/\/ Define helper functions.\n        var toElement = (o)=>{\n            \/* convert object to Element *\/\n            var _values = o['mv'] instanceof DataView?new Float64Array(o['mv'].buffer):o['mv'];\n            if ('grades' in o) {\n                var values = new Element();\n                o['grades'].forEach(grade=>values[grade] = []);\n                o['keys'].forEach((k, j)=>{var g = grade(k); values[g][key2idx[g][k]] = _values[j]});\n                return values;\n            }\n            if ('keys' in o) {\n                var values = Array(Object.keys(key2idx).length).fill(0);\n                o['keys'].forEach((k, j)=>values[key2idx[k]] = _values[j]);\n                return new Element(values);\n            }\n            return new Element(_values);\n        }\n        var decode = x=>typeof x === 'object' && 'mv' in x?toElement(x):Array.isArray(x)?x.map(decode):x;\n        var encode = x=>x instanceof Element?({mv:[...x]}):x?.map?x.map(encode):x;\n\n        \/\/ Decode camera if provided.\n         if (options?.camera && typeof options.camera === 'object' && 'mv' in options.camera) {\n             options.camera = toElement(options.camera)\n         }\n\n        if (options?.animate) {\n            var graph_func = ()=>{\n                if (canvas?.value && draggable_points_idxs?.length) {\n                    model.set('draggable_points', encode(draggable_points_idxs.map(i=>canvas.value[i])));\n                    model.save_changes();\n                }\n                \/\/ Send an update request. This drives the event loop.\n                model.send({ type: \"update_mvs\" });\n                var subjects = decode(model.get('subjects'));\n                return [...subjects];\n            }\n        } else {\n            var graph_func = ()=>{\n                if (canvas?.value && draggable_points_idxs?.length) {\n                    model.set('draggable_points', encode(draggable_points_idxs.map(i=>canvas.value[i])));\n                    model.save_changes();\n                }\n                var subjects = decode(model.get('subjects'));\n                return [...subjects];\n            }\n\n            \/\/ This ensures the remake is always called one last time to show the final position.\n            model.on(\"change:subjects\", ()=>{\n                if (canvas.remake) canvas = canvas.remake(0);\n                if (canvas.update) canvas.update(canvas.value);\n            });\n        }\n\n        var canvas;\n        canvas = this.graph(graph_func, options)\n        return canvas;\n    })(model)\n\n    var options = model.get('options');\n    canvas.style.width = options?.width || `min( 100%, 1024px )`;\n    canvas.style.height = options?.height || 'auto';\n    canvas.style.aspectRatio = '16 \/ 6';\n    canvas.style.background = 'white';\n    canvas.style.marginLeft = `calc( (100% - ${ options?.width??\"min(100%, 1024px)\" }) \/ 2 )`;\n    el.appendChild(canvas);\n}\n\nexport default { render };\n", "_model_module": "anywidget", "_model_module_version": "~0.9.*", "_model_name": "AnyModel", "_view_count": null, "_view_module": "anywidget", "_view_module_version": "~0.9.*", "_view_name": "AnyView", "cayley": [["1", "e0", "e1", "e2", "e3", "e01", "e02", "e03", "e12", "e13", "e23", "e012", "e013", "e023", "e123", "e0123"], ["e0", "0", "e01", "e02", "e03", "0", "0", "0", "e012", "e013", "e023", "0", "0", "0", "e0123", "0"], ["e1", "-e01", "1", "e12", "e13", "-e0", "-e012", "-e013", "e2", "e3", "e123", "-e02", "-e03", "-e0123", "e23", "-e023"], ["e2", "-e02", "-e12", "1", "e23", "e012", "-e0", "-e023", "-e1", "-e123", "e3", "e01", "e0123", "-e03", "-e13", "e013"], ["e3", "-e03", "-e13", "-e23", "1", "e013", "e023", "-e0", "e123", "-e1", "-e2", "-e0123", "e01", "e02", "e12", "-e012"], ["e01", "0", "e0", "e012", "e013", "0", "0", "0", "e02", "e03", "e0123", "0", "0", "0", "e023", "0"], ["e02", "0", "-e012", "e0", "e023", "0", "0", "0", "-e01", "-e0123", "e03", "0", "0", "0", "-e013", "0"], ["e03", "0", "-e013", "-e023", "e0", "0", "0", "0", "e0123", "-e01", "-e02", "0", "0", "0", "e012", "0"], ["e12", "e012", "-e2", "e1", "e123", "-e02", "e01", "e0123", "-1", "-e23", "e13", "-e0", "-e023", "e013", "-e3", "-e03"], ["e13", "e013", "-e3", "-e123", "e1", "-e03", "-e0123", "e01", "e23", "-1", "-e12", "e023", "-e0", "-e012", "e2", "e02"], ["e23", "e023", "e123", "-e3", "e2", "e0123", "-e03", "e02", "-e13", "e12", "-1", "-e013", "e012", "-e0", "-e1", "-e01"], ["e012", "0", "-e02", "e01", "e0123", "0", "0", "0", "-e0", "-e023", "e013", "0", "0", "0", "-e03", "0"], ["e013", "0", "-e03", "-e0123", "e01", "0", "0", "0", "e023", "-e0", "-e012", "0", "0", "0", "e02", "0"], ["e023", "0", "e0123", "-e03", "e02", "0", "0", "0", "-e013", "e012", "-e0", "0", "0", "0", "-e01", "0"], ["e123", "-e0123", "e23", "-e13", "e12", "-e023", "e013", "-e012", "-e3", "e2", "-e1", "e03", "-e02", "e01", "-1", "e0"], ["e0123", "0", "e023", "-e013", "e012", "0", "0", "0", "-e03", "e02", "-e01", "0", "0", "0", "-e0", "0"]], "draggable_points": [[]], "draggable_points_idxs": [], "graded": false, "key2idx": {"0": 0, "1": 1, "2": 2, "4": 3, "8": 4, "3": 5, "5": 6, "9": 7, "6": 8, "10": 9, "12": 10, "7": 11, "11": 12, "13": 13, "14": 14, "15": 15}, "layout": "IPY_MODEL_dffab0165dc5413aa381de30dc23d1b2", "options": {"grid": false, "lineWidth": 2, "scale": 1, "height": "700px"}, "signature": [0, 1, 1, 1], "subjects": [1810039, [{"mv": [1.0, -1.0, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.9863336583657276, -1.0024537672211948, 0.9619424181618776, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, -1.0, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.10236880806352522, -1.0185003374145152, 0.7167788719322248, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, -1.0, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-1.7667030716594159, -1.1394401817010709, -1.1078343161950581, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, -0.5, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.9979631398780222, -0.5187051913189558, 0.9752835526474876, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, -0.5, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.015733380096314087, -0.6392475544072821, 0.816131641048622, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, -0.5, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-1.121302331854889, -1.536679481443681, -0.36789684727440486, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 0.0, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0, -0.026886493698432812, 1.0, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 0.0, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.0, -0.19998653298319696, 1.0, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 0.0, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-1.0, -1.4876551705751087, 1.0, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 0.5, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0020368601219778, 0.48129480868104424, 1.0247164473525125, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 0.5, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.015733380096314087, 0.3607524455927179, 1.183868358951378, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 0.5, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.8786976681451111, -0.536679481443681, 2.367896847274405, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 1.0, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0136663416342724, 0.9975462327788052, 1.0380575818381224, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 1.0, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.10236880806352522, 0.9814996625854849, 1.2832211280677752, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 1.0, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.23329692834058413, 0.860559818298929, 3.107834316195058, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, -1.0, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.9959262797560445, -0.981630520290187, 0.4752835526474875, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, -1.0, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.031466760192628174, -0.8634450159802151, 0.316131641048622, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, -1.0, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-1.2426046637097778, 0.015165789467926682, -0.8678968472744049, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, -0.5, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0052853127425063, -0.5008816881178957, 0.4841584965141806, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, -0.5, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.03840760766267537, -0.5062607775559212, 0.38219160374298544, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, -0.5, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.7209508708426928, -0.5444376151880905, -0.3761543137931599, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 0.0, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0, -0.010637887646112216, 0.5, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 0.0, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.0, -0.07860742142396496, 0.5, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 0.0, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-1.0, -0.58097225730094, 0.5, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 0.5, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.9947146872574937, 0.4991183118821043, 0.5158415034858195, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 0.5, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.03840760766267537, 0.4937392224440787, 0.6178083962570146, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 0.5, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-1.2790491291573072, 0.45556238481190947, 1.37615431379316, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 1.0, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0040737202439556, 1.0183694797098128, 0.5247164473525124, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 1.0, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.031466760192628174, 1.136554984019785, 0.683868358951378, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 1.0, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.757395336290222, 2.0151657894679267, 1.8678968472744049, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, -1.0, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0001841986483977, -0.9731141372789751, 0.0, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, -1.0, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.3467016803150185e-05, -0.8000134674702349, 0.0, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, -1.0, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-1.009844613541333, 0.48762259666996033, 0.0, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, -0.5, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0084012958490134, -0.4934744439601933, 0.0, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, -0.5, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.061451125752887394, -0.45098076044421287, 0.0, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, -0.5, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.5505272244968877, -0.13189269521662678, 0.0, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 0.0, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0, -0.0038126228583223233, 0.0, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 0.0, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.0, -0.027613847462178723, 0.0, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 0.0, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-1.0, -0.20000000000000143, 0.0, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 0.5, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.9915987041509866, 0.5065255560398068, 0.0, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 0.5, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.061451125752887394, 0.5490192395557871, 0.0, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 0.5, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-1.4494727755031123, 0.8681073047833732, 0.0, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 1.0, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.9998158013516023, 1.026885862721025, 0.0, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 1.0, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-1.3467016803150185e-05, 1.1999865325297652, 0.0, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 1.0, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.9901553864586669, 2.4876225966699606, 0.0, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, -1.0, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.9959262797560445, -0.981630520290187, -0.4752835526474875, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, -1.0, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.031466760192628174, -0.8634450159802151, -0.316131641048622, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, -1.0, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-1.2426046637097778, 0.015165789467926682, 0.8678968472744049, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, -0.5, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0052853127425063, -0.5008816881178957, -0.4841584965141806, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, -0.5, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.03840760766267537, -0.5062607775559212, -0.38219160374298544, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, -0.5, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.7209508708426928, -0.5444376151880905, 0.3761543137931599, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 0.0, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0, -0.010637887646112216, -0.5, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 0.0, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.0, -0.07860742142396496, -0.5, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 0.0, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-1.0, -0.58097225730094, -0.5, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 0.5, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.9947146872574937, 0.4991183118821043, -0.5158415034858195, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 0.5, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.03840760766267537, 0.4937392224440787, -0.6178083962570146, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 0.5, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-1.2790491291573072, 0.45556238481190947, -1.37615431379316, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 1.0, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0040737202439556, 1.0183694797098128, -0.5247164473525124, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 1.0, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.031466760192628174, 1.136554984019785, -0.683868358951378, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 1.0, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.757395336290222, 2.0151657894679267, -1.8678968472744049, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, -1.0, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.9863336583657276, -1.0024537672211948, -0.9619424181618776, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, -1.0, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.10236880806352522, -1.0185003374145152, -0.7167788719322248, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, -1.0, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-1.7667030716594159, -1.1394401817010709, 1.1078343161950581, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, -0.5, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.9979631398780222, -0.5187051913189558, -0.9752835526474876, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, -0.5, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.015733380096314087, -0.6392475544072821, -0.816131641048622, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, -0.5, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-1.121302331854889, -1.536679481443681, 0.36789684727440486, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 0.0, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0, -0.026886493698432812, -1.0, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 0.0, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.0, -0.19998653298319696, -1.0, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 0.0, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-1.0, -1.4876551705751087, -1.0, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 0.5, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0020368601219778, 0.48129480868104424, -1.0247164473525125, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 0.5, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.015733380096314087, 0.3607524455927179, -1.183868358951378, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 0.5, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.8786976681451111, -0.536679481443681, -2.367896847274405, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 1.0, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0136663416342724, 0.9975462327788052, -1.0380575818381224, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 1.0, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.10236880806352522, 0.9814996625854849, -1.2832211280677752, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 1.0, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.23329692834058413, 0.860559818298929, -3.107834316195058, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, -1.0, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.06219176545824, -1.052137356970081, 0.962907443764053, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, -1.0, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.45137415817723875, -1.374360068698714, 0.7278841312076739, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, -1.0, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [2.2758982129930234, -3.6877165422776828, -0.9963989753168976, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, -0.5, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.046981026586895, -0.609747739123213, 0.9759284729626705, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, -0.5, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.34176995370220625, -1.293693616598261, 0.8233412225252474, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, -0.5, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.4862692348176778, -6.240066316931459, -0.29655873507449315, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 0.0, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0, -0.13481386227251813, 1.0, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 0.0, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.0, -0.9763561658164792, 1.0, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 0.0, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-1.0, -7.071226756137094, 1.0, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 0.5, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.9530189734131049, 0.390252260876787, 1.0240715270373295, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 0.5, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.34176995370220625, -0.2936936165982611, 1.1766587774747526, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 0.5, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-3.486269234817678, -5.240066316931459, 2.296558735074493, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 1.0, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.93780823454176, 0.9478626430299192, 1.037092556235947, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 1.0, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.45137415817723875, 0.6256399313012859, 1.272115868792326, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 1.0, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-4.275898212993024, -1.6877165422776828, 2.9963989753168976, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, -1.0, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0939620531737904, -1.0736404485672186, 0.47592847296267043, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, -1.0, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.6835399074044125, -1.5287054503861326, 0.3233412225252475, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, -1.0, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [3.9725384696353556, -4.795228214319719, -0.7965587350744932, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, -0.5, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0678288720094853, -0.6491998193560926, 0.48458189863119544, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, -0.5, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.4942311711676743, -1.5790108343971738, 0.38681093703278824, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, -0.5, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [2.6012650207942514, -8.303287789127555, -0.33100291187941855, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 0.0, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0, -0.1815653144275997, 0.5, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 0.0, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.0, -1.3149736968951702, 0.5, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 0.0, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-1.0, -9.523660077378072, 0.5, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 0.5, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.9321711279905147, 0.3508001806439074, 0.5154181013688046, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 0.5, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.4942311711676743, -0.5790108343971738, 0.6131890629672118, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 0.5, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-4.601265020794251, -7.303287789127556, 1.3310029118794184, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 1.0, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.9060379468262098, 0.9263595514327814, 0.5240715270373295, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 1.0, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.6835399074044125, 0.4712945496138674, 0.6766587774747526, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 1.0, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-5.972538469635356, -2.7952282143197196, 1.7965587350744932, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, -1.0, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.1066569457904039, -1.0824564938346055, 0.0, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, -1.0, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.7763561658164791, -1.5920662685262452, 0.0, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, -1.0, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [4.651170624031625, -5.250472728390473, 0.0, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, -0.5, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.076064798619604, -0.664863913013589, 0.0, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, -0.5, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.5544854230458586, -1.6923513488715505, 0.0, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, -0.5, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [3.0421029541115256, -9.123311717536815, 0.0, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 0.0, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0, -0.2000000000000001, 0.0, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 0.0, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.0, -1.4485485970322025, 0.0, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 0.0, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-1.0, -10.49146518981981, 0.0, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 0.5, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.9239352013803962, 0.33513608698641095, 0.0, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 0.5, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.5544854230458586, -0.6923513488715505, 0.0, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 0.5, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-5.042102954111526, -8.123311717536815, 0.0, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 1.0, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.893343054209596, 0.9175435061653945, 0.0, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 1.0, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.7763561658164791, 0.4079337314737549, 0.0, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 1.0, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-6.651170624031625, -3.2504727283904726, 0.0, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, -1.0, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0939620531737904, -1.0736404485672186, -0.47592847296267043, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, -1.0, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.6835399074044125, -1.5287054503861326, -0.3233412225252475, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, -1.0, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [3.9725384696353556, -4.795228214319719, 0.7965587350744932, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, -0.5, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0678288720094853, -0.6491998193560926, -0.48458189863119544, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, -0.5, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.4942311711676743, -1.5790108343971738, -0.38681093703278824, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, -0.5, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [2.6012650207942514, -8.303287789127555, 0.33100291187941855, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 0.0, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0, -0.1815653144275997, -0.5, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 0.0, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.0, -1.3149736968951702, -0.5, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 0.0, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-1.0, -9.523660077378072, -0.5, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 0.5, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.9321711279905147, 0.3508001806439074, -0.5154181013688046, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 0.5, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.4942311711676743, -0.5790108343971738, -0.6131890629672118, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 0.5, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-4.601265020794251, -7.303287789127556, -1.3310029118794184, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 1.0, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.9060379468262098, 0.9263595514327814, -0.5240715270373295, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 1.0, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.6835399074044125, 0.4712945496138674, -0.6766587774747526, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 1.0, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-5.972538469635356, -2.7952282143197196, -1.7965587350744932, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, -1.0, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.06219176545824, -1.052137356970081, -0.962907443764053, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, -1.0, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.45137415817723875, -1.374360068698714, -0.7278841312076739, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, -1.0, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [2.2758982129930234, -3.6877165422776828, 0.9963989753168976, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, -0.5, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.046981026586895, -0.609747739123213, -0.9759284729626705, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, -0.5, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.34176995370220625, -1.293693616598261, -0.8233412225252474, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, -0.5, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.4862692348176778, -6.240066316931459, 0.29655873507449315, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 0.0, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0, -0.13481386227251813, -1.0, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 0.0, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.0, -0.9763561658164792, -1.0, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 0.0, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-1.0, -7.071226756137094, -1.0, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 0.5, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.9530189734131049, 0.390252260876787, -1.0240715270373295, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 0.5, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.34176995370220625, -0.2936936165982611, -1.1766587774747526, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 0.5, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-3.486269234817678, -5.240066316931459, -2.296558735074493, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 1.0, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.93780823454176, 0.9478626430299192, -1.037092556235947, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 1.0, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.45137415817723875, 0.6256399313012859, -1.272115868792326, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 1.0, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-4.275898212993024, -1.6877165422776828, -2.9963989753168976, 1.0], "keys": [7, 11, 13, 14]}], 14245634, [{"mv": [1.0, -1.0, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0136663416342724, -1.0380575818381224, 0.9975462327788052, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, -1.0, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.1023688080635252, -1.2832211280677752, 0.9814996625854848, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, -1.0, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.2332969283405839, -3.107834316195058, 0.8605598182989289, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, -0.5, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0040737202439556, -0.5247164473525124, 1.0183694797098128, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, -0.5, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.031466760192628174, -0.683868358951378, 1.136554984019785, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, -0.5, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.7573953362902222, -1.8678968472744049, 2.0151657894679262, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 0.0, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.9998158013516023, 0.0, 1.026885862721025, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 0.0, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-1.3467016803150185e-05, 0.0, 1.1999865325297652, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 0.0, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.9901553864586669, 0.0, 2.48762259666996, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 0.5, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0040737202439556, 0.5247164473525124, 1.0183694797098128, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 0.5, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.031466760192628174, 0.683868358951378, 1.136554984019785, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 0.5, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.7573953362902222, 1.8678968472744049, 2.0151657894679262, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 1.0, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0136663416342724, 1.0380575818381224, 0.9975462327788052, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 1.0, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.1023688080635252, 1.2832211280677752, 0.9814996625854848, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 1.0, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.2332969283405839, 3.107834316195058, 0.8605598182989289, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, -1.0, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0020368601219778, -1.0247164473525125, 0.48129480868104424, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, -1.0, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.015733380096314087, -1.183868358951378, 0.3607524455927179, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, -1.0, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.8786976681451111, -2.367896847274405, -0.5366794814436813, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, -0.5, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.9947146872574937, -0.5158415034858195, 0.4991183118821043, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, -0.5, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.03840760766267537, -0.6178083962570146, 0.49373922244407875, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, -0.5, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-1.2790491291573072, -1.37615431379316, 0.4555623848119093, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 0.0, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.9915987041509866, 0.0, 0.5065255560398068, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 0.0, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.061451125752887394, 0.0, 0.5490192395557871, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 0.0, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-1.4494727755031123, 0.0, 0.8681073047833735, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 0.5, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.9947146872574937, 0.5158415034858195, 0.4991183118821043, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 0.5, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.03840760766267537, 0.6178083962570146, 0.49373922244407875, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 0.5, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-1.2790491291573072, 1.37615431379316, 0.4555623848119093, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 1.0, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0020368601219778, 1.0247164473525125, 0.48129480868104424, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 1.0, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.015733380096314087, 1.183868358951378, 0.3607524455927179, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 1.0, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.8786976681451111, 2.367896847274405, -0.5366794814436813, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, -1.0, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0, -1.0, -0.026886493698432812, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, -1.0, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.0, -1.0, -0.19998653298319696, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, -1.0, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-1.0, -1.0, -1.4876551705751087, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, -0.5, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0, -0.5, -0.010637887646112216, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, -0.5, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.0, -0.5, -0.07860742142396496, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, -0.5, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-1.0, -0.5, -0.58097225730094, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 0.0, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0, 0.0, -0.0038126228583223233, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 0.0, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.0, 0.0, -0.027613847462178723, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 0.0, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-1.0, 0.0, -0.20000000000000143, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 0.5, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0, 0.5, -0.010637887646112216, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 0.5, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.0, 0.5, -0.07860742142396496, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 0.5, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-1.0, 0.5, -0.58097225730094, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 1.0, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0, 1.0, -0.026886493698432812, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 1.0, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.0, 1.0, -0.19998653298319696, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 1.0, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-1.0, 1.0, -1.4876551705751087, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, -1.0, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.9979631398780222, -0.9752835526474876, -0.5187051913189558, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, -1.0, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.015733380096314087, -0.816131641048622, -0.6392475544072821, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, -1.0, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-1.121302331854889, 0.36789684727440486, -1.5366794814436813, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, -0.5, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0052853127425063, -0.4841584965141806, -0.5008816881178957, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, -0.5, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.03840760766267537, -0.38219160374298544, -0.5062607775559212, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, -0.5, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.7209508708426928, 0.3761543137931599, -0.5444376151880906, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 0.0, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0084012958490134, 0.0, -0.4934744439601933, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 0.0, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.061451125752887394, 0.0, -0.4509807604442128, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 0.0, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.5505272244968877, 0.0, -0.1318926952166265, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 0.5, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0052853127425063, 0.4841584965141806, -0.5008816881178957, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 0.5, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.03840760766267537, 0.38219160374298544, -0.5062607775559212, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 0.5, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.7209508708426928, -0.3761543137931599, -0.5444376151880906, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 1.0, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.9979631398780222, 0.9752835526474876, -0.5187051913189558, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 1.0, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.015733380096314087, 0.816131641048622, -0.6392475544072821, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 1.0, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-1.121302331854889, -0.36789684727440486, -1.5366794814436813, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, -1.0, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.9863336583657276, -0.9619424181618776, -1.0024537672211948, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, -1.0, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.1023688080635252, -0.7167788719322248, -1.0185003374145152, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, -1.0, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-1.766703071659416, 1.1078343161950581, -1.139440181701071, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, -0.5, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.9959262797560445, -0.47528355264748756, -0.981630520290187, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, -0.5, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.031466760192628174, -0.316131641048622, -0.8634450159802151, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, -0.5, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-1.2426046637097778, 0.8678968472744049, 0.01516578946792646, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 0.0, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0001841986483977, 0.0, -0.9731141372789751, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 0.0, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.3467016803150185e-05, 0.0, -0.8000134674702348, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 0.0, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-1.009844613541333, 0.0, 0.4876225966699601, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 0.5, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.9959262797560445, 0.47528355264748756, -0.981630520290187, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 0.5, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.031466760192628174, 0.316131641048622, -0.8634450159802151, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 0.5, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-1.2426046637097778, -0.8678968472744049, 0.01516578946792646, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 1.0, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.9863336583657276, 0.9619424181618776, -1.0024537672211948, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 1.0, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.1023688080635252, 0.7167788719322248, -1.0185003374145152, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 1.0, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-1.766703071659416, -1.1078343161950581, -1.139440181701071, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, -1.0, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.93780823454176, -1.037092556235947, 0.9478626430299192, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, -1.0, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.45137415817723875, -1.272115868792326, 0.6256399313012859, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, -1.0, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-4.275898212993024, -2.9963989753168976, -1.6877165422776832, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, -0.5, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.9060379468262098, -0.5240715270373295, 0.9263595514327814, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, -0.5, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.6835399074044125, -0.6766587774747526, 0.4712945496138675, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, -0.5, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-5.972538469635356, -1.7965587350744932, -2.795228214319719, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 0.0, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.893343054209596, 0.0, 0.9175435061653945, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 0.0, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.7763561658164791, 0.0, 0.4079337314737549, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 0.0, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-6.651170624031625, 0.0, -3.2504727283904726, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 0.5, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.9060379468262098, 0.5240715270373295, 0.9263595514327814, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 0.5, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.6835399074044125, 0.6766587774747526, 0.4712945496138675, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 0.5, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-5.972538469635356, 1.7965587350744932, -2.795228214319719, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 1.0, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.93780823454176, 1.037092556235947, 0.9478626430299192, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 1.0, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.45137415817723875, 1.272115868792326, 0.6256399313012859, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 1.0, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-4.275898212993024, 2.9963989753168976, -1.6877165422776832, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, -1.0, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.9530189734131048, -1.0240715270373295, 0.390252260876787, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, -1.0, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.34176995370220625, -1.1766587774747526, -0.2936936165982612, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, -1.0, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-3.486269234817678, -2.296558735074493, -5.240066316931459, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, -0.5, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.9321711279905147, -0.5154181013688046, 0.3508001806439074, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, -0.5, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.4942311711676743, -0.6131890629672118, -0.5790108343971738, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, -0.5, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-4.601265020794251, -1.3310029118794184, -7.303287789127556, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 0.0, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.9239352013803962, 0.0, 0.33513608698641095, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 0.0, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.5544854230458586, 0.0, -0.6923513488715505, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 0.0, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-5.042102954111526, 0.0, -8.123311717536815, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 0.5, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.9321711279905147, 0.5154181013688046, 0.3508001806439074, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 0.5, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.4942311711676743, 0.6131890629672118, -0.5790108343971738, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 0.5, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-4.601265020794251, 1.3310029118794184, -7.303287789127556, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 1.0, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.9530189734131048, 1.0240715270373295, 0.390252260876787, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 1.0, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.34176995370220625, 1.1766587774747526, -0.2936936165982612, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 1.0, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-3.486269234817678, 2.296558735074493, -5.240066316931459, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, -1.0, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0, -1.0, -0.13481386227251813, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, -1.0, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.0, -1.0, -0.9763561658164792, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, -1.0, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-1.0, -1.0, -7.071226756137094, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, -0.5, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0, -0.5, -0.1815653144275997, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, -0.5, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.0, -0.5, -1.3149736968951702, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, -0.5, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-1.0, -0.5, -9.523660077378072, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 0.0, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0, 0.0, -0.2000000000000001, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 0.0, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.0, 0.0, -1.4485485970322025, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 0.0, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-1.0, 0.0, -10.49146518981981, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 0.5, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0, 0.5, -0.1815653144275997, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 0.5, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.0, 0.5, -1.3149736968951702, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 0.5, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-1.0, 0.5, -9.523660077378072, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 1.0, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0, 1.0, -0.13481386227251813, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 1.0, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.0, 1.0, -0.9763561658164792, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 1.0, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-1.0, 1.0, -7.071226756137094, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, -1.0, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.046981026586895, -0.9759284729626705, -0.609747739123213, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, -1.0, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.34176995370220625, -0.8233412225252474, -1.293693616598261, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, -1.0, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.4862692348176778, 0.29655873507449315, -6.240066316931459, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, -0.5, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0678288720094853, -0.48458189863119544, -0.6491998193560926, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, -0.5, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.4942311711676743, -0.38681093703278824, -1.5790108343971738, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, -0.5, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [2.6012650207942514, 0.33100291187941855, -8.303287789127555, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 0.0, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.076064798619604, 0.0, -0.664863913013589, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 0.0, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.5544854230458586, 0.0, -1.6923513488715505, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 0.0, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [3.0421029541115256, 0.0, -9.123311717536815, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 0.5, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0678288720094853, 0.48458189863119544, -0.6491998193560926, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 0.5, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.4942311711676743, 0.38681093703278824, -1.5790108343971738, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 0.5, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [2.6012650207942514, -0.33100291187941855, -8.303287789127555, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 1.0, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.046981026586895, 0.9759284729626705, -0.609747739123213, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 1.0, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.34176995370220625, 0.8233412225252474, -1.293693616598261, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 1.0, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.4862692348176778, -0.29655873507449315, -6.240066316931459, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, -1.0, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.06219176545824, -0.962907443764053, -1.052137356970081, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, -1.0, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.45137415817723875, -0.727884131207674, -1.374360068698714, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, -1.0, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [2.2758982129930234, 0.9963989753168976, -3.687716542277683, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, -0.5, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0939620531737901, -0.47592847296267043, -1.0736404485672186, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, -0.5, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.6835399074044125, -0.3233412225252475, -1.5287054503861324, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, -0.5, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [3.9725384696353556, 0.7965587350744932, -4.795228214319719, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 0.0, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.1066569457904039, 0.0, -1.0824564938346055, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 0.0, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.7763561658164791, 0.0, -1.5920662685262452, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 0.0, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [4.651170624031625, 0.0, -5.250472728390473, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 0.5, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0939620531737901, 0.47592847296267043, -1.0736404485672186, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 0.5, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.6835399074044125, 0.3233412225252475, -1.5287054503861324, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 0.5, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [3.9725384696353556, -0.7965587350744932, -4.795228214319719, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 1.0, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.06219176545824, 0.962907443764053, -1.052137356970081, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 1.0, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.45137415817723875, 0.727884131207674, -1.374360068698714, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 1.0, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [2.2758982129930234, -0.9963989753168976, -3.687716542277683, 1.0], "keys": [7, 11, 13, 14]}]], "tabbable": null, "tooltip": null}}, "702e999ebcbf4d34b3decd8128227188": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets\/base", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets\/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets\/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "83d1bd98c84d40c2982d1f2f18316766": {"model_name": "AnyModel", "model_module": "anywidget", "model_module_version": "~0.9.*", "state": {"_anywidget_id": "kingdon.graph.GraphWidget", "_dom_classes": [], "_esm": "const ganja_source = sessionStorage.ganja_source ||\n    await fetch(\"https:\/\/enki.ws\/ganja.js\/ganja.js\")\n          .then(x => x.text());\n\nif (!sessionStorage.ganja_source) {sessionStorage.ganja_source = ganja_source};\n\nconst Algebra = (() => {\n    const ctx = {};\n    (new Function('const define=1;' + ganja_source)).apply(ctx);\n    return ctx.Algebra;\n})();\n\nfunction render({ model, el }) {\n    var canvas = Algebra({metric: model.get('signature'), graded: model.get('graded')}).inline((model)=>{\n        \/\/ Define constants\n        var key2idx = model.get('key2idx');\n        var draggable_points_idxs = model.get('draggable_points_idxs');\n        var options = model.get('options');\n        var d = model.get('signature').length;\n\n        function grade(key) {\n            var count = 0;\n            while (key) {\n                count += key & 1;\n                key >>= 1;\n            }\n            return count;\n        }\n\n        \/\/ Define helper functions.\n        var toElement = (o)=>{\n            \/* convert object to Element *\/\n            var _values = o['mv'] instanceof DataView?new Float64Array(o['mv'].buffer):o['mv'];\n            if ('grades' in o) {\n                var values = new Element();\n                o['grades'].forEach(grade=>values[grade] = []);\n                o['keys'].forEach((k, j)=>{var g = grade(k); values[g][key2idx[g][k]] = _values[j]});\n                return values;\n            }\n            if ('keys' in o) {\n                var values = Array(Object.keys(key2idx).length).fill(0);\n                o['keys'].forEach((k, j)=>values[key2idx[k]] = _values[j]);\n                return new Element(values);\n            }\n            return new Element(_values);\n        }\n        var decode = x=>typeof x === 'object' && 'mv' in x?toElement(x):Array.isArray(x)?x.map(decode):x;\n        var encode = x=>x instanceof Element?({mv:[...x]}):x?.map?x.map(encode):x;\n\n        \/\/ Decode camera if provided.\n         if (options?.camera && typeof options.camera === 'object' && 'mv' in options.camera) {\n             options.camera = toElement(options.camera)\n         }\n\n        if (options?.animate) {\n            var graph_func = ()=>{\n                if (canvas?.value && draggable_points_idxs?.length) {\n                    model.set('draggable_points', encode(draggable_points_idxs.map(i=>canvas.value[i])));\n                    model.save_changes();\n                }\n                \/\/ Send an update request. This drives the event loop.\n                model.send({ type: \"update_mvs\" });\n                var subjects = decode(model.get('subjects'));\n                return [...subjects];\n            }\n        } else {\n            var graph_func = ()=>{\n                if (canvas?.value && draggable_points_idxs?.length) {\n                    model.set('draggable_points', encode(draggable_points_idxs.map(i=>canvas.value[i])));\n                    model.save_changes();\n                }\n                var subjects = decode(model.get('subjects'));\n                return [...subjects];\n            }\n\n            \/\/ This ensures the remake is always called one last time to show the final position.\n            model.on(\"change:subjects\", ()=>{\n                if (canvas.remake) canvas = canvas.remake(0);\n                if (canvas.update) canvas.update(canvas.value);\n            });\n        }\n\n        var canvas;\n        canvas = this.graph(graph_func, options)\n        return canvas;\n    })(model)\n\n    var options = model.get('options');\n    canvas.style.width = options?.width || `min( 100%, 1024px )`;\n    canvas.style.height = options?.height || 'auto';\n    canvas.style.aspectRatio = '16 \/ 6';\n    canvas.style.background = 'white';\n    canvas.style.marginLeft = `calc( (100% - ${ options?.width??\"min(100%, 1024px)\" }) \/ 2 )`;\n    el.appendChild(canvas);\n}\n\nexport default { render };\n", "_model_module": "anywidget", "_model_module_version": "~0.9.*", "_model_name": "AnyModel", "_view_count": null, "_view_module": "anywidget", "_view_module_version": "~0.9.*", "_view_name": "AnyView", "cayley": [["1", "e0", "e1", "e2", "e3", "e01", "e02", "e03", "e12", "e13", "e23", "e012", "e013", "e023", "e123", "e0123"], ["e0", "0", "e01", "e02", "e03", "0", "0", "0", "e012", "e013", "e023", "0", "0", "0", "e0123", "0"], ["e1", "-e01", "1", "e12", "e13", "-e0", "-e012", "-e013", "e2", "e3", "e123", "-e02", "-e03", "-e0123", "e23", "-e023"], ["e2", "-e02", "-e12", "1", "e23", "e012", "-e0", "-e023", "-e1", "-e123", "e3", "e01", "e0123", "-e03", "-e13", "e013"], ["e3", "-e03", "-e13", "-e23", "1", "e013", "e023", "-e0", "e123", "-e1", "-e2", "-e0123", "e01", "e02", "e12", "-e012"], ["e01", "0", "e0", "e012", "e013", "0", "0", "0", "e02", "e03", "e0123", "0", "0", "0", "e023", "0"], ["e02", "0", "-e012", "e0", "e023", "0", "0", "0", "-e01", "-e0123", "e03", "0", "0", "0", "-e013", "0"], ["e03", "0", "-e013", "-e023", "e0", "0", "0", "0", "e0123", "-e01", "-e02", "0", "0", "0", "e012", "0"], ["e12", "e012", "-e2", "e1", "e123", "-e02", "e01", "e0123", "-1", "-e23", "e13", "-e0", "-e023", "e013", "-e3", "-e03"], ["e13", "e013", "-e3", "-e123", "e1", "-e03", "-e0123", "e01", "e23", "-1", "-e12", "e023", "-e0", "-e012", "e2", "e02"], ["e23", "e023", "e123", "-e3", "e2", "e0123", "-e03", "e02", "-e13", "e12", "-1", "-e013", "e012", "-e0", "-e1", "-e01"], ["e012", "0", "-e02", "e01", "e0123", "0", "0", "0", "-e0", "-e023", "e013", "0", "0", "0", "-e03", "0"], ["e013", "0", "-e03", "-e0123", "e01", "0", "0", "0", "e023", "-e0", "-e012", "0", "0", "0", "e02", "0"], ["e023", "0", "e0123", "-e03", "e02", "0", "0", "0", "-e013", "e012", "-e0", "0", "0", "0", "-e01", "0"], ["e123", "-e0123", "e23", "-e13", "e12", "-e023", "e013", "-e012", "-e3", "e2", "-e1", "e03", "-e02", "e01", "-1", "e0"], ["e0123", "0", "e023", "-e013", "e012", "0", "0", "0", "-e03", "e02", "-e01", "0", "0", "0", "-e0", "0"]], "draggable_points": [[]], "draggable_points_idxs": [], "graded": false, "key2idx": {"0": 0, "1": 1, "2": 2, "4": 3, "8": 4, "3": 5, "5": 6, "9": 7, "6": 8, "10": 9, "12": 10, "7": 11, "11": 12, "13": 13, "14": 14, "15": 15}, "layout": "IPY_MODEL_702e999ebcbf4d34b3decd8128227188", "options": {"grid": false, "lineWidth": 2, "scale": 0.15, "height": "700px"}, "signature": [0, 1, 1, 1], "subjects": [1810039, [{"mv": [1.0, -1.0, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.9863336583657276, -1.0024537672211948, 0.9619424181618776, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, -1.0, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.10236880806352522, -1.0185003374145152, 0.7167788719322248, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, -1.0, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-1.7667030716594159, -1.1394401817010709, -1.1078343161950581, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, -0.5, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.9979631398780222, -0.5187051913189558, 0.9752835526474876, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, -0.5, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.015733380096314087, -0.6392475544072821, 0.816131641048622, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, -0.5, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-1.121302331854889, -1.536679481443681, -0.36789684727440486, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 0.0, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0, -0.026886493698432812, 1.0, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 0.0, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.0, -0.19998653298319696, 1.0, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 0.0, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-1.0, -1.4876551705751087, 1.0, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 0.5, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0020368601219778, 0.48129480868104424, 1.0247164473525125, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 0.5, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.015733380096314087, 0.3607524455927179, 1.183868358951378, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 0.5, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.8786976681451111, -0.536679481443681, 2.367896847274405, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 1.0, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0136663416342724, 0.9975462327788052, 1.0380575818381224, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 1.0, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.10236880806352522, 0.9814996625854849, 1.2832211280677752, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 1.0, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.23329692834058413, 0.860559818298929, 3.107834316195058, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, -1.0, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.9959262797560445, -0.981630520290187, 0.4752835526474875, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, -1.0, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.031466760192628174, -0.8634450159802151, 0.316131641048622, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, -1.0, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-1.2426046637097778, 0.015165789467926682, -0.8678968472744049, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, -0.5, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0052853127425063, -0.5008816881178957, 0.4841584965141806, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, -0.5, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.03840760766267537, -0.5062607775559212, 0.38219160374298544, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, -0.5, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.7209508708426928, -0.5444376151880905, -0.3761543137931599, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 0.0, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0, -0.010637887646112216, 0.5, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 0.0, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.0, -0.07860742142396496, 0.5, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 0.0, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-1.0, -0.58097225730094, 0.5, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 0.5, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.9947146872574937, 0.4991183118821043, 0.5158415034858195, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 0.5, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.03840760766267537, 0.4937392224440787, 0.6178083962570146, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 0.5, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-1.2790491291573072, 0.45556238481190947, 1.37615431379316, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 1.0, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0040737202439556, 1.0183694797098128, 0.5247164473525124, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 1.0, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.031466760192628174, 1.136554984019785, 0.683868358951378, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 1.0, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.757395336290222, 2.0151657894679267, 1.8678968472744049, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, -1.0, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0001841986483977, -0.9731141372789751, 0.0, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, -1.0, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.3467016803150185e-05, -0.8000134674702349, 0.0, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, -1.0, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-1.009844613541333, 0.48762259666996033, 0.0, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, -0.5, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0084012958490134, -0.4934744439601933, 0.0, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, -0.5, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.061451125752887394, -0.45098076044421287, 0.0, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, -0.5, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.5505272244968877, -0.13189269521662678, 0.0, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 0.0, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0, -0.0038126228583223233, 0.0, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 0.0, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.0, -0.027613847462178723, 0.0, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 0.0, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-1.0, -0.20000000000000143, 0.0, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 0.5, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.9915987041509866, 0.5065255560398068, 0.0, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 0.5, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.061451125752887394, 0.5490192395557871, 0.0, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 0.5, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-1.4494727755031123, 0.8681073047833732, 0.0, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 1.0, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.9998158013516023, 1.026885862721025, 0.0, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 1.0, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-1.3467016803150185e-05, 1.1999865325297652, 0.0, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 1.0, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.9901553864586669, 2.4876225966699606, 0.0, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, -1.0, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.9959262797560445, -0.981630520290187, -0.4752835526474875, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, -1.0, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.031466760192628174, -0.8634450159802151, -0.316131641048622, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, -1.0, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-1.2426046637097778, 0.015165789467926682, 0.8678968472744049, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, -0.5, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0052853127425063, -0.5008816881178957, -0.4841584965141806, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, -0.5, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.03840760766267537, -0.5062607775559212, -0.38219160374298544, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, -0.5, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.7209508708426928, -0.5444376151880905, 0.3761543137931599, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 0.0, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0, -0.010637887646112216, -0.5, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 0.0, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.0, -0.07860742142396496, -0.5, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 0.0, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-1.0, -0.58097225730094, -0.5, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 0.5, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.9947146872574937, 0.4991183118821043, -0.5158415034858195, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 0.5, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.03840760766267537, 0.4937392224440787, -0.6178083962570146, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 0.5, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-1.2790491291573072, 0.45556238481190947, -1.37615431379316, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 1.0, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0040737202439556, 1.0183694797098128, -0.5247164473525124, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 1.0, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.031466760192628174, 1.136554984019785, -0.683868358951378, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 1.0, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.757395336290222, 2.0151657894679267, -1.8678968472744049, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, -1.0, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.9863336583657276, -1.0024537672211948, -0.9619424181618776, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, -1.0, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.10236880806352522, -1.0185003374145152, -0.7167788719322248, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, -1.0, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-1.7667030716594159, -1.1394401817010709, 1.1078343161950581, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, -0.5, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.9979631398780222, -0.5187051913189558, -0.9752835526474876, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, -0.5, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.015733380096314087, -0.6392475544072821, -0.816131641048622, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, -0.5, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-1.121302331854889, -1.536679481443681, 0.36789684727440486, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 0.0, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0, -0.026886493698432812, -1.0, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 0.0, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.0, -0.19998653298319696, -1.0, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 0.0, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-1.0, -1.4876551705751087, -1.0, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 0.5, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0020368601219778, 0.48129480868104424, -1.0247164473525125, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 0.5, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.015733380096314087, 0.3607524455927179, -1.183868358951378, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 0.5, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.8786976681451111, -0.536679481443681, -2.367896847274405, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 1.0, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0136663416342724, 0.9975462327788052, -1.0380575818381224, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 1.0, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.10236880806352522, 0.9814996625854849, -1.2832211280677752, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 1.0, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.23329692834058413, 0.860559818298929, -3.107834316195058, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, -1.0, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.06219176545824, -1.052137356970081, 0.962907443764053, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, -1.0, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.45137415817723875, -1.374360068698714, 0.7278841312076739, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, -1.0, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [2.2758982129930234, -3.6877165422776828, -0.9963989753168976, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, -0.5, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.046981026586895, -0.609747739123213, 0.9759284729626705, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, -0.5, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.34176995370220625, -1.293693616598261, 0.8233412225252474, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, -0.5, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.4862692348176778, -6.240066316931459, -0.29655873507449315, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 0.0, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0, -0.13481386227251813, 1.0, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 0.0, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.0, -0.9763561658164792, 1.0, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 0.0, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-1.0, -7.071226756137094, 1.0, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 0.5, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.9530189734131049, 0.390252260876787, 1.0240715270373295, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 0.5, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.34176995370220625, -0.2936936165982611, 1.1766587774747526, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 0.5, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-3.486269234817678, -5.240066316931459, 2.296558735074493, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 1.0, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.93780823454176, 0.9478626430299192, 1.037092556235947, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 1.0, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.45137415817723875, 0.6256399313012859, 1.272115868792326, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 1.0, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-4.275898212993024, -1.6877165422776828, 2.9963989753168976, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, -1.0, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0939620531737904, -1.0736404485672186, 0.47592847296267043, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, -1.0, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.6835399074044125, -1.5287054503861326, 0.3233412225252475, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, -1.0, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [3.9725384696353556, -4.795228214319719, -0.7965587350744932, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, -0.5, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0678288720094853, -0.6491998193560926, 0.48458189863119544, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, -0.5, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.4942311711676743, -1.5790108343971738, 0.38681093703278824, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, -0.5, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [2.6012650207942514, -8.303287789127555, -0.33100291187941855, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 0.0, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0, -0.1815653144275997, 0.5, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 0.0, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.0, -1.3149736968951702, 0.5, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 0.0, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-1.0, -9.523660077378072, 0.5, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 0.5, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.9321711279905147, 0.3508001806439074, 0.5154181013688046, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 0.5, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.4942311711676743, -0.5790108343971738, 0.6131890629672118, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 0.5, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-4.601265020794251, -7.303287789127556, 1.3310029118794184, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 1.0, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.9060379468262098, 0.9263595514327814, 0.5240715270373295, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 1.0, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.6835399074044125, 0.4712945496138674, 0.6766587774747526, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 1.0, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-5.972538469635356, -2.7952282143197196, 1.7965587350744932, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, -1.0, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.1066569457904039, -1.0824564938346055, 0.0, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, -1.0, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.7763561658164791, -1.5920662685262452, 0.0, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, -1.0, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [4.651170624031625, -5.250472728390473, 0.0, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, -0.5, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.076064798619604, -0.664863913013589, 0.0, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, -0.5, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.5544854230458586, -1.6923513488715505, 0.0, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, -0.5, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [3.0421029541115256, -9.123311717536815, 0.0, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 0.0, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0, -0.2000000000000001, 0.0, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 0.0, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.0, -1.4485485970322025, 0.0, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 0.0, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-1.0, -10.49146518981981, 0.0, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 0.5, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.9239352013803962, 0.33513608698641095, 0.0, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 0.5, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.5544854230458586, -0.6923513488715505, 0.0, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 0.5, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-5.042102954111526, -8.123311717536815, 0.0, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 1.0, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.893343054209596, 0.9175435061653945, 0.0, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 1.0, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.7763561658164791, 0.4079337314737549, 0.0, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 1.0, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-6.651170624031625, -3.2504727283904726, 0.0, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, -1.0, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0939620531737904, -1.0736404485672186, -0.47592847296267043, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, -1.0, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.6835399074044125, -1.5287054503861326, -0.3233412225252475, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, -1.0, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [3.9725384696353556, -4.795228214319719, 0.7965587350744932, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, -0.5, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0678288720094853, -0.6491998193560926, -0.48458189863119544, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, -0.5, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.4942311711676743, -1.5790108343971738, -0.38681093703278824, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, -0.5, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [2.6012650207942514, -8.303287789127555, 0.33100291187941855, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 0.0, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0, -0.1815653144275997, -0.5, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 0.0, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.0, -1.3149736968951702, -0.5, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 0.0, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-1.0, -9.523660077378072, -0.5, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 0.5, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.9321711279905147, 0.3508001806439074, -0.5154181013688046, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 0.5, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.4942311711676743, -0.5790108343971738, -0.6131890629672118, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 0.5, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-4.601265020794251, -7.303287789127556, -1.3310029118794184, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 1.0, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.9060379468262098, 0.9263595514327814, -0.5240715270373295, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 1.0, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.6835399074044125, 0.4712945496138674, -0.6766587774747526, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 1.0, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-5.972538469635356, -2.7952282143197196, -1.7965587350744932, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, -1.0, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.06219176545824, -1.052137356970081, -0.962907443764053, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, -1.0, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.45137415817723875, -1.374360068698714, -0.7278841312076739, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, -1.0, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [2.2758982129930234, -3.6877165422776828, 0.9963989753168976, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, -0.5, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.046981026586895, -0.609747739123213, -0.9759284729626705, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, -0.5, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.34176995370220625, -1.293693616598261, -0.8233412225252474, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, -0.5, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.4862692348176778, -6.240066316931459, 0.29655873507449315, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 0.0, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0, -0.13481386227251813, -1.0, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 0.0, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.0, -0.9763561658164792, -1.0, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 0.0, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-1.0, -7.071226756137094, -1.0, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 0.5, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.9530189734131049, 0.390252260876787, -1.0240715270373295, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 0.5, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.34176995370220625, -0.2936936165982611, -1.1766587774747526, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 0.5, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-3.486269234817678, -5.240066316931459, -2.296558735074493, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 1.0, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.93780823454176, 0.9478626430299192, -1.037092556235947, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 1.0, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.45137415817723875, 0.6256399313012859, -1.272115868792326, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 1.0, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-4.275898212993024, -1.6877165422776828, -2.9963989753168976, 1.0], "keys": [7, 11, 13, 14]}], 14245634, [{"mv": [1.0, -1.0, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0136663416342724, -1.0380575818381224, 0.9975462327788052, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, -1.0, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.1023688080635252, -1.2832211280677752, 0.9814996625854848, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, -1.0, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.2332969283405839, -3.107834316195058, 0.8605598182989289, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, -0.5, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0040737202439556, -0.5247164473525124, 1.0183694797098128, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, -0.5, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.031466760192628174, -0.683868358951378, 1.136554984019785, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, -0.5, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.7573953362902222, -1.8678968472744049, 2.0151657894679262, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 0.0, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.9998158013516023, 0.0, 1.026885862721025, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 0.0, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-1.3467016803150185e-05, 0.0, 1.1999865325297652, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 0.0, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.9901553864586669, 0.0, 2.48762259666996, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 0.5, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0040737202439556, 0.5247164473525124, 1.0183694797098128, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 0.5, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.031466760192628174, 0.683868358951378, 1.136554984019785, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 0.5, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.7573953362902222, 1.8678968472744049, 2.0151657894679262, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 1.0, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0136663416342724, 1.0380575818381224, 0.9975462327788052, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 1.0, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.1023688080635252, 1.2832211280677752, 0.9814996625854848, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 1.0, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.2332969283405839, 3.107834316195058, 0.8605598182989289, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, -1.0, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0020368601219778, -1.0247164473525125, 0.48129480868104424, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, -1.0, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.015733380096314087, -1.183868358951378, 0.3607524455927179, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, -1.0, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.8786976681451111, -2.367896847274405, -0.5366794814436813, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, -0.5, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.9947146872574937, -0.5158415034858195, 0.4991183118821043, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, -0.5, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.03840760766267537, -0.6178083962570146, 0.49373922244407875, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, -0.5, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-1.2790491291573072, -1.37615431379316, 0.4555623848119093, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 0.0, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.9915987041509866, 0.0, 0.5065255560398068, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 0.0, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.061451125752887394, 0.0, 0.5490192395557871, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 0.0, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-1.4494727755031123, 0.0, 0.8681073047833735, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 0.5, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.9947146872574937, 0.5158415034858195, 0.4991183118821043, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 0.5, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.03840760766267537, 0.6178083962570146, 0.49373922244407875, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 0.5, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-1.2790491291573072, 1.37615431379316, 0.4555623848119093, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 1.0, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0020368601219778, 1.0247164473525125, 0.48129480868104424, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 1.0, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.015733380096314087, 1.183868358951378, 0.3607524455927179, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 1.0, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.8786976681451111, 2.367896847274405, -0.5366794814436813, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, -1.0, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0, -1.0, -0.026886493698432812, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, -1.0, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.0, -1.0, -0.19998653298319696, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, -1.0, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-1.0, -1.0, -1.4876551705751087, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, -0.5, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0, -0.5, -0.010637887646112216, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, -0.5, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.0, -0.5, -0.07860742142396496, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, -0.5, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-1.0, -0.5, -0.58097225730094, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 0.0, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0, 0.0, -0.0038126228583223233, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 0.0, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.0, 0.0, -0.027613847462178723, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 0.0, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-1.0, 0.0, -0.20000000000000143, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 0.5, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0, 0.5, -0.010637887646112216, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 0.5, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.0, 0.5, -0.07860742142396496, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 0.5, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-1.0, 0.5, -0.58097225730094, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 1.0, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0, 1.0, -0.026886493698432812, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 1.0, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.0, 1.0, -0.19998653298319696, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 1.0, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-1.0, 1.0, -1.4876551705751087, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, -1.0, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.9979631398780222, -0.9752835526474876, -0.5187051913189558, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, -1.0, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.015733380096314087, -0.816131641048622, -0.6392475544072821, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, -1.0, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-1.121302331854889, 0.36789684727440486, -1.5366794814436813, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, -0.5, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0052853127425063, -0.4841584965141806, -0.5008816881178957, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, -0.5, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.03840760766267537, -0.38219160374298544, -0.5062607775559212, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, -0.5, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.7209508708426928, 0.3761543137931599, -0.5444376151880906, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 0.0, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0084012958490134, 0.0, -0.4934744439601933, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 0.0, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.061451125752887394, 0.0, -0.4509807604442128, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 0.0, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.5505272244968877, 0.0, -0.1318926952166265, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 0.5, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0052853127425063, 0.4841584965141806, -0.5008816881178957, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 0.5, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.03840760766267537, 0.38219160374298544, -0.5062607775559212, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 0.5, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.7209508708426928, -0.3761543137931599, -0.5444376151880906, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 1.0, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.9979631398780222, 0.9752835526474876, -0.5187051913189558, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 1.0, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.015733380096314087, 0.816131641048622, -0.6392475544072821, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 1.0, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-1.121302331854889, -0.36789684727440486, -1.5366794814436813, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, -1.0, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.9863336583657276, -0.9619424181618776, -1.0024537672211948, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, -1.0, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.1023688080635252, -0.7167788719322248, -1.0185003374145152, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, -1.0, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-1.766703071659416, 1.1078343161950581, -1.139440181701071, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, -0.5, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.9959262797560445, -0.47528355264748756, -0.981630520290187, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, -0.5, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.031466760192628174, -0.316131641048622, -0.8634450159802151, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, -0.5, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-1.2426046637097778, 0.8678968472744049, 0.01516578946792646, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 0.0, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0001841986483977, 0.0, -0.9731141372789751, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 0.0, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.3467016803150185e-05, 0.0, -0.8000134674702348, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 0.0, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-1.009844613541333, 0.0, 0.4876225966699601, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 0.5, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.9959262797560445, 0.47528355264748756, -0.981630520290187, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 0.5, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.031466760192628174, 0.316131641048622, -0.8634450159802151, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 0.5, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-1.2426046637097778, -0.8678968472744049, 0.01516578946792646, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 1.0, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.9863336583657276, 0.9619424181618776, -1.0024537672211948, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 1.0, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.1023688080635252, 0.7167788719322248, -1.0185003374145152, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 1.0, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-1.766703071659416, -1.1078343161950581, -1.139440181701071, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, -1.0, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.93780823454176, -1.037092556235947, 0.9478626430299192, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, -1.0, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.45137415817723875, -1.272115868792326, 0.6256399313012859, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, -1.0, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-4.275898212993024, -2.9963989753168976, -1.6877165422776832, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, -0.5, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.9060379468262098, -0.5240715270373295, 0.9263595514327814, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, -0.5, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.6835399074044125, -0.6766587774747526, 0.4712945496138675, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, -0.5, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-5.972538469635356, -1.7965587350744932, -2.795228214319719, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 0.0, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.893343054209596, 0.0, 0.9175435061653945, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 0.0, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.7763561658164791, 0.0, 0.4079337314737549, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 0.0, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-6.651170624031625, 0.0, -3.2504727283904726, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 0.5, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.9060379468262098, 0.5240715270373295, 0.9263595514327814, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 0.5, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.6835399074044125, 0.6766587774747526, 0.4712945496138675, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 0.5, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-5.972538469635356, 1.7965587350744932, -2.795228214319719, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 1.0, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.93780823454176, 1.037092556235947, 0.9478626430299192, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 1.0, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.45137415817723875, 1.272115868792326, 0.6256399313012859, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 1.0, 1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-4.275898212993024, 2.9963989753168976, -1.6877165422776832, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, -1.0, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.9530189734131048, -1.0240715270373295, 0.390252260876787, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, -1.0, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.34176995370220625, -1.1766587774747526, -0.2936936165982612, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, -1.0, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-3.486269234817678, -2.296558735074493, -5.240066316931459, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, -0.5, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.9321711279905147, -0.5154181013688046, 0.3508001806439074, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, -0.5, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.4942311711676743, -0.6131890629672118, -0.5790108343971738, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, -0.5, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-4.601265020794251, -1.3310029118794184, -7.303287789127556, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 0.0, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.9239352013803962, 0.0, 0.33513608698641095, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 0.0, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.5544854230458586, 0.0, -0.6923513488715505, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 0.0, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-5.042102954111526, 0.0, -8.123311717536815, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 0.5, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.9321711279905147, 0.5154181013688046, 0.3508001806439074, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 0.5, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.4942311711676743, 0.6131890629672118, -0.5790108343971738, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 0.5, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-4.601265020794251, 1.3310029118794184, -7.303287789127556, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 1.0, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.9530189734131048, 1.0240715270373295, 0.390252260876787, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 1.0, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.34176995370220625, 1.1766587774747526, -0.2936936165982612, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 1.0, 0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-3.486269234817678, 2.296558735074493, -5.240066316931459, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, -1.0, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0, -1.0, -0.13481386227251813, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, -1.0, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.0, -1.0, -0.9763561658164792, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, -1.0, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-1.0, -1.0, -7.071226756137094, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, -0.5, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0, -0.5, -0.1815653144275997, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, -0.5, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.0, -0.5, -1.3149736968951702, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, -0.5, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-1.0, -0.5, -9.523660077378072, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 0.0, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0, 0.0, -0.2000000000000001, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 0.0, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.0, 0.0, -1.4485485970322025, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 0.0, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-1.0, 0.0, -10.49146518981981, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 0.5, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0, 0.5, -0.1815653144275997, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 0.5, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.0, 0.5, -1.3149736968951702, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 0.5, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-1.0, 0.5, -9.523660077378072, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 1.0, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0, 1.0, -0.13481386227251813, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 1.0, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.0, 1.0, -0.9763561658164792, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 1.0, 0.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-1.0, 1.0, -7.071226756137094, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, -1.0, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.046981026586895, -0.9759284729626705, -0.609747739123213, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, -1.0, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.34176995370220625, -0.8233412225252474, -1.293693616598261, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, -1.0, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.4862692348176778, 0.29655873507449315, -6.240066316931459, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, -0.5, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0678288720094853, -0.48458189863119544, -0.6491998193560926, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, -0.5, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.4942311711676743, -0.38681093703278824, -1.5790108343971738, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, -0.5, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [2.6012650207942514, 0.33100291187941855, -8.303287789127555, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 0.0, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.076064798619604, 0.0, -0.664863913013589, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 0.0, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.5544854230458586, 0.0, -1.6923513488715505, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 0.0, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [3.0421029541115256, 0.0, -9.123311717536815, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 0.5, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0678288720094853, 0.48458189863119544, -0.6491998193560926, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 0.5, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.4942311711676743, 0.38681093703278824, -1.5790108343971738, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 0.5, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [2.6012650207942514, -0.33100291187941855, -8.303287789127555, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 1.0, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.046981026586895, 0.9759284729626705, -0.609747739123213, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 1.0, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.34176995370220625, 0.8233412225252474, -1.293693616598261, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 1.0, -0.5, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.4862692348176778, -0.29655873507449315, -6.240066316931459, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, -1.0, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.06219176545824, -0.962907443764053, -1.052137356970081, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, -1.0, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.45137415817723875, -0.727884131207674, -1.374360068698714, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, -1.0, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [2.2758982129930234, 0.9963989753168976, -3.687716542277683, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, -0.5, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0939620531737901, -0.47592847296267043, -1.0736404485672186, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, -0.5, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.6835399074044125, -0.3233412225252475, -1.5287054503861324, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, -0.5, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [3.9725384696353556, 0.7965587350744932, -4.795228214319719, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 0.0, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.1066569457904039, 0.0, -1.0824564938346055, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 0.0, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.7763561658164791, 0.0, -1.5920662685262452, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 0.0, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [4.651170624031625, 0.0, -5.250472728390473, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 0.5, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.0939620531737901, 0.47592847296267043, -1.0736404485672186, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 0.5, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.6835399074044125, 0.3233412225252475, -1.5287054503861324, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 0.5, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [3.9725384696353556, -0.7965587350744932, -4.795228214319719, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [1.0, 1.0, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [1.06219176545824, 0.962907443764053, -1.052137356970081, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [0.0, 1.0, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [0.45137415817723875, 0.727884131207674, -1.374360068698714, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-1.0, 1.0, -1.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [2.2758982129930234, -0.9963989753168976, -3.687716542277683, 1.0], "keys": [7, 11, 13, 14]}]], "tabbable": null, "tooltip": null}}}, "version_major": 2, "version_minor": 0}
+</script>
 <script src="static/helpers.js"></script>
 </html>
