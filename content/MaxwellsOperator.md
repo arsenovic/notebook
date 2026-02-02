@@ -47,10 +47,10 @@ $$ e^{\nabla} = e^{ \sum e^i \partial_i}  \stackrel{?}{=} \prod e^{ e^i \partial
 Lets reverse the order of logic and assume $\prod e^{ e^i \partial_i}$ is true. Then under what circumstance does the equality hold:
 $$ \prod e^{ e^i \partial_i}  \stackrel{?}{=} e^{ \sum e^i \partial_i}=e^{\nabla}  $$
 expanded in a cartesian frame in STA,
-$$ e^{  e^0 \partial_0}e^{  e^1 \partial_1}e^{  e^2 \partial_i}e^{  e^3 \partial_3} 
- \stackrel{?}{=} e^{  e^0 \partial_0 + e^1 \partial_1+  e^2 \partial_i+  e^3 \partial_3}  $$
+$$ e^{  e^0 \partial_0}e^{  e^1 \partial_1}e^{  e^2 \partial_2}e^{  e^3 \partial_3} 
+ \stackrel{?}{=} e^{  e^0 \partial_0 + e^1 \partial_1+  e^2 \partial_2+  e^3 \partial_3}  $$
 
-This is almost identical to the transmission line model used in [2]. In the transmission line case, the  equality was justified by the fact that the rotations were small.  However, the rotations relative magnitude is what produced the range of behavoir.
+This is almost identical to the transmission line model used in [2]. In the transmission line case, the  equality was justified by the fact that the rotations were small (and in null bivectors).  However, the rotations relative magnitude is what produced the range of behavoir.
 
 
 
@@ -70,7 +70,7 @@ Again,  reverse the logic and assume the product of exponentials is true in gene
 $$e^{\tau \partial_a}e^{\epsilon \partial_{b}} \stackrel{?}{=} 
 e^{\tau \partial_a+\epsilon \partial_{b}} $$
 
-This is true when $\tau$ and $\epsilon$ are small, but small compared to what? Compared to the curvature. This is  what we are assuming by a *linear* vector manifold. One way to measure curvature, would be to move along $a$ then $b$, then back along $-a$ then $-b$. Basically reverse your steps in a different order  to get back to the start.  
+This is true when $\tau$ and $\epsilon$ are small, but small compared to what? Compared to the curvature. This is  what we are assuming by a *linear* vector manifold. One way to measure curvature, would be to move along $a$ then $b$, then back along $-a$ *then* $-b$. Basically reverse your steps in a different order  to get back to the start.  
 $$\Delta f 
 = e^{-\tau \partial_a}e^{-\epsilon \partial_b}e^{\tau \partial_a}e^{\epsilon \partial_b}f -f
 =( e^{-\tau \partial_a}e^{-\epsilon \partial_b}e^{\tau \partial_a}e^{\epsilon \partial_b}-1)f
@@ -86,8 +86,11 @@ Lets see if we can re-work this in terms of conjugation, because conjugation is 
   =f(x+\tau a +\epsilon b  -\epsilon b -\tau a ) =f(x)  $$
 which is a dumb thing to write when we are in a linear space. 
 
-
+<!-- #region -->
 ### Scalar Curvature 
+This section discusses scalar curvature using a non-standard convention for the differential. it is likely not of use. 
+
+
 The forward differential in the a-direction $ \partial_a $ applied to a function $f$ over a linear manifold is defined by 
 
 \begin{align}
@@ -141,6 +144,7 @@ f \partial_a &= f (1-T_{-\tau a})\frac{1}{\tau} \\
 e^{-\tau \partial_a} &=\tilde T_{\tau a} 
 \end{align}
 
+<!-- #endregion -->
 
 ```python
 

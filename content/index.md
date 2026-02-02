@@ -30,6 +30,8 @@ written 01/17/2026<br>
 - [Plane Waves](PlaneWaves.html)
 - [Operationalizing Coordinates](OperatorCoords.html)
 - [Operator Class](OperatorClass.html)
+- [Reflection Coefficient in STA](Reflections.html)
+- [Maxwells Operator](MaxwellsOperator.html)
 
 ## Contact/About Me
 
@@ -41,8 +43,10 @@ written 01/17/2026<br>
 
 ## Source
 This content and infrastructure for project is held in [this repo](https://github.com/arsenovic/notebook), and  licensed under [CC BY-NC-ND](static/LICENSE.txt). 
-It can built by `uv build.py` and build details can be found in that file. 
 
 
+```python
+
+```
 
 <div style="height: 200px;"></div>
