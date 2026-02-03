@@ -38,15 +38,12 @@ written 01/17/2026<br>
  [**Email**](mailto:alex@810lab.com)  |
  [**GitHub**](https://github.com/arsenovic) |
  [**ResearchGate**](https://www.researchgate.net/profile/A-Arsenovic) | 
- [**LinkedIn**](https://www.linkedin.com/in/alex-arsenovic-39516957/) | 
- [**CV**](https://www.dropbox.com/scl/fi/q2qj7q28y2837b5f6fnu8/AlexArsenovicResume.pdf?rlkey=ptsgkfm50lsy7hl4lzjbqnbrh&st=so9hlads&dl=1)
+ [**LinkedIn**](https://www.linkedin.com/in/alex-arsenovic-39516957/) 
+
 
 ## Source
 This content and infrastructure for project is held in [this repo](https://github.com/arsenovic/notebook), and  licensed under [CC BY-NC-ND](static/LICENSE.txt). 
 
 
-```python
-
-```
 
 <div style="height: 200px;"></div>

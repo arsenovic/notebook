@@ -281,7 +281,7 @@ graph_func = make_graph_func(frames, speed)
 vector_scale = float(Fx[0].values()[0].max())
 
 ## uncomment to animate
-#pga.graph(graph_func, grid=True,lineWidth=2,animate=True,scale=.15,height='700px')
+pga.graph(graph_func, grid=True,lineWidth=2,animate=True,scale=.15,height='700px')
 
 ```
 

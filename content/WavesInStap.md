@@ -24,6 +24,21 @@ from kingdon.blademap import BladeMap
 import numpy as np 
 import torch
 from timeit import default_timer
+
+def blades_in(x,tol=1e-9):
+    """
+    Returns the list of blade names present in this multivector.
+    
+    :return: List of blade names as strings, e.g. ['e1', 'e23', 'e123']
+    """
+    result = []
+    for i, k in enumerate(x._keys):
+        val = x._values[i]
+        # Handle both scalar and array coefficients
+        if np.any(np.abs(val) > tol):
+            result.append(x.algebra.bin2canon[k])
+    return result
+
 c = [0, 1810039, 14245634, 7696563, 15149450, 6727198, 15117058, 10909213, 6710886]  # colors 
 
 
@@ -33,13 +48,16 @@ torch_kw = {'device':device, 'dtype':torch.float64} # you need float64 for calcu
 
 # e0 is dual origin, e4 = time , e123 is space
 stap = Algebra(signature = [0,1,1,1,-1],start_index=0)
+pga  = Algebra(3,0,1)
+bm   = BladeMap(alg1=stap, alg2 =pga) 
+
 S    = stap.blades
 locals().update(S)
 I    = stap.pseudoscalar([1])
-up   = lambda x: (x*e0123 + 1.*e123).broadcast() # pga up() done in stap
+up   = lambda x: ((x+e0).dual()|e4).broadcast() # pga up() done in stap
 to_numpy = lambda x:x.cpu().numpy()
-pga = Algebra(3,0,1)
-bm  = BladeMap(alg1=stap, alg2 =pga) 
+
+
  
 
 et,ek = e4,e3 
@@ -76,19 +94,45 @@ def make_graph_func(frames,speed ):
         return frames[frame_idx]
     return graph_func
 
-def render_frames(x,Fx,vmag=1.0):
-    E  = (Fx - (et>>Fx))/2
-    H  = (Fx + (et>>Fx))/2
-    Eg = E*et.dual()
-    Hg = H*e0*et
-    x = up(x)
-    ve = exp(vmag*Eg)>>x
-    vh = exp(vmag*Hg)>>x
 
-    x_flat,ve_flat,vh_flat= [bm(k).flatten() for k in (x, ve, vh)]  # flatten arrays
+def F(x):
+    F0 = e1*et + e1*ek
+    k  = ek+.01*et
+    xk = x*k
+    return exp(xk) >> F0
+
+x = make_x( # make a indepenent variable 'x'
+    e12_bounds=1, e12_N=1, 
+    e3_bounds =1,  e3_N=1,
+    e4_bounds =1,  e4_N=1, 
+    use_torch=False)
+ 
+
+Fx = F(x)
+mag =1 
+
+list(map(blades_in, [E,H,Be,Bh,ve,vh,up(x)]))
+blades_in((x+e0).dual()|e4)
+```
+
+```python
+def render_frames(x,Fx, mag=1):
+    E  = (Fx + (e4>>Fx))/2 # E/H field decomposition
+    H  = (Fx - (e4>>Fx))/2
+    Be = E*e04      # generator for E/H field vectors (ex: e12->e3->(e3+e0).dual(in pga))
+    Bh = H*e0123            
+    X  = up(x)
+    ve = exp(mag*Be)>>X
+    vh = exp(mag*Bh)>>X
+    
+    
+    
     frames = []
     N_frames = x.shape[1]
     for frame_idx in range(N_frames):
+        s = (frame_idx, slice(None), slice(None), slice(None))
+        X_, E_, H_ = [q[s] for q in (X, E, H)]
+        x_flat,ve_flat,vh_flat= [bm(k).flatten() for k in (X_, E_, H_)]  # flatten arrays
         frames.append(
             [c[1], *[(a,b) for a,b in zip(x_flat, ve_flat)],
             c[2], *[(a,b) for a,b in zip(x_flat, vh_flat)]])
@@ -101,17 +145,19 @@ def F(x):
     return exp(xk) >> F0
 
 x = make_x(
-    e12_bounds=1, e12_N=5, 
+    e12_bounds=1, e12_N=20, 
     e3_bounds=1, e3_N=3,
-    e4_bounds=1, e4_N=2, 
+    e4_bounds=1, e4_N=4, 
     use_torch=False)
 
 speed=1
 
 Fx = F(x)
-frames = render_frames(x,Fx,vmag=.10)
+X  = up(x)
+frames = render_frames(x,Fx,mag=.10)
 graph_func = make_graph_func(frames, speed)
 pga.graph(*frames[0], grid=False,lineWidth=2,scale=1,height='700px')
+
 ```
 
 ```python

@@ -71,16 +71,19 @@ $$e^{\tau \partial_a}e^{\epsilon \partial_{b}} \stackrel{?}{=}
 e^{\tau \partial_a+\epsilon \partial_{b}} $$
 
 This is true when $\tau$ and $\epsilon$ are small, but small compared to what? Compared to the curvature. This is  what we are assuming by a *linear* vector manifold. One way to measure curvature, would be to move along $a$ then $b$, then back along $-a$ *then* $-b$. Basically reverse your steps in a different order  to get back to the start.  
-$$\Delta f 
-= e^{-\tau \partial_a}e^{-\epsilon \partial_b}e^{\tau \partial_a}e^{\epsilon \partial_b}f -f
-=( e^{-\tau \partial_a}e^{-\epsilon \partial_b}e^{\tau \partial_a}e^{\epsilon \partial_b}-1)f
-= (R\tilde{R} -1)f $$
+\begin{align*}
+\Delta f &= e^{-\tau \partial_a}e^{-\epsilon \partial_b}e^{\tau \partial_a}e^{\epsilon \partial_b}f -f\\
+&=( e^{-\tau \partial_a}e^{-\epsilon \partial_b}e^{\tau \partial_a}e^{\epsilon \partial_b}-1)f\\
+&= (R\tilde{R} -1)f \\
+\end{align*}
+
 Another method is to compare the difference in $f$ at some nearby point, going either way . 
 
-$$\Delta f 
-= e^{\tau \partial_a}e^{\epsilon \partial_b}f -e^{\epsilon \partial_b}e^{\tau \partial_a}f 
-= (R -\tilde R )f
-$$
+\begin{align*} 
+\Delta f &= e^{\tau \partial_a}e^{\epsilon \partial_b}f -e^{\epsilon \partial_b}e^{\tau \partial_a}f \\
+&= (R -\tilde R )f
+\end{align*}
+
 Lets see if we can re-work this in terms of conjugation, because conjugation is  dank. 
  $$ e^{\tau \partial_a}e^{\epsilon \partial_b} fe^{\tilde{\epsilon \partial_b}}e^{\tilde{\tau \partial_a}} 
   =f(x+\tau a +\epsilon b  -\epsilon b -\tau a ) =f(x)  $$
