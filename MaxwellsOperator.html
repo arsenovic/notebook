@@ -7797,7 +7797,7 @@ a.anchor-link {
 </head>
 <body class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
 <main>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=22b39c7e">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=2ffcdef7">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7811,7 +7811,7 @@ written 01/19/2026<br/>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=3be2e242">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=4e5345e4">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7838,7 +7838,7 @@ $$ e^{  e^0 \partial_0}e^{  e^1 \partial_1}e^{  e^2 \partial_2}e^{  e^3 \partial
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=e7be62c1">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=38f038a9">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7854,16 +7854,17 @@ e^{\tau \partial_a}e^{\epsilon \partial_{b}} $$</p>
 <p>$$e^{\tau \partial_a}e^{\epsilon \partial_{b}} \stackrel{?}{=} 
 e^{\tau \partial_a+\epsilon \partial_{b}} $$</p>
 <p>This is true when $\tau$ and $\epsilon$ are small, but small compared to what? Compared to the curvature. This is  what we are assuming by a <em>linear</em> vector manifold. One way to measure curvature, would be to move along $a$ then $b$, then back along $-a$ <em>then</em> $-b$. Basically reverse your steps in a different order  to get back to the start.<br>
-$$\Delta f 
-= e^{-\tau \partial_a}e^{-\epsilon \partial_b}e^{\tau \partial_a}e^{\epsilon \partial_b}f -f
-=( e^{-\tau \partial_a}e^{-\epsilon \partial_b}e^{\tau \partial_a}e^{\epsilon \partial_b}-1)f
-= (R\tilde{R} -1)f $$
-Another method is to compare the difference in $f$ at some nearby point, going either way .</br></p>
-<p>$$\Delta f 
-= e^{\tau \partial_a}e^{\epsilon \partial_b}f -e^{\epsilon \partial_b}e^{\tau \partial_a}f 
-= (R -\tilde R )f
-$$
-Lets see if we can re-work this in terms of conjugation, because conjugation is  dank.
+\begin{align*}
+\Delta f &amp;= e^{-\tau \partial_a}e^{-\epsilon \partial_b}e^{\tau \partial_a}e^{\epsilon \partial_b}f -f\\
+&amp;=( e^{-\tau \partial_a}e^{-\epsilon \partial_b}e^{\tau \partial_a}e^{\epsilon \partial_b}-1)f\\
+&amp;= (R\tilde{R} -1)f \\
+\end{align*}</br></p>
+<p>Another method is to compare the difference in $f$ at some nearby point, going either way .</p>
+<p>\begin{align*} 
+\Delta f &amp;= e^{\tau \partial_a}e^{\epsilon \partial_b}f -e^{\epsilon \partial_b}e^{\tau \partial_a}f \\
+&amp;= (R -\tilde R )f
+\end{align*}</p>
+<p>Lets see if we can re-work this in terms of conjugation, because conjugation is  dank.
 $$ e^{\tau \partial_a}e^{\epsilon \partial_b} fe^{\tilde{\epsilon \partial_b}}e^{\tilde{\tau \partial_a}} 
   =f(x+\tau a +\epsilon b  -\epsilon b -\tau a ) =f(x)  $$
 which is a dumb thing to write when we are in a linear space.</p>
@@ -7871,7 +7872,7 @@ which is a dumb thing to write when we are in a linear space.</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=beb91872">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=9ea08369">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7921,7 +7922,7 @@ e^{-\tau \partial_a} &amp;=\tilde T_{\tau a}
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=d8f732f4">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=b483f33e">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7936,7 +7937,7 @@ e^{-\tau \partial_a} &amp;=\tilde T_{\tau a}
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=69ca9687">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=d8155952">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7947,7 +7948,7 @@ e^{-\tau \partial_a} &amp;=\tilde T_{\tau a}
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=58e6795e">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=d87112c0">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7957,7 +7958,7 @@ e^{-\tau \partial_a} &amp;=\tilde T_{\tau a}
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=4fd53812">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=bf7a0b5b">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7994,7 +7995,7 @@ e^{-\tau \partial_a} &amp;=\tilde T_{\tau a}
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=54d4ca61">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=98a2257d">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8010,7 +8011,7 @@ B &amp;\equiv e_{12} + e_{20}
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=ffa842bf">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=9a495a6d">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8025,7 +8026,7 @@ e^{\nabla}\wedge A &amp;= F
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=c39b79bf">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=286f074f">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>

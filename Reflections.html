@@ -3,34 +3,7 @@
 <html lang="en">
 <head><meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Notebook</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script><script>
-(function() {
-  function addWidgetsRenderer() {
-    var mimeElement = document.querySelector('script[type="application/vnd.jupyter.widget-view+json"]');
-    var scriptElement = document.createElement('script');
-    
-    var widgetRendererSrc = 'https://unpkg.com/@jupyter-widgets/html-manager@*/dist/embed-amd.js';
-    
-    var widgetState;
-
-    // Fallback for older version:
-    try {
-      widgetState = mimeElement && JSON.parse(mimeElement.innerHTML);
-
-      if (widgetState && (widgetState.version_major < 2 || !widgetState.version_major)) {
-        
-        var widgetRendererSrc = 'https://unpkg.com/@jupyter-js-widgets@*/dist/embed.js';
-        
-      }
-    } catch(e) {}
-
-    scriptElement.src = widgetRendererSrc;
-    document.body.appendChild(scriptElement);
-  }
-
-  document.addEventListener('DOMContentLoaded', addWidgetsRenderer);
-}());
-</script>
+<title>Notebook</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <style type="text/css">
     pre { line-height: 125%; }
 td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
@@ -7824,7 +7797,7 @@ a.anchor-link {
 </head>
 <body class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
 <main>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=0a4ae54b">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=b5bcc6f6">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7838,48 +7811,146 @@ written 02/02/2026<br/>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=78595840">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=ee2ccfe8">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h1 id="Reflections">Reflections<a class="anchor-link" href="#Reflections">¶</a></h1><h2 id="summary">summary<a class="anchor-link" href="#summary">¶</a></h2><p>In this we entertain some ideas about reflection coeficient  in special relativity</p>
-<h2 id="Field-decompositions">Field decompositions<a class="anchor-link" href="#Field-decompositions">¶</a></h2><p>We are using <a href="https://en.wikipedia.org/wiki/Spacetime_algebra">Spacetime Algebra</a> , but  with time  $\gamma_4$,  signature = (-1,-1,-1,1)</p>
+<h1 id="Reflections">Reflections<a class="anchor-link" href="#Reflections">¶</a></h1><h2 id="Summary">Summary<a class="anchor-link" href="#Summary">¶</a></h2><p>In this we entertain some ideas about reflection coeficient  in special relativity</p>
+<h2 id="Field-decompositions">Field decompositions<a class="anchor-link" href="#Field-decompositions">¶</a></h2><p>We are using <a href="https://en.wikipedia.org/wiki/Spacetime_algebra">Spacetime Algebra</a> , but  with time = $\gamma_4$,  signature = (-1,-1,-1,1)</p>
 <p>\begin{align*}
-\gamma_1^2 = \gamma_2^2 = \gamma_3^2 = -\gamma_4^2 = -1 
-\end{align*}</p>
-<h3 id="Time">Time<a class="anchor-link" href="#Time">¶</a></h3><p>Any object can be it can be decomposed based on symmtries with respect to a given direction, which is interpreted as <em>projection</em> and <em>rejection</em>. Commonly this is done with respect to time. Given a faraday bivector $F$, and some time direction $\gamma_4$ ,  this leads to a electric/magnetic (E/H) decomp
+-\gamma_{\not{4}}^2 = \gamma_4^2 = 1 
+\end{align*}
+Where we use slash to mean  rejection from a given direction.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=dd4ca5ff">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="Time">Time<a class="anchor-link" href="#Time">¶</a></h3><p>Any object can be it can be decomposed based on symmetries with respect to a given direction. Commonly this is done with respect to time. Given a faraday bivector $F$, and some time direction $\gamma_4$ ,  this leads to a electric/magnetic (E/H) decomp
 \begin{align*}
 F &amp;= \frac{1}{2} (F+\gamma_4 F\gamma_4) +\frac{1}{2}( F-\gamma_4F\gamma_4) \\
+  &amp;= F\wedge \gamma_4\gamma_4^{-1} +  F\cdot \gamma_4\gamma_4^{-1}\\
   &amp;= F_4 + F_{\not{4}} \\
   &amp;= E+H
 \end{align*}</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=273a74cd">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h3 id="General-Direction">General Direction<a class="anchor-link" href="#General-Direction">¶</a></h3><p>If instead  of time,  we choose a random direction  $p$ as a decomposition vector,
 \begin{align*}
 F &amp;= \frac{1}{2} (F+p Fp) +\frac{1}{2}( F-pFp) \\
   &amp;= F_p + F_{\not{p}} \\
 \end{align*}</p>
-<p>If we further assume $F$ is given by the planewave formula (non-standard plane-wave formulas considered <a href="PlaneWaves.html">here</a>),<br>
+<p>If we further assume $F$ is given by the plane-wave formula ,<br>
 $$F(x)=e^{p\cdot x I }F_0.$$
 where:</br></p>
 <ul>
-<li>$x$ is a spactime position,</li>
+<li>$x$ is a spacetime position,</li>
 <li>$p=p_4+p_{\not{4}}\equiv k+w$ is the spacetime  propagation vector, and</li>
 <li>$I \equiv \gamma_{1234}$ is psuedo-scalar.</li>
 </ul>
-<p>then this decomposition is interpreted as a forward and reverse propgating waves.
+<p>then this decomposition is interpreted as a forward and reverse propagating waves.
 $$ F =  F_p + F_{\not{p}} = A+B$$</p>
-<p>Here is a picture in $\gamma_{134}$.</p>
+<p>(Note, non-standard plane-wave formulas considered <a href="PlaneWaves.html">here</a>)</p>
+<p>The decomposition is a choice that is up to us. Here is a picture in $\gamma_{134}$.</p>
 <p><img alt="Time Harmonic Normal Incidence" src="img/FplaneWaveAB_gamma4.svg"/></p>
-<p>Consert Maxwell's equation in terms of the vector potential $a$
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=3d0d684f">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="Implementation">Implementation<a class="anchor-link" href="#Implementation">¶</a></h2>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=c7a317a5">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [1]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">kingdon</span><span class="w"> </span><span class="kn">import</span> <span class="n">Algebra</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">kingdon.numerical</span><span class="w"> </span><span class="kn">import</span> <span class="n">exp</span>
+<span class="n">sta</span> <span class="o">=</span> <span class="n">Algebra</span><span class="p">(</span><span class="n">signature</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span><span class="n">start_index</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="nb">locals</span><span class="p">()</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">sta</span><span class="o">.</span><span class="n">blades</span><span class="p">)</span>
+<span class="n">F</span> <span class="o">=</span> <span class="n">sta</span><span class="o">.</span><span class="n">random_bivector</span><span class="p">()</span>
+<span class="n">E</span><span class="p">,</span><span class="n">H</span>  <span class="o">=</span>  <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="n">F</span> <span class="o">+</span> <span class="n">e4</span><span class="o">*</span><span class="n">F</span><span class="o">*</span><span class="n">e4</span><span class="p">),</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="n">F</span> <span class="o">-</span> <span class="n">e4</span><span class="o">*</span><span class="n">F</span><span class="o">*</span><span class="n">e4</span><span class="p">)</span>
+
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">decomp</span><span class="p">(</span><span class="n">F</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="n">F</span> <span class="o">+</span> <span class="n">p</span><span class="o">*</span><span class="n">F</span><span class="o">*</span><span class="n">p</span><span class="p">),</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="n">F</span> <span class="o">-</span> <span class="n">p</span><span class="o">*</span><span class="n">F</span><span class="o">*</span><span class="n">p</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">F0</span><span class="p">):</span>
+    <span class="n">I</span>  <span class="o">=</span> <span class="n">e1234</span>
+    <span class="k">return</span> <span class="n">exp</span><span class="p">((</span><span class="n">p</span><span class="o">|</span><span class="n">x</span><span class="p">)</span><span class="o">*</span><span class="n">I</span><span class="p">)</span><span class="o">*</span><span class="n">F0</span> 
+
+<span class="n">x</span>   <span class="o">=</span> <span class="n">sta</span><span class="o">.</span><span class="n">random_vector</span><span class="p">()</span>
+<span class="n">p</span>   <span class="o">=</span> <span class="n">e3</span> <span class="o">+</span> <span class="n">e4</span>
+<span class="n">F0</span>  <span class="o">=</span> <span class="n">e14</span> <span class="o">+</span> <span class="mf">.2</span><span class="o">*</span><span class="n">e13</span>  <span class="c1"># Ex + Hy</span>
+<span class="n">F</span>   <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">p</span><span class="o">=</span><span class="n">p</span><span class="p">,</span> <span class="n">F0</span><span class="o">=</span><span class="n">F0</span><span class="p">)</span> 
+<span class="n">E</span><span class="p">,</span><span class="n">H</span> <span class="o">=</span>  <span class="n">decomp</span><span class="p">(</span><span class="n">F</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">e4</span><span class="p">)</span>
+<span class="n">A</span><span class="p">,</span><span class="n">B</span> <span class="o">=</span>  <span class="n">decomp</span><span class="p">(</span><span class="n">F</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">p</span><span class="p">)</span>
+<span class="n">w</span><span class="p">,</span><span class="n">k</span> <span class="o">=</span>  <span class="n">decomp</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="n">e4</span><span class="p">)</span>
+<span class="n">E</span><span class="p">,</span><span class="n">H</span><span class="p">,</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">,</span> <span class="n">E</span><span class="o">/</span><span class="n">H</span><span class="p">,</span> <span class="n">B</span><span class="o">/</span><span class="n">A</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[1]:</div>
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
+<pre>(0.189 𝐞₁₃ + 0.329 𝐞₂₃,
+ 0.944 𝐞₁₄ + 0.0658 𝐞₂₄,
+ -0.661 𝐞₁₃ + -0.283 𝐞₁₄ + 0.428 𝐞₂₃ + 0.296 𝐞₂₄,
+ 0.85 𝐞₁₃ + 1.23 𝐞₁₄ + -0.0987 𝐞₂₃ + -0.23 𝐞₂₄,
+ 0.223 𝐞₃₄ + 0.333 𝐞₁₂₃₄,
+ -0.277 + -0.421 𝐞₁₂ + -1.28 𝐞₃₄ + -0.421 𝐞₁₂₃₄)</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=53057d76">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>Maxwell's equation in terms of the vector potential $a$
 $$\nabla a = F$$
 (Sorry for the symbol, we already used $A$ and its a vectory anyway. Also, no one is going to read this anyway )</p>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=f43d979e">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=57f494bb">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7889,23 +7960,164 @@ $$\nabla a = F$$
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=a907bf3c">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=e656c7cf">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [1]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [2]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">fields</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span> 
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1">#from  fields import * </span>
+<span class="c1">#pga.graph(make_fields(F, e12_N=10,e0_bounds=3),  </span>
+<span class="c1">#          grid=False,lineWidth=4,animate=True,scale=.35,height='300px')</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=9e1a7d4c">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="Reflection">Reflection<a class="anchor-link" href="#Reflection">¶</a></h2><h3 id="Time-Harmonic-Normal-Incidence">Time Harmonic Normal Incidence<a class="anchor-link" href="#Time-Harmonic-Normal-Incidence">¶</a></h3><p>Electrical Engineering is developed assuming time-harmonic-ness from the outset. Geometrically, this imposes projective geometry in a 'frequency space'.
+Consider  a plane wave in a vaccum normally incident upon a surface,  as depicted by the wave-vector diagram below.</p>
+<p><img alt="Time Harmonic Normal Incidence" src="img/timeHarmonicNormalIncidence_a.svg"/></p>
+<p>The situtation is time-invariant, and thus $w$ is unchanging.</p>
+<p>The term time-harmonic is an application of <a href="https://en.wikipedia.org/wiki/Bloch%27s_theorem#">bloch's theorem</a> along time.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=2f0950d3">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="Splits">Splits<a class="anchor-link" href="#Splits">¶</a></h2><h3 id="Phase-velocity">Phase velocity<a class="anchor-link" href="#Phase-velocity">¶</a></h3><p>$$V_p \equiv wk^{-1} = \frac{w}{k}=\frac{p_4}{p_{\not 4}}= \frac{p \cdot \gamma_4 }{p \wedge\gamma_4 } $$</p>
+<h3 id="Impedance,-$Z$">Impedance, $Z$<a class="anchor-link" href="#Impedance,-$Z$">¶</a></h3><p>$$Z \equiv EH^{-1}  = \frac{F_4}{F_{\not 4}} = \frac{F\wedge\gamma_4  }{ F\cdot \gamma_4 }$$</p>
+<h3 id="Reflection-Coefficient,-$%5CGamma$">Reflection Coefficient, $\Gamma$<a class="anchor-link" href="#Reflection-Coefficient,-$%5CGamma$">¶</a></h3><p>$$\Gamma \equiv AB^{-1}  = \frac{F_p}{F_{\not p}}=  \frac{F\wedge p  }{ F\cdot p }$$</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=ca2fcae4">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [3]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">round</span><span class="p">(</span><span class="n">mv</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">mv</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="nb">abs</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">tol</span><span class="p">)</span>
 
-<span class="k">def</span><span class="w"> </span><span class="nf">F</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-    <span class="n">I</span>  <span class="o">=</span> <span class="n">D</span><span class="o">.</span><span class="n">e0123</span>
-    <span class="n">F0</span> <span class="o">=</span> <span class="n">D</span><span class="o">.</span><span class="n">e01</span> <span class="o">+</span> <span class="n">D</span><span class="o">.</span><span class="n">e13</span> <span class="c1"># Ex + Hy </span>
-    <span class="n">p</span>  <span class="o">=</span> <span class="n">D</span><span class="o">.</span><span class="n">e3</span> <span class="o">+</span> <span class="n">D</span><span class="o">.</span><span class="n">e0</span>   <span class="c1"># k + w </span>
-    <span class="k">return</span> <span class="n">exp</span><span class="p">((</span><span class="n">p</span><span class="o">|</span><span class="n">x</span><span class="p">)</span><span class="o">*</span><span class="n">I</span><span class="p">)</span><span class="o">*</span><span class="n">F0</span> 
+<span class="k">def</span><span class="w"> </span><span class="nf">split</span><span class="p">(</span><span class="n">F</span><span class="p">,</span><span class="n">p</span><span class="p">):</span>
+    <span class="n">num</span><span class="p">,</span><span class="n">denom</span> <span class="o">=</span> <span class="n">decomp</span><span class="p">(</span><span class="n">F</span><span class="p">,</span><span class="n">p</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">num</span><span class="o">/</span><span class="n">denom</span>
 
-<span class="n">pga</span><span class="o">.</span><span class="n">graph</span><span class="p">(</span><span class="n">make_fields</span><span class="p">(</span><span class="n">F</span><span class="p">,</span> <span class="n">e12_N</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span><span class="n">e0_bounds</span><span class="o">=</span><span class="mi">3</span><span class="p">),</span>  <span class="n">grid</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">lineWidth</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span><span class="n">animate</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">scale</span><span class="o">=</span><span class="mf">.35</span><span class="p">,</span><span class="n">height</span><span class="o">=</span><span class="s1">'300px'</span><span class="p">)</span>
+<span class="n">Gamma</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">split</span><span class="p">(</span><span class="n">F</span><span class="p">(</span><span class="n">x</span><span class="p">),</span><span class="n">p</span><span class="p">)</span> <span class="p">)</span>
+<span class="n">Z0</span>    <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">split</span><span class="p">(</span><span class="n">F</span><span class="p">(</span><span class="n">x</span><span class="p">),</span><span class="n">e4</span><span class="p">)</span> <span class="p">)</span>
+<span class="n">V</span>     <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">split</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="n">e4</span> <span class="p">))</span>
+<span class="n">Gamma</span><span class="p">,</span> <span class="n">Z0</span><span class="p">,</span> <span class="n">V</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[3]:</div>
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
+<pre>(0.251 + 0.135 𝐞₁₂ + -0.749 𝐞₃₄ + 0.135 𝐞₁₂₃₄,
+ 0.223 𝐞₃₄ + 0.333 𝐞₁₂₃₄,
+ 1.0 𝐞₃₄)</pre>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=90e7650d">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [4]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span> <span class="n">p</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[4]:</div>
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
+<pre>1 𝐞₃ + 1 𝐞₄</pre>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=ca1dae59">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [5]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span> 
+
+<span class="n">norm</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="nb">abs</span><span class="p">(((</span><span class="n">x</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">e</span><span class="p">))</span>
+<span class="n">na</span> <span class="o">=</span> <span class="n">norm</span><span class="p">(</span><span class="n">w</span><span class="p">)</span> <span class="o">+</span> <span class="n">norm</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+<span class="n">nb</span> <span class="o">=</span> <span class="n">norm</span><span class="p">(</span><span class="n">w</span><span class="p">)</span> <span class="o">-</span> <span class="n">norm</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+<span class="n">Na</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="o">*</span><span class="p">(</span><span class="n">na</span><span class="o">*</span><span class="n">nb</span><span class="p">)</span>
+<span class="n">Nb</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="o">*</span><span class="p">(</span><span class="n">nb</span><span class="o">*</span><span class="n">na</span><span class="p">)</span>
+
+<span class="n">p</span><span class="o">*</span><span class="n">Nb</span><span class="p">,</span> <span class="n">p</span><span class="o">*</span><span class="n">Na</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[5]:</div>
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
+<pre>(1.0 𝐞₃ + 1.0 𝐞₄, )</pre>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=48b3934c">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [6]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">na</span> <span class="o">=</span>  <span class="n">w</span><span class="o">.</span><span class="n">normalized</span><span class="p">()</span> <span class="o">+</span><span class="n">k</span><span class="o">.</span><span class="n">normalized</span><span class="p">()</span>
+<span class="n">nb</span> <span class="o">=</span>  <span class="n">w</span><span class="o">.</span><span class="n">normalized</span><span class="p">()</span> <span class="o">-</span><span class="n">k</span><span class="o">.</span><span class="n">normalized</span><span class="p">()</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span> 
+
+
+<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">tanh</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">4</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">atanh</span><span class="p">(((</span><span class="n">w</span><span class="o">/</span><span class="n">k</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">sqrt</span><span class="p">()</span><span class="o">.</span><span class="n">e</span><span class="p">))</span><span class="o">*</span><span class="n">nb</span>
+<span class="n">b</span><span class="p">,</span><span class="n">na</span>
 </pre></div>
 </div>
 </div>
@@ -7917,53 +8129,63 @@ $$\nabla a = F$$
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>Using device: cpu
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr" tabindex="0">
+<pre>/tmp/ipykernel_2518/142754911.py:7: RuntimeWarning: divide by zero encountered in arctanh
+  b = np.tanh(np.pi/4 - np.atanh(((w/k)**2).sqrt().e))*nb
 </pre>
 </div>
 </div>
 <div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[1]:</div>
-<div class="jupyter-widgets jp-OutputArea-output jp-OutputArea-executeResult" id="28c196f2-4de8-44ca-9962-a4a2e8b149cd" tabindex="0">
-<script type="text/javascript">
-var element = document.getElementById('28c196f2-4de8-44ca-9962-a4a2e8b149cd');
-</script>
-<script type="application/vnd.jupyter.widget-view+json">
-{"version_major": 2, "version_minor": 1, "model_id": "2e07797354ce4130b4920d1c71256e19"}
-</script>
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[6]:</div>
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
+<pre>((6.123233995736766e-17-1j) 𝐞₃ + (-1+0j) 𝐞₄,
+ (6.123233995736766e-17-1j) 𝐞₃ + (1+0j) 𝐞₄)</pre>
 </div>
 </div>
 </div>
 </div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=47d0fb6a">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=e632b252">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Reflection">Reflection<a class="anchor-link" href="#Reflection">¶</a></h2><h3 id="Time-Harmonic-Normal-Incidence">Time Harmonic Normal Incidence<a class="anchor-link" href="#Time-Harmonic-Normal-Incidence">¶</a></h3><p>Consider normal incidence  of a plane wave as depicted by the diagram below
-<img alt="Time Harmonic Normal Incidence" src="img/timeHarmonicNormalIncidence_a.svg"/></p>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [7]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">k</span><span class="o">.</span><span class="n">normalized</span><span class="p">()</span>
+</pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=6e7b1fb1">
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[7]:</div>
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
+<pre>(6.123233995736766e-17-1j) 𝐞₃</pre>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=0637df00">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Splits">Splits<a class="anchor-link" href="#Splits">¶</a></h2><h3 id="Impedance,-$Z$">Impedance, $Z$<a class="anchor-link" href="#Impedance,-$Z$">¶</a></h3><p>$$Z \equiv EH^{-1}  = \frac{E}{H}= \frac{F + \gamma_4F\gamma_4 }{ F-\gamma_4F\gamma_4 }$$</p>
-<h3 id="Reflection-Coefficient,-$%5CGamma$">Reflection Coefficient, $\Gamma$<a class="anchor-link" href="#Reflection-Coefficient,-$%5CGamma$">¶</a></h3><p>$$\Gamma \equiv AB^{-1}  = \frac{A}{B}= \frac{F + kFk }{ F-kFk }$$</p>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
 </div>
 </div>
 </div>
 </div>
 </main>
 </body>
-<script type="application/vnd.jupyter.widget-state+json">
-{"state": {"e9fdbd6508444681a891137bd522b109": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets\/base", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets\/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets\/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "2e07797354ce4130b4920d1c71256e19": {"model_name": "AnyModel", "model_module": "anywidget", "model_module_version": "~0.9.*", "state": {"_anywidget_id": "kingdon.graph.GraphWidget", "_dom_classes": [], "_esm": "const ganja_source = sessionStorage.ganja_source ||\n    await fetch(\"https:\/\/enki.ws\/ganja.js\/ganja.js\")\n          .then(x => x.text());\n\nif (!sessionStorage.ganja_source) {sessionStorage.ganja_source = ganja_source};\n\nconst Algebra = (() => {\n    const ctx = {};\n    (new Function('const define=1;' + ganja_source)).apply(ctx);\n    return ctx.Algebra;\n})();\n\nfunction render({ model, el }) {\n    var canvas = Algebra({metric: model.get('signature'), graded: model.get('graded')}).inline((model)=>{\n        \/\/ Define constants\n        var key2idx = model.get('key2idx');\n        var draggable_points_idxs = model.get('draggable_points_idxs');\n        var options = model.get('options');\n        var d = model.get('signature').length;\n\n        function grade(key) {\n            var count = 0;\n            while (key) {\n                count += key & 1;\n                key >>= 1;\n            }\n            return count;\n        }\n\n        \/\/ Define helper functions.\n        var toElement = (o)=>{\n            \/* convert object to Element *\/\n            var _values = o['mv'] instanceof DataView?new Float64Array(o['mv'].buffer):o['mv'];\n            if ('grades' in o) {\n                var values = new Element();\n                o['grades'].forEach(grade=>values[grade] = []);\n                o['keys'].forEach((k, j)=>{var g = grade(k); values[g][key2idx[g][k]] = _values[j]});\n                return values;\n            }\n            if ('keys' in o) {\n                var values = Array(Object.keys(key2idx).length).fill(0);\n                o['keys'].forEach((k, j)=>values[key2idx[k]] = _values[j]);\n                return new Element(values);\n            }\n            return new Element(_values);\n        }\n        var decode = x=>typeof x === 'object' && 'mv' in x?toElement(x):Array.isArray(x)?x.map(decode):x;\n        var encode = x=>x instanceof Element?({mv:[...x]}):x?.map?x.map(encode):x;\n\n        \/\/ Decode camera if provided.\n         if (options?.camera && typeof options.camera === 'object' && 'mv' in options.camera) {\n             options.camera = toElement(options.camera)\n         }\n\n        if (options?.animate) {\n            var graph_func = ()=>{\n                if (canvas?.value && draggable_points_idxs?.length) {\n                    model.set('draggable_points', encode(draggable_points_idxs.map(i=>canvas.value[i])));\n                    model.save_changes();\n                }\n                \/\/ Send an update request. This drives the event loop.\n                model.send({ type: \"update_mvs\" });\n                var subjects = decode(model.get('subjects'));\n                return [...subjects];\n            }\n        } else {\n            var graph_func = ()=>{\n                if (canvas?.value && draggable_points_idxs?.length) {\n                    model.set('draggable_points', encode(draggable_points_idxs.map(i=>canvas.value[i])));\n                    model.save_changes();\n                }\n                var subjects = decode(model.get('subjects'));\n                return [...subjects];\n            }\n\n            \/\/ This ensures the remake is always called one last time to show the final position.\n            model.on(\"change:subjects\", ()=>{\n                if (canvas.remake) canvas = canvas.remake(0);\n                if (canvas.update) canvas.update(canvas.value);\n            });\n        }\n\n        var canvas;\n        canvas = this.graph(graph_func, options)\n        return canvas;\n    })(model)\n\n    var options = model.get('options');\n    canvas.style.width = options?.width || `min( 100%, 1024px )`;\n    canvas.style.height = options?.height || 'auto';\n    canvas.style.aspectRatio = '16 \/ 6';\n    canvas.style.background = 'white';\n    canvas.style.marginLeft = `calc( (100% - ${ options?.width??\"min(100%, 1024px)\" }) \/ 2 )`;\n    el.appendChild(canvas);\n}\n\nexport default { render };\n", "_model_module": "anywidget", "_model_module_version": "~0.9.*", "_model_name": "AnyModel", "_view_count": null, "_view_module": "anywidget", "_view_module_version": "~0.9.*", "_view_name": "AnyView", "cayley": [["1", "e0", "e1", "e2", "e3", "e01", "e02", "e03", "e12", "e13", "e23", "e012", "e013", "e023", "e123", "e0123"], ["e0", "0", "e01", "e02", "e03", "0", "0", "0", "e012", "e013", "e023", "0", "0", "0", "e0123", "0"], ["e1", "-e01", "1", "e12", "e13", "-e0", "-e012", "-e013", "e2", "e3", "e123", "-e02", "-e03", "-e0123", "e23", "-e023"], ["e2", "-e02", "-e12", "1", "e23", "e012", "-e0", "-e023", "-e1", "-e123", "e3", "e01", "e0123", "-e03", "-e13", "e013"], ["e3", "-e03", "-e13", "-e23", "1", "e013", "e023", "-e0", "e123", "-e1", "-e2", "-e0123", "e01", "e02", "e12", "-e012"], ["e01", "0", "e0", "e012", "e013", "0", "0", "0", "e02", "e03", "e0123", "0", "0", "0", "e023", "0"], ["e02", "0", "-e012", "e0", "e023", "0", "0", "0", "-e01", "-e0123", "e03", "0", "0", "0", "-e013", "0"], ["e03", "0", "-e013", "-e023", "e0", "0", "0", "0", "e0123", "-e01", "-e02", "0", "0", "0", "e012", "0"], ["e12", "e012", "-e2", "e1", "e123", "-e02", "e01", "e0123", "-1", "-e23", "e13", "-e0", "-e023", "e013", "-e3", "-e03"], ["e13", "e013", "-e3", "-e123", "e1", "-e03", "-e0123", "e01", "e23", "-1", "-e12", "e023", "-e0", "-e012", "e2", "e02"], ["e23", "e023", "e123", "-e3", "e2", "e0123", "-e03", "e02", "-e13", "e12", "-1", "-e013", "e012", "-e0", "-e1", "-e01"], ["e012", "0", "-e02", "e01", "e0123", "0", "0", "0", "-e0", "-e023", "e013", "0", "0", "0", "-e03", "0"], ["e013", "0", "-e03", "-e0123", "e01", "0", "0", "0", "e023", "-e0", "-e012", "0", "0", "0", "e02", "0"], ["e023", "0", "e0123", "-e03", "e02", "0", "0", "0", "-e013", "e012", "-e0", "0", "0", "0", "-e01", "0"], ["e123", "-e0123", "e23", "-e13", "e12", "-e023", "e013", "-e012", "-e3", "e2", "-e1", "e03", "-e02", "e01", "-1", "e0"], ["e0123", "0", "e023", "-e013", "e012", "0", "0", "0", "-e03", "e02", "-e01", "0", "0", "0", "-e0", "0"]], "draggable_points": [[]], "draggable_points_idxs": [], "graded": false, "key2idx": {"0": 0, "1": 1, "2": 2, "4": 3, "8": 4, "3": 5, "5": 6, "9": 7, "6": 8, "10": 9, "12": 10, "7": 11, "11": 12, "13": 13, "14": 14, "15": 15}, "layout": "IPY_MODEL_e9fdbd6508444681a891137bd522b109", "options": {"grid": false, "lineWidth": 4, "animate": true, "scale": 0.35, "height": "300px"}, "signature": [0, 1, 1, 1], "subjects": [1810039, [{"mv": [-0.0, 6.0, -6.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 6.3773288116267155, -6.132751526983198, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 4.666666666666667, -6.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 5.0439954782933825, -6.132751526983198, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 3.3333333333333335, -6.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 3.710662144960049, -6.132751526983198, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 2.0, -6.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 2.3773288116267155, -6.132751526983198, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 0.666666666666667, -6.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 1.0439954782933825, -6.132751526983198, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -0.666666666666667, -6.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -0.2893378550399516, -6.132751526983198, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -2.0, -6.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -1.6226711883732845, -6.132751526983198, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -3.3333333333333335, -6.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -2.956004521706618, -6.132751526983198, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -4.666666666666667, -6.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -4.2893378550399515, -6.132751526983198, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -6.0, -6.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -5.6226711883732845, -6.132751526983198, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 6.0, -4.666666666666667, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 6.3773288116267155, -4.799418193649865, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 4.666666666666667, -4.666666666666667, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 5.0439954782933825, -4.799418193649865, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 3.3333333333333335, -4.666666666666667, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 3.710662144960049, -4.799418193649865, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 2.0, -4.666666666666667, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 2.3773288116267155, -4.799418193649865, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 0.666666666666667, -4.666666666666667, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 1.0439954782933825, -4.799418193649865, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -0.666666666666667, -4.666666666666667, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -0.2893378550399516, -4.799418193649865, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -2.0, -4.666666666666667, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -1.6226711883732845, -4.799418193649865, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -3.3333333333333335, -4.666666666666667, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -2.956004521706618, -4.799418193649865, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -4.666666666666667, -4.666666666666667, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -4.2893378550399515, -4.799418193649865, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -6.0, -4.666666666666667, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -5.6226711883732845, -4.799418193649865, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 6.0, -3.3333333333333335, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 6.3773288116267155, -3.4660848603165317, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 4.666666666666667, -3.3333333333333335, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 5.0439954782933825, -3.4660848603165317, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 3.3333333333333335, -3.3333333333333335, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 3.710662144960049, -3.4660848603165317, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 2.0, -3.3333333333333335, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 2.3773288116267155, -3.4660848603165317, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 0.666666666666667, -3.3333333333333335, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 1.0439954782933825, -3.4660848603165317, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -0.666666666666667, -3.3333333333333335, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -0.2893378550399516, -3.4660848603165317, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -2.0, -3.3333333333333335, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -1.6226711883732845, -3.4660848603165317, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -3.3333333333333335, -3.3333333333333335, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -2.956004521706618, -3.4660848603165317, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -4.666666666666667, -3.3333333333333335, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -4.2893378550399515, -3.4660848603165317, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -6.0, -3.3333333333333335, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -5.6226711883732845, -3.4660848603165317, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 6.0, -2.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 6.3773288116267155, -2.1327515269831983, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 4.666666666666667, -2.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 5.0439954782933825, -2.1327515269831983, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 3.3333333333333335, -2.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 3.710662144960049, -2.1327515269831983, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 2.0, -2.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 2.3773288116267155, -2.1327515269831983, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 0.666666666666667, -2.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 1.0439954782933825, -2.1327515269831983, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -0.666666666666667, -2.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -0.2893378550399516, -2.1327515269831983, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -2.0, -2.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -1.6226711883732845, -2.1327515269831983, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -3.3333333333333335, -2.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -2.956004521706618, -2.1327515269831983, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -4.666666666666667, -2.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -4.2893378550399515, -2.1327515269831983, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -6.0, -2.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -5.6226711883732845, -2.1327515269831983, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 6.0, -0.666666666666667, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 6.3773288116267155, -0.7994181936498651, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 4.666666666666667, -0.666666666666667, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 5.0439954782933825, -0.7994181936498651, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 3.3333333333333335, -0.666666666666667, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 3.710662144960049, -0.7994181936498651, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 2.0, -0.666666666666667, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 2.3773288116267155, -0.7994181936498651, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 0.666666666666667, -0.666666666666667, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 1.0439954782933825, -0.7994181936498651, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -0.666666666666667, -0.666666666666667, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -0.2893378550399516, -0.7994181936498651, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -2.0, -0.666666666666667, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -1.6226711883732845, -0.7994181936498651, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -3.3333333333333335, -0.666666666666667, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -2.956004521706618, -0.7994181936498651, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -4.666666666666667, -0.666666666666667, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -4.2893378550399515, -0.7994181936498651, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -6.0, -0.666666666666667, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -5.6226711883732845, -0.7994181936498651, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 6.0, 0.666666666666667, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 6.3773288116267155, 0.5339151396834688, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 4.666666666666667, 0.666666666666667, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 5.0439954782933825, 0.5339151396834688, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 3.3333333333333335, 0.666666666666667, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 3.710662144960049, 0.5339151396834688, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 2.0, 0.666666666666667, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 2.3773288116267155, 0.5339151396834688, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 0.666666666666667, 0.666666666666667, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 1.0439954782933825, 0.5339151396834688, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -0.666666666666667, 0.666666666666667, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -0.2893378550399516, 0.5339151396834688, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -2.0, 0.666666666666667, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -1.6226711883732845, 0.5339151396834688, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -3.3333333333333335, 0.666666666666667, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -2.956004521706618, 0.5339151396834688, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -4.666666666666667, 0.666666666666667, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -4.2893378550399515, 0.5339151396834688, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -6.0, 0.666666666666667, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -5.6226711883732845, 0.5339151396834688, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 6.0, 2.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 6.3773288116267155, 1.8672484730168017, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 4.666666666666667, 2.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 5.0439954782933825, 1.8672484730168017, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 3.3333333333333335, 2.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 3.710662144960049, 1.8672484730168017, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 2.0, 2.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 2.3773288116267155, 1.8672484730168017, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 0.666666666666667, 2.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 1.0439954782933825, 1.8672484730168017, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -0.666666666666667, 2.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -0.2893378550399516, 1.8672484730168017, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -2.0, 2.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -1.6226711883732845, 1.8672484730168017, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -3.3333333333333335, 2.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -2.956004521706618, 1.8672484730168017, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -4.666666666666667, 2.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -4.2893378550399515, 1.8672484730168017, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -6.0, 2.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -5.6226711883732845, 1.8672484730168017, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 6.0, 3.3333333333333335, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 6.3773288116267155, 3.2005818063501352, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 4.666666666666667, 3.3333333333333335, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 5.0439954782933825, 3.2005818063501352, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 3.3333333333333335, 3.3333333333333335, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 3.710662144960049, 3.2005818063501352, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 2.0, 3.3333333333333335, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 2.3773288116267155, 3.2005818063501352, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 0.666666666666667, 3.3333333333333335, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 1.0439954782933825, 3.2005818063501352, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -0.666666666666667, 3.3333333333333335, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -0.2893378550399516, 3.2005818063501352, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -2.0, 3.3333333333333335, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -1.6226711883732845, 3.2005818063501352, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -3.3333333333333335, 3.3333333333333335, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -2.956004521706618, 3.2005818063501352, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -4.666666666666667, 3.3333333333333335, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -4.2893378550399515, 3.2005818063501352, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -6.0, 3.3333333333333335, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -5.6226711883732845, 3.2005818063501352, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 6.0, 4.666666666666667, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 6.3773288116267155, 4.533915139683469, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 4.666666666666667, 4.666666666666667, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 5.0439954782933825, 4.533915139683469, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 3.3333333333333335, 4.666666666666667, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 3.710662144960049, 4.533915139683469, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 2.0, 4.666666666666667, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 2.3773288116267155, 4.533915139683469, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 0.666666666666667, 4.666666666666667, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 1.0439954782933825, 4.533915139683469, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -0.666666666666667, 4.666666666666667, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -0.2893378550399516, 4.533915139683469, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -2.0, 4.666666666666667, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -1.6226711883732845, 4.533915139683469, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -3.3333333333333335, 4.666666666666667, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -2.956004521706618, 4.533915139683469, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -4.666666666666667, 4.666666666666667, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -4.2893378550399515, 4.533915139683469, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -6.0, 4.666666666666667, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -5.6226711883732845, 4.533915139683469, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 6.0, 6.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 6.3773288116267155, 5.867248473016802, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 4.666666666666667, 6.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 5.0439954782933825, 5.867248473016802, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 3.3333333333333335, 6.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 3.710662144960049, 5.867248473016802, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 2.0, 6.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 2.3773288116267155, 5.867248473016802, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 0.666666666666667, 6.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 1.0439954782933825, 5.867248473016802, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -0.666666666666667, 6.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -0.2893378550399516, 5.867248473016802, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -2.0, 6.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -1.6226711883732845, 5.867248473016802, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -3.3333333333333335, 6.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -2.956004521706618, 5.867248473016802, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -4.666666666666667, 6.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -4.2893378550399515, 5.867248473016802, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -6.0, 6.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -5.6226711883732845, 5.867248473016802, 1.0], "keys": [7, 11, 13, 14]}], 14245634, [{"mv": [-0.0, 6.0, -6.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 6.132751526983198, -5.6226711883732845, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 4.666666666666667, -6.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 4.799418193649865, -5.6226711883732845, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 3.3333333333333335, -6.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 3.4660848603165317, -5.6226711883732845, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 2.0, -6.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 2.1327515269831983, -5.6226711883732845, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 0.666666666666667, -6.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 0.7994181936498651, -5.6226711883732845, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -0.666666666666667, -6.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -0.5339151396834688, -5.6226711883732845, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -2.0, -6.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -1.8672484730168017, -5.6226711883732845, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -3.3333333333333335, -6.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -3.2005818063501352, -5.6226711883732845, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -4.666666666666667, -6.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -4.533915139683469, -5.6226711883732845, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -6.0, -6.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -5.867248473016802, -5.6226711883732845, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 6.0, -4.666666666666667, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 6.132751526983198, -4.2893378550399515, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 4.666666666666667, -4.666666666666667, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 4.799418193649865, -4.2893378550399515, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 3.3333333333333335, -4.666666666666667, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 3.4660848603165317, -4.2893378550399515, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 2.0, -4.666666666666667, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 2.1327515269831983, -4.2893378550399515, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 0.666666666666667, -4.666666666666667, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 0.7994181936498651, -4.2893378550399515, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -0.666666666666667, -4.666666666666667, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -0.5339151396834688, -4.2893378550399515, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -2.0, -4.666666666666667, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -1.8672484730168017, -4.2893378550399515, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -3.3333333333333335, -4.666666666666667, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -3.2005818063501352, -4.2893378550399515, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -4.666666666666667, -4.666666666666667, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -4.533915139683469, -4.2893378550399515, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -6.0, -4.666666666666667, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -5.867248473016802, -4.2893378550399515, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 6.0, -3.3333333333333335, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 6.132751526983198, -2.956004521706618, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 4.666666666666667, -3.3333333333333335, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 4.799418193649865, -2.956004521706618, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 3.3333333333333335, -3.3333333333333335, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 3.4660848603165317, -2.956004521706618, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 2.0, -3.3333333333333335, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 2.1327515269831983, -2.956004521706618, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 0.666666666666667, -3.3333333333333335, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 0.7994181936498651, -2.956004521706618, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -0.666666666666667, -3.3333333333333335, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -0.5339151396834688, -2.956004521706618, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -2.0, -3.3333333333333335, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -1.8672484730168017, -2.956004521706618, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -3.3333333333333335, -3.3333333333333335, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -3.2005818063501352, -2.956004521706618, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -4.666666666666667, -3.3333333333333335, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -4.533915139683469, -2.956004521706618, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -6.0, -3.3333333333333335, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -5.867248473016802, -2.956004521706618, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 6.0, -2.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 6.132751526983198, -1.6226711883732845, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 4.666666666666667, -2.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 4.799418193649865, -1.6226711883732845, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 3.3333333333333335, -2.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 3.4660848603165317, -1.6226711883732845, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 2.0, -2.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 2.1327515269831983, -1.6226711883732845, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 0.666666666666667, -2.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 0.7994181936498651, -1.6226711883732845, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -0.666666666666667, -2.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -0.5339151396834688, -1.6226711883732845, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -2.0, -2.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -1.8672484730168017, -1.6226711883732845, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -3.3333333333333335, -2.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -3.2005818063501352, -1.6226711883732845, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -4.666666666666667, -2.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -4.533915139683469, -1.6226711883732845, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -6.0, -2.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -5.867248473016802, -1.6226711883732845, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 6.0, -0.666666666666667, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 6.132751526983198, -0.2893378550399516, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 4.666666666666667, -0.666666666666667, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 4.799418193649865, -0.2893378550399516, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 3.3333333333333335, -0.666666666666667, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 3.4660848603165317, -0.2893378550399516, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 2.0, -0.666666666666667, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 2.1327515269831983, -0.2893378550399516, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 0.666666666666667, -0.666666666666667, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 0.7994181936498651, -0.2893378550399516, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -0.666666666666667, -0.666666666666667, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -0.5339151396834688, -0.2893378550399516, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -2.0, -0.666666666666667, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -1.8672484730168017, -0.2893378550399516, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -3.3333333333333335, -0.666666666666667, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -3.2005818063501352, -0.2893378550399516, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -4.666666666666667, -0.666666666666667, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -4.533915139683469, -0.2893378550399516, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -6.0, -0.666666666666667, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -5.867248473016802, -0.2893378550399516, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 6.0, 0.666666666666667, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 6.132751526983198, 1.0439954782933825, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 4.666666666666667, 0.666666666666667, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 4.799418193649865, 1.0439954782933825, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 3.3333333333333335, 0.666666666666667, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 3.4660848603165317, 1.0439954782933825, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 2.0, 0.666666666666667, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 2.1327515269831983, 1.0439954782933825, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 0.666666666666667, 0.666666666666667, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 0.7994181936498651, 1.0439954782933825, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -0.666666666666667, 0.666666666666667, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -0.5339151396834688, 1.0439954782933825, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -2.0, 0.666666666666667, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -1.8672484730168017, 1.0439954782933825, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -3.3333333333333335, 0.666666666666667, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -3.2005818063501352, 1.0439954782933825, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -4.666666666666667, 0.666666666666667, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -4.533915139683469, 1.0439954782933825, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -6.0, 0.666666666666667, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -5.867248473016802, 1.0439954782933825, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 6.0, 2.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 6.132751526983198, 2.3773288116267155, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 4.666666666666667, 2.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 4.799418193649865, 2.3773288116267155, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 3.3333333333333335, 2.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 3.4660848603165317, 2.3773288116267155, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 2.0, 2.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 2.1327515269831983, 2.3773288116267155, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 0.666666666666667, 2.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 0.7994181936498651, 2.3773288116267155, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -0.666666666666667, 2.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -0.5339151396834688, 2.3773288116267155, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -2.0, 2.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -1.8672484730168017, 2.3773288116267155, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -3.3333333333333335, 2.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -3.2005818063501352, 2.3773288116267155, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -4.666666666666667, 2.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -4.533915139683469, 2.3773288116267155, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -6.0, 2.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -5.867248473016802, 2.3773288116267155, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 6.0, 3.3333333333333335, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 6.132751526983198, 3.710662144960049, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 4.666666666666667, 3.3333333333333335, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 4.799418193649865, 3.710662144960049, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 3.3333333333333335, 3.3333333333333335, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 3.4660848603165317, 3.710662144960049, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 2.0, 3.3333333333333335, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 2.1327515269831983, 3.710662144960049, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 0.666666666666667, 3.3333333333333335, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 0.7994181936498651, 3.710662144960049, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -0.666666666666667, 3.3333333333333335, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -0.5339151396834688, 3.710662144960049, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -2.0, 3.3333333333333335, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -1.8672484730168017, 3.710662144960049, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -3.3333333333333335, 3.3333333333333335, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -3.2005818063501352, 3.710662144960049, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -4.666666666666667, 3.3333333333333335, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -4.533915139683469, 3.710662144960049, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -6.0, 3.3333333333333335, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -5.867248473016802, 3.710662144960049, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 6.0, 4.666666666666667, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 6.132751526983198, 5.0439954782933825, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 4.666666666666667, 4.666666666666667, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 4.799418193649865, 5.0439954782933825, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 3.3333333333333335, 4.666666666666667, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 3.4660848603165317, 5.0439954782933825, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 2.0, 4.666666666666667, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 2.1327515269831983, 5.0439954782933825, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 0.666666666666667, 4.666666666666667, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 0.7994181936498651, 5.0439954782933825, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -0.666666666666667, 4.666666666666667, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -0.5339151396834688, 5.0439954782933825, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -2.0, 4.666666666666667, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -1.8672484730168017, 5.0439954782933825, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -3.3333333333333335, 4.666666666666667, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -3.2005818063501352, 5.0439954782933825, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -4.666666666666667, 4.666666666666667, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -4.533915139683469, 5.0439954782933825, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -6.0, 4.666666666666667, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -5.867248473016802, 5.0439954782933825, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 6.0, 6.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 6.132751526983198, 6.3773288116267155, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 4.666666666666667, 6.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 4.799418193649865, 6.3773288116267155, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 3.3333333333333335, 6.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 3.4660848603165317, 6.3773288116267155, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 2.0, 6.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 2.1327515269831983, 6.3773288116267155, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, 0.666666666666667, 6.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, 0.7994181936498651, 6.3773288116267155, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -0.666666666666667, 6.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -0.5339151396834688, 6.3773288116267155, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -2.0, 6.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -1.8672484730168017, 6.3773288116267155, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -3.3333333333333335, 6.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -3.2005818063501352, 6.3773288116267155, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -4.666666666666667, 6.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -4.533915139683469, 6.3773288116267155, 1.0], "keys": [7, 11, 13, 14]}], [{"mv": [-0.0, -6.0, 6.0, 1.0], "keys": [7, 11, 13, 14]}, {"mv": [-0.0, -5.867248473016802, 6.3773288116267155, 1.0], "keys": [7, 11, 13, 14]}]], "tabbable": null, "tooltip": null}}}, "version_major": 2, "version_minor": 0}
-</script>
 <script src="static/helpers.js"></script>
 </html>
