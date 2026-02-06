@@ -6,7 +6,7 @@ readme = "README.md"
 requires-python = ">=3.11"
 license = {text = "CC BY-NC-ND 4.0"}
 authors = [
-    {name = "arsenovic", email = "arsenovic@example.com"}
+    {name = "arsenovic", email = "alexanderarsenobic@gmail.com"}
 ]
 
 classifiers = [

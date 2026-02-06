@@ -25,26 +25,31 @@ written 01/17/2026<br>
 ## Summary 
 Starting from the electromagnetic plane wave equation in [Spacetime Algebra](https://en.wikipedia.org/wiki/Spacetime_algebra), a similar equation is reverse engineered which follows conjugation. It is not known to be useful. 
 
-
+<!-- #region -->
 ## Idea
 
 Consider  the form of a EM plane wave given in Hestenes' Spacetime Algebra 
 
-$$ F(x)= F_x = e^{I(k\cdot x)}F_0 $$
+$$  F_x\equiv F(x) = e^{I(k\cdot x)}F_0 $$
 
 where;
 * $x$ is a location in spacetime
 * $k$ is the propagation vector
 * $I$ is psuedoscalar. 
 
-This equation is interpreted as a duality rotation of a fixed bivector $F_0$, parameterized by $k$, with $x$ being  an independent variable. It can also be written as 
+This equation is interpreted as a duality rotation of a fixed bivector $F_0$, parameterized by $k$, with $x$ being  an independent variable.
+The exponent can be re-written as 
 
-$$ e^{I(k\cdot x)}F_0  = e^{(Ik)\wedge x}F_0 =  e^{K\wedge x}F_0$$
+$$  I(k\cdot x)= (Ik)\wedge x =  K\wedge x$$
 
-where $K$ is a trivector dual to $k$. ( We prefer trivectors  for propagation constants since the units match the grade ( rad/m rad/s), but keeping with dual vectors works just as good.) This function solves the equation, 
+
+where $K$ is a trivector dual to $k$. ( We prefer trivectors  for propagation constants since the units match the grade ( rad/m rad/s), but keeping with dual vectors works just as good.) The  function
+
+$$ F_x=  e^{K\wedge x}F_0$$
+ solves the equation, 
 $$ \nabla F_x= KF_x. $$
 
-
+<!-- #endregion -->
 
 So far we have changed nothing from STA. If we re-express $F_x$ in terms of the geometric product, it suggests to us a formula which employs conjugation, such as  
 
@@ -58,7 +63,7 @@ For now, lets proceed and  see what such a forumla provides. Expanding the produ
 
 $$xK = x\cdot K + x \wedge K  = B+\alpha I  $$
 
-Since the psuedoscalar commutes with $F_0$, we can then write, 
+Where $B$ is a bivector. Since the psuedoscalar commutes with $F_0$, we can then write, 
 
 
 $$  e^{ K\wedge x} e^{K\cdot x} F_0e^{-K \cdot x} = e^{ \alpha I }e^{B}F_0e^{-B}   $$

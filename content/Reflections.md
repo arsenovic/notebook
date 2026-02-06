@@ -42,7 +42,7 @@ Where we use slash to mean  rejection from a given direction.
 ###  Time
 Any object can be it can be decomposed based on symmetries with respect to a given direction. Commonly this is done with respect to time. Given a faraday bivector $F$, and some time direction $\gamma_4$ ,  this leads to a electric/magnetic (E/H) decomp 
 \begin{align*}
-F &= \frac{1}{2} (F+\gamma_4 F\gamma_4) +\frac{1}{2}( F-\gamma_4F\gamma_4) \\
+F &= \frac{1}{2} (F+\gamma_4 F\gamma_4^{-1}) +\frac{1}{2}( F-\gamma_4F\gamma_4^{-1}) \\
   &= F\wedge \gamma_4\gamma_4^{-1} +  F\cdot \gamma_4\gamma_4^{-1}\\
   &= F_4 + F_{\not{4}} \\
   &= E+H
@@ -57,7 +57,7 @@ F &= \frac{1}{2} (F+\gamma_4 F\gamma_4) +\frac{1}{2}( F-\gamma_4F\gamma_4) \\
 ### General Direction
 If instead  of time,  we choose a random direction  $p$ as a decomposition vector, 
 \begin{align*}
-F &= \frac{1}{2} (F+p Fp) +\frac{1}{2}( F-pFp) \\
+F &= \frac{1}{2} (F+pFp^{-1}) +\frac{1}{2}( F-pFp^{-1}) \\
   &= F_p + F_{\not{p}} \\
 \end{align*}
 
@@ -78,36 +78,87 @@ The decomposition is a choice that is up to us. Here is a picture in $\gamma_{13
 
 ![Time Harmonic Normal Incidence](img/FplaneWaveAB_gamma4.svg)
 
+### Null exception 
+We do run into a numerical difficulty when we try to decompose a symmetry in a null object, since $x^{-1}$ is not well defined. The work around is to use idempotents. Assuming we have a null propagation vector $p$ and wand to decompose $F$ in forward and reverse propgations. Define, 
+
+\begin{align*}
+e_+ &= w+k\\
+e_- &= w-k\\
+e_{+-} &= e_+e_- \\
+e_{-+} &= e_-e_+ \\
+\end{align*}
+
+Then 
+$$F = F_+ +F_- = Fe_{+-}+Fe_{-+}$$
+
+
 
 <!-- #endregion -->
 
 ## Implementation
 
 ```python
+ 
+```
+
+```python
 from kingdon import Algebra
-from kingdon.numerical import exp
+from kingdon.numerical import exp 
+import numpy as np 
+
 sta = Algebra(signature=[-1,-1,-1,1],start_index=1)
 locals().update(sta.blades)
 F = sta.random_bivector()
-E,H  =  1/2*(F + e4*F*e4), 1/2*(F - e4*F*e4)
+I = sta.pseudoscalar([1])
 
+def norm(x):
+    return x / np.sqrt(abs((x*x).e))
 
+def round(mv, tol=1e-6):
+    return mv.filter(lambda c: abs(c) > tol)
 
-def decomp(F, p):
-    return 1/2*(F + p*F*p), 1/2*(F - p*F*p)
+def decomp(F, p,tol=1e-6):
+    if abs((p**2).e) < tol:  # we have a null vector. use idempotents.
+        w,k = decomp(p, e4)
+        w,k = norm(w), norm(k)
+        ep, em =(w+k)/2, (w-k)/2
+        epm, emp  = -ep*em, -em*ep
+        return F*epm, F*emp
+    else:
+        return 1/2*(F + p*F/p), 1/2*(F - p*F/p)
+
+def split(F,p):
+    num,denom = decomp(F,p)
+    return num/denom
 
 def f(x, p, F0):
     I  = e1234
-    return exp((p|x)*I)*F0 
+    return exp((p|x)*I)*F0 +.2*exp(((e3*p*e3)|x)*I)*F0 
 
 x   = sta.random_vector()
 p   = e3 + e4
-F0  = e14 + .2*e13  # Ex + Hy
+F0  = e14 #+ .9*e13  # Ex + Hy
 F   = lambda x: f(x,p=p, F0=F0) 
-E,H =  decomp(F(x), e4)
-A,B =  decomp(F(x), p)
-w,k =  decomp(p,e4)
-E,H,A,B, E/H, B/A
+
+Fx = F(e4)
+E,H =  decomp(Fx, e4)
+A,B =  decomp(Fx, p)
+Gamma = round(split(F(x),p) )
+Z0    = round(split(F(x),e4) )
+V     = round(split(p,e4 ))
+
+s = {"E": E, "H": H, "A": A, "B": B, "Z0=E/H": E / H, "G0=B/A": B / A}
+for k, v in s.items():
+    print(k,'\t:', v)
+
+```
+
+```python
+decomp(Fx, e4)
+```
+
+```python
+decomp(F(x), k)
 
 ```
 
@@ -115,8 +166,8 @@ E,H,A,B, E/H, B/A
 
 
 Maxwell's equation in terms of the vector potential $a$
-$$\nabla a = F$$
-(Sorry for the symbol, we already used $A$ and its a vectory anyway. Also, no one is going to read this anyway )
+$$\nabla  \textbf{a} = F$$
+(Sorry that we use  the symbol $ \textbf{a}$ for the vector potential, but we already used $A$ and its a vector. Also, no one is going to read this anyway)
 
 <!-- #endregion -->
 
@@ -124,9 +175,19 @@ $$\nabla a = F$$
 A EM-field  simulator was made in [this notebook](PlaneWaves.html), below we use it to look  at a simple plane wave with circular polarization. 
 
 ```python
-#from  fields import * 
-#pga.graph(make_fields(F, e12_N=10,e0_bounds=3),  
-#          grid=False,lineWidth=4,animate=True,scale=.35,height='300px')
+from  fields import * 
+def norm(x):
+    return x / np.sqrt(abs((x*x).e))
+
+def F(x):
+    I = D.e0123
+    F0 = D.e01 + D.e13
+
+    K = lambda x: (D.e123 - .8 * D.e012) 
+    return exp(x^K(x))* F0
+    
+pga.graph(make_fields(F, e12_N=20,e0_bounds=7),  
+          grid=False,lineWidth=4,animate=True,scale=.35,height='300px')
 ```
 
 <!-- #region -->
@@ -157,17 +218,7 @@ $$\Gamma \equiv AB^{-1}  = \frac{F_p}{F_{\not p}}=  \frac{F\wedge p  }{ F\cdot p
 
 
 ```python
-def round(mv, tol=1e-6):
-    return mv.filter(lambda c: abs(c) > tol)
 
-def split(F,p):
-    num,denom = decomp(F,p)
-    return num/denom
-
-Gamma = round(split(F(x),p) )
-Z0    = round(split(F(x),e4) )
-V     = round(split(p,e4 ))
-Gamma, Z0, V
 ```
 
 ```python

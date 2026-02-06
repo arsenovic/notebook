@@ -41,6 +41,16 @@ written 01/17/2026<br>
  [**GitHub**](https://github.com/arsenovic) |
  [**ResearchGate**](https://www.researchgate.net/profile/A-Arsenovic) | 
  [**LinkedIn**](https://www.linkedin.com/in/alex-arsenovic-39516957/) 
+
+## Related Material
+### Papers
+#### unpublish/unfinished 
+ - [Transmission Line Models](https://www.dropbox.com/scl/fi/zpfxip6af2w2scij0fzr9/TransmissionLineModels.pdf?rlkey=rzghkt9wpmsh8y18xlypsq1fo&st=57wgtu0x&dl=0)
+ - [Periodic Stuctures](https://www.dropbox.com/scl/fi/bc2becn3w6uwvpu9ydfob/periodicStructuresWithCGATLT2.pdf?rlkey=lbiwt5plsstnqfgy4p7tpqpq4&st=yr744mtj&dl=0)
+
+### Talks 
+ - [A Spinor Model for Cascading Two Port Networks](https://www.youtube.com/watch?v=8abjGVw3pCI)
+ - [Applications Of Conformal Geometric Algebra To Transmission Line Theory](https://www.youtube.com/watch?v=vOxV9hmXUZU)
 <!-- #endregion -->
 
 ## Source
