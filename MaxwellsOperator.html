@@ -7797,7 +7797,7 @@ a.anchor-link {
 </head>
 <body class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
 <main>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=b6d7d9df">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=b22350e1">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7811,7 +7811,7 @@ written 01/19/2026<br/>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=7f602216">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=405dcbe7">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7838,7 +7838,7 @@ $$ e^{  e^0 \partial_0}e^{  e^1 \partial_1}e^{  e^2 \partial_2}e^{  e^3 \partial
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=831d6e51">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=89b0b3b3">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7872,7 +7872,7 @@ which is a dumb thing to write when we are in a linear space.</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=613e996d">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=e3c04f9c">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7894,10 +7894,12 @@ which is a dumb thing to write when we are in a linear space.</p>
 \end{align}
 The second order central differential is</p>
 <p>\begin{align}
-\frac{1}{2\tau}(\partial_a f - f\partial_a ) = \frac{1}{\tau}\partial_a \wedge f 
+ \partial_a \wedge f \equiv \frac{1}{2}(\partial_a f - f\partial_a ) =    
+\frac{f(x+\tau a ) -2f(x)+  f(x-\tau a )}{2 \tau}
 
-\end{align}</p>
-<p>what is
+\end{align}
+Note that these operations are all grade-perserving, so the usuall interpretation of the inner/outer product as grade changing is not sustained.
+what is
 \begin{align}
 \partial_a f \partial_a \\
 \end{align}</p>
@@ -7906,6 +7908,16 @@ The second order central differential is</p>
 e^{\tau \partial_a} fe^{-\tau \partial_a} &amp;=T_{\tau a}f \tilde T_{\tau a} 
 
 \end{align}</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=2061f1c3">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h3 id="Exponetial-of-a--Differential">Exponetial of a  Differential<a class="anchor-link" href="#Exponetial-of-a--Differential">¶</a></h3><p>\begin{align}
 \partial_a f &amp;\equiv \frac{f(x+\tau a )- f(x)}{\tau} \\
 \partial_a f&amp;= \frac{1}{\tau}(T_{\tau a}-1)f \\
@@ -7922,7 +7934,31 @@ e^{-\tau \partial_a} &amp;=\tilde T_{\tau a}
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=07d97591">
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=fd99d3d0">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="Domain-vs-Range">Domain vs Range<a class="anchor-link" href="#Domain-vs-Range">¶</a></h3><p>how do we know if an operator  will operator on the range of domain.</p>
+<p>For example take $f = x^2$
+$T_a f(x) = f(x)+a = x^2 +a $</p>
+<h3 id="Rotations-vs-Translations">Rotations vs Translations<a class="anchor-link" href="#Rotations-vs-Translations">¶</a></h3><p>Given that we defined the a-derivative applied to $f$ as,
+$$  \partial_a f \equiv  \frac{f(x+\tau a )- f(x)}{\tau} = \frac{1}{\tau}(T_{\tau a}-1)f $$</p>
+<p>Where $T$ is the translation operator. If we want to make a large translation, $a$ , we could add up many small translations.</p>
+<p>$$ T_a = \prod (T_{\tau a})^{\frac{1}{\tau}} 
+= (e^{ \tau \partial_a })^\frac{1}{\tau} =  e^{ \partial_a }$$
+Maybe the use of translation in the differential could be extended to rotations.   so the finite diff would become a finite div.</p>
+<p>$$e^{\tau \partial_B} =R_{\tau B} $$</p>
+<p>where B is a bivector.  Then we get</p>
+<p>$$ \nabla =  \sum B  \partial_B  $$
+$$ \nabla = e^{B \tau \partial_B} =R_{\tau B} $$
+The geometric derivative is then</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=de9771d3">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7937,7 +7973,7 @@ e^{-\tau \partial_a} &amp;=\tilde T_{\tau a}
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=3a6aba67">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=aa979a20">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7948,7 +7984,7 @@ e^{-\tau \partial_a} &amp;=\tilde T_{\tau a}
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=92369da2">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=e6a9be47">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7958,7 +7994,7 @@ e^{-\tau \partial_a} &amp;=\tilde T_{\tau a}
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=f26cb430">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=0cdfe033">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7995,7 +8031,7 @@ e^{-\tau \partial_a} &amp;=\tilde T_{\tau a}
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=1df5fd71">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=1e6b207f">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8011,7 +8047,7 @@ B &amp;\equiv e_{12} + e_{20}
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=c64608d8">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=fec57cd5">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8026,7 +8062,7 @@ e^{\nabla}\wedge A &amp;= F
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=5a399e06">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=314f0c11">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>

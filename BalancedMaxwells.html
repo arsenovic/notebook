@@ -7797,7 +7797,7 @@ a.anchor-link {
 </head>
 <body class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
 <main>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=1f0d9df0">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=ef0bb54e">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7835,7 +7835,7 @@ $$ F_x = e^{K\wedge x}K (K\cdot B)$$</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=2e3f8c65">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=c8f078b8">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7869,7 +7869,6 @@ $$ F_x = e^{K\wedge x}K (K\cdot B)$$</p>
 <span class="k">assert</span> <span class="n">is_close</span><span class="p">(</span><span class="n">D</span><span class="p">(</span><span class="n">f</span><span class="p">)(</span><span class="n">x</span><span class="p">),</span> <span class="n">K</span><span class="o">*</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">))</span> 
 <span class="c1">#D(D(f))(x), -K*K*f(x) # why this not work?</span>
 <span class="k">assert</span> <span class="n">is_close</span><span class="p">(</span><span class="n">D</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">exp</span><span class="p">(</span><span class="n">I</span><span class="o">*</span><span class="p">(</span><span class="n">k</span><span class="o">|</span><span class="n">x</span><span class="p">)))(</span><span class="n">x</span><span class="p">),</span><span class="o">-</span><span class="n">I</span><span class="o">*</span><span class="n">k</span><span class="o">*</span><span class="n">exp</span><span class="p">(</span><span class="n">I</span><span class="o">*</span><span class="p">(</span><span class="n">k</span><span class="o">|</span><span class="n">x</span><span class="p">)))</span> <span class="c1"># same as above</span>
-
 <span class="n">Kf</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">K</span><span class="o">*</span><span class="n">exp</span><span class="p">(</span><span class="n">x</span><span class="o">^</span><span class="n">K</span><span class="p">)</span>
 <span class="k">assert</span> <span class="n">is_close</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">D</span><span class="p">(</span><span class="n">Kf</span><span class="p">)(</span><span class="n">x</span><span class="p">)),</span> <span class="o">-</span><span class="n">K</span><span class="o">**</span><span class="mi">2</span><span class="o">*</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">))</span> <span class="c1"># why doe we need a round here?</span>
 </pre></div>
@@ -7877,7 +7876,7 @@ $$ F_x = e^{K\wedge x}K (K\cdot B)$$</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=84433c3b">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=88c264f2">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7885,13 +7884,38 @@ $$ F_x = e^{K\wedge x}K (K\cdot B)$$</p>
 <div class="jp-InputPrompt jp-InputArea-prompt">In [2]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span>  <span class="n">exp</span><span class="p">(</span><span class="n">x</span><span class="o">^</span><span class="n">K</span><span class="p">)</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">sta</span><span class="o">.</span><span class="n">random_bivector</span><span class="p">()</span>
+<span class="n">B</span> <span class="o">=</span> <span class="n">sta</span><span class="o">.</span><span class="n">random_bivector</span><span class="p">()</span>
+<span class="n">R</span> <span class="o">=</span> <span class="p">(</span><span class="n">B</span><span class="o">/</span><span class="n">A</span><span class="p">)</span><span class="o">.</span><span class="n">sqrt</span><span class="p">()</span>
+
+<span class="n">R</span><span class="o">&gt;&gt;</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=eb4f73cb">
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr" tabindex="0">
+<pre>/home/runner/work/notebook/notebook/.venv/lib/python3.12/site-packages/kingdon/codegen.py:463: RuntimeWarning: Cannot verify that we really are taking the sqrt of a Study number.
+  warnings.warn("Cannot verify that we really are taking the sqrt of a Study number.", RuntimeWarning)
+</pre>
+</div>
+</div>
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[2]:</div>
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
+<pre>(0.306 𝐞₁₂ + 0.995 𝐞₁₃ + 0.472 𝐞₁₄ + 0.477 𝐞₂₃ + 0.66 𝐞₂₄ + 0.9 𝐞₃₄,
+ 0.377 𝐞₁₂ + 0.833 𝐞₁₃ + 0.398 𝐞₁₄ + 0.542 𝐞₂₃ + 0.796 𝐞₂₄ + 0.843 𝐞₃₄)</pre>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=213fccf2">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7899,8 +7923,8 @@ $$ F_x = e^{K\wedge x}K (K\cdot B)$$</p>
 <div class="jp-InputPrompt jp-InputArea-prompt">In [3]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">Kf</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">K</span><span class="o">*</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-<span class="nb">round</span><span class="p">(</span><span class="n">D</span><span class="p">(</span><span class="n">Kf</span><span class="p">)(</span><span class="n">x</span><span class="p">)),</span> <span class="o">-</span><span class="n">K</span><span class="o">**</span><span class="mi">2</span><span class="o">*</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">I</span><span class="o">*</span><span class="p">(</span><span class="n">k</span><span class="o">|</span><span class="n">x</span><span class="p">)</span>
+<span class="n">D</span><span class="p">(</span><span class="n">f</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span> <span class="p">,</span> <span class="n">I</span><span class="o">*</span><span class="n">k</span><span class="o">*</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">exp</span><span class="p">(</span><span class="n">I</span><span class="o">*</span><span class="p">(</span><span class="n">k</span><span class="o">|</span><span class="n">x</span><span class="p">))</span><span class="o">*</span><span class="n">I</span><span class="o">*</span><span class="n">k</span>
 </pre></div>
 </div>
 </div>
@@ -7910,106 +7934,69 @@ $$ F_x = e^{K\wedge x}K (K\cdot B)$$</p>
 <div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
 </div>
 <div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[3]:</div>
-<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
-<pre>(0.245 + -0.00276 𝐞₁₂₃₄, 0.245 + -0.00276 𝐞₁₂₃₄)</pre>
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr" tabindex="0">
+<pre>
+  <span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[3]</span><span class="ansi-green-fg">, line 1</span>
+<span class="ansi-red-fg">    </span><span class="ansi-red-fg">f = lambda x:exp(-I*(k|x)</span>
+                    ^
+<span class="ansi-red-fg">SyntaxError</span><span class="ansi-red-fg">:</span> '(' was never closed
+</pre>
 </div>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=52c986e8">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=cff40f85">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [4]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">div</span><span class="p">(</span><span class="n">sta</span><span class="p">,</span><span class="n">div</span><span class="p">(</span><span class="n">sta</span><span class="p">,</span> <span class="n">f</span><span class="p">))(</span><span class="n">x</span><span class="p">),</span><span class="n">curl</span><span class="p">(</span><span class="n">sta</span><span class="p">,</span><span class="n">curl</span><span class="p">(</span><span class="n">sta</span><span class="p">,</span> <span class="n">f</span><span class="p">))(</span><span class="n">x</span><span class="p">)</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">exp</span><span class="p">(</span><span class="n">I</span><span class="o">*</span><span class="p">(</span><span class="n">k</span><span class="o">|</span><span class="n">x</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[4]:</div>
-<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
-<pre>(-1.11e+02, )</pre>
-</div>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=718bcc08">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=0b659466">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [5]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span>  <span class="n">exp</span><span class="p">(</span><span class="n">x</span><span class="o">^</span><span class="n">K</span><span class="p">)</span><span class="o">*</span><span class="n">a0</span>
-<span class="n">F</span><span class="o">=</span><span class="n">d</span><span class="p">(</span><span class="n">sta</span><span class="p">,</span><span class="n">a</span><span class="p">)</span>
-
-<span class="n">a0</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">a0</span><span class="o">^</span><span class="n">K</span><span class="p">,</span> <span class="n">K</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span><span class="nb">round</span><span class="p">(</span><span class="n">F</span><span class="p">(</span><span class="n">x</span><span class="p">)),</span> <span class="n">K</span><span class="o">|</span><span class="n">B</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">rho</span> <span class="o">=</span> <span class="n">sta</span><span class="o">.</span><span class="n">random_vector</span><span class="p">()</span>
+<span class="p">(</span><span class="n">K</span><span class="o">+</span><span class="n">rho</span><span class="p">)</span><span class="o">**</span><span class="mi">3</span><span class="p">,</span> <span class="n">K</span><span class="o">**</span><span class="mi">2</span><span class="o">+</span> <span class="n">rho</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="n">K</span><span class="o">|</span><span class="n">rho</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[5]:</div>
-<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
-<pre>(0.943 𝐞₁ + 0.652 𝐞₂ + -1.35 𝐞₃ + -1.16 𝐞₄,
- 0.861 𝐞₁₂₃ + 0.438 𝐞₁₂₄ + 0.875 𝐞₁₃₄ + 0.173 𝐞₂₃₄,
- -1.11e-16 𝐞₁₂₃₄,
- -0.245,
- 0.645 𝐞₁₂ + -0.447 𝐞₁₃ + -0.886 𝐞₁₄ + -1.02 𝐞₂₃ + -0.651 𝐞₂₄ + -0.944 𝐞₃₄,
- 0.943 𝐞₁ + 0.652 𝐞₂ + -1.35 𝐞₃ + -1.16 𝐞₄)</pre>
-</div>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=8c5a02d6">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=983f8f83">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [6]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">sta</span><span class="o">.</span><span class="n">random_trivector</span><span class="p">()</span><span class="o">*</span><span class="n">sta</span><span class="o">.</span><span class="n">random_vector</span><span class="p">()</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span>  <span class="n">exp</span><span class="p">(</span><span class="n">x</span><span class="o">^</span><span class="n">k</span><span class="p">)</span>
+<span class="n">D</span><span class="p">(</span><span class="n">f</span><span class="p">)(</span><span class="n">x</span><span class="p">),</span> <span class="o">-</span><span class="mi">3</span><span class="o">*</span><span class="n">k</span><span class="o">*</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[6]:</div>
-<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
-<pre>0.543 𝐞₁₂ + 0.597 𝐞₁₃ + 1.34 𝐞₁₄ + 0.483 𝐞₂₃ + 0.27 𝐞₂₄ + -0.899 𝐞₃₄ + -0.729 𝐞₁₂₃₄</pre>
-</div>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=d2ab5b26">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=55c36145">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [7]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">d</span><span class="p">(</span><span class="n">sta</span><span class="p">,</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">exp</span><span class="p">(</span><span class="n">I</span><span class="o">*</span><span class="p">(</span><span class="n">k</span><span class="o">|</span><span class="n">x</span><span class="p">)))(</span><span class="n">x</span><span class="p">),</span><span class="o">-</span><span class="n">I</span><span class="o">*</span><span class="n">k</span><span class="o">*</span><span class="n">exp</span><span class="p">(</span><span class="n">I</span><span class="o">*</span><span class="p">(</span><span class="n">k</span><span class="o">|</span><span class="n">x</span><span class="p">))</span>
@@ -8018,25 +8005,12 @@ $$ F_x = e^{K\wedge x}K (K\cdot B)$$</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[7]:</div>
-<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
-<pre>(-0.00194 𝐞₁ + 0.00983 𝐞₂ + -0.00492 𝐞₃ + -0.00968 𝐞₄ + 0.861 𝐞₁₂₃ + 0.438 𝐞₁₂₄ + 0.874 𝐞₁₃₄ + 0.173 𝐞₂₃₄,
- -0.00194 𝐞₁ + 0.00983 𝐞₂ + -0.00492 𝐞₃ + -0.00968 𝐞₄ + 0.861 𝐞₁₂₃ + 0.438 𝐞₁₂₄ + 0.874 𝐞₁₃₄ + 0.173 𝐞₂₃₄)</pre>
-</div>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=6c7f3be2">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=8650a038">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [8]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">kingdon</span><span class="w"> </span><span class="kn">import</span> <span class="n">Algebra</span>
@@ -8075,24 +8049,12 @@ $$ F_x = e^{K\wedge x}K (K\cdot B)$$</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[8]:</div>
-<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
-<pre>(1.0 𝐞₁₄ + 0.0289 𝐞₂₃, -0.0289 𝐞₁₃ + -0.0289 𝐞₁₄)</pre>
-</div>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=4589434d">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=9c7df31d">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [9]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">exp</span><span class="p">(</span><span class="n">x</span><span class="o">^</span><span class="n">P</span><span class="p">)</span>
@@ -8101,24 +8063,12 @@ $$ F_x = e^{K\wedge x}K (K\cdot B)$$</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[9]:</div>
-<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
-<pre>1.0 + 0.0289 𝐞₁₂₃₄</pre>
-</div>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=2ad0c108">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=0bcab18b">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [10]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">d</span><span class="p">(</span><span class="n">sta</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">exp</span><span class="p">(</span><span class="n">x</span><span class="o">^</span><span class="n">P</span><span class="p">))(</span><span class="n">x</span><span class="p">),</span> <span class="n">P</span><span class="o">*</span><span class="n">exp</span><span class="p">(</span><span class="n">x</span><span class="o">^</span><span class="n">P</span><span class="p">)</span>
@@ -8128,24 +8078,12 @@ $$ F_x = e^{K\wedge x}K (K\cdot B)$$</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[10]:</div>
-<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
-<pre>-0.0128 + 0.761 𝐞₁₂ + 0.609 𝐞₁₃ + 0.609 𝐞₁₄ + 0.0132 𝐞₂₃ + 0.0132 𝐞₂₄ + -0.0128 𝐞₃₄ + 0.761 𝐞₁₂₃₄</pre>
-</div>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=a9f5e507">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=2b4a55dd">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [11]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">P</span><span class="o">|</span><span class="n">e4</span>
@@ -8154,41 +8092,17 @@ $$ F_x = e^{K\wedge x}K (K\cdot B)$$</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[11]:</div>
-<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
-<pre>1 𝐞₁₂</pre>
-</div>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=3201629d">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=db318a75">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [12]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">W</span><span class="p">,</span><span class="n">K</span> <span class="o">=</span> <span class="n">decomp</span><span class="p">(</span><span class="n">P</span><span class="p">,</span><span class="n">e4</span><span class="p">)</span>
 <span class="p">((</span><span class="n">W</span><span class="o">/</span><span class="n">I</span><span class="p">)</span><span class="o">^</span><span class="p">(</span><span class="n">K</span><span class="o">/</span><span class="n">I</span><span class="p">))</span><span class="o">*</span><span class="n">I</span>
 </pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[12]:</div>
-<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
-<pre>1.0 𝐞₁₂</pre>
 </div>
 </div>
 </div>
