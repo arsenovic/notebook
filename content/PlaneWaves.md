@@ -20,10 +20,10 @@ written 01/17/2026<br>
 </div>
 
 
-# Plane Waves 
+# Not so Plane Waves 
 
 ## Summary 
-Starting from the electromagnetic plane wave equation in [Spacetime Algebra](https://en.wikipedia.org/wiki/Spacetime_algebra), a similar equation is reverse engineered which follows conjugation. It is not known to be useful. 
+Starting from the electromagnetic plane wave equation in [Spacetime Algebra](https://en.wikipedia.org/wiki/Spacetime_algebra), a different equation is reverse engineered which follows conjugation. It does not represent a plane wave and is not known to be useful. 
 
 <!-- #region -->
 ## Idea
@@ -268,19 +268,22 @@ x = make_x(e12_bounds = 6,
            )
 def F(x):
     F0 = D.e01 + D.e13
-    K  = (D.e123 + .01 * D.e012)#*exp(-.1*D.e0123)
+    K  = (D.e123 + .1 * D.e012)#*exp(-.1*D.e0123)
     xK = x*K
     return exp(xK) >> F0
+    #xK = (x^K) + (x|(1/(x)**2 *(D.e0123*K)))
+    #return exp(xK ) * F0
 
 def A(x):
     A0 = D.e3
     #K  = lambda x: exp((.1*(D.e0 )|x)*D.e12)>>(D.e123 +  .5*D.e013)#*exp(-1*D.e0123)
     K  = lambda x: (D.e12/D.e3 +  .5*D.e13/D.e0)#*exp(-1*D.e0123)
     xK = x*K(x)
-    return exp(xK)>>A0
+    #return exp(xK)>>A0
+    return exp(x^K(x))*A0
 
-# Fx = F(x) # make F-field directly
-Fx =  d(sta, A)(x)  # make F-field from potential A
+Fx = F(x) # make F-field directly
+#Fx =  d(sta, A)(x)  # make F-field from potential A
 frames     = render_frames(x, Fx, vector_scale=vector_scale)
 graph_func = make_graph_func(frames, speed)
 vector_scale = float(Fx[0].values()[0].max())

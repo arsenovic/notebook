@@ -22,7 +22,7 @@ written 01/17/2026<br>
 <img src="img/me.jpg" alt="Alex Arsenovic" style="float: right; margin: 0 0 20px 20px; max-width: 300px; border-radius: 80px; padding: 50px; background-color: white;">
 
 ## Summary 
-* This is a collection of math/physics ideas.
+* This is a collection of (mostly incomplete) math/physics ideas. 
 * Feedback and comments welcome!  
 
 ## Pages
@@ -32,6 +32,8 @@ written 01/17/2026<br>
 - [Operator Class](OperatorClass.html)
 - [Reflection Coefficient in STA](Reflections.html)
 - [Maxwells Operator](MaxwellsOperator.html)
+- [Nilpotents](Nilpotent.html)
+- [Linear Geometric Functions](LinearGeometricFunctions.html)
 
 
 

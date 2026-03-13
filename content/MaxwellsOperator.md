@@ -114,10 +114,11 @@ The central differential is then seen as an inner product
 The second order central differential is
 
 \begin{align}
-\frac{1}{2\tau}(\partial_a f - f\partial_a ) = \frac{1}{\tau}\partial_a \wedge f 
+ \partial_a \wedge f \equiv \frac{1}{2}(\partial_a f - f\partial_a ) =    
+\frac{f(x+\tau a ) -2f(x)+  f(x-\tau a )}{2 \tau}
 
 \end{align}
-
+Note that these operations are all grade-perserving, so the usuall interpretation of the inner/outer product as grade changing is not sustained. 
 what is 
 \begin{align}
 \partial_a f \partial_a \\
@@ -129,6 +130,9 @@ what is
 e^{\tau \partial_a} fe^{-\tau \partial_a} &=T_{\tau a}f \tilde T_{\tau a} 
 
 \end{align}
+
+<!-- #endregion -->
+
 
 ### Exponetial of a  Differential
 
@@ -146,6 +150,35 @@ f \partial_a &= f (1-T_{-\tau a})\frac{1}{\tau} \\
 1- \tau \partial_a  &=T_{-\tau a}\\
 e^{-\tau \partial_a} &=\tilde T_{\tau a} 
 \end{align}
+
+
+<!-- #region -->
+### Domain vs Range
+how do we know if an operator  will operator on the range of domain. 
+ 
+For example take $f = x^2$
+$T_a f(x) = f(x)+a = x^2 +a $
+
+
+
+### Rotations vs Translations 
+Given that we defined the a-derivative applied to $f$ as, 
+$$  \partial_a f \equiv  \frac{f(x+\tau a )- f(x)}{\tau} = \frac{1}{\tau}(T_{\tau a}-1)f $$
+
+Where $T$ is the translation operator. If we want to make a large translation, $a$ , we could add up many small translations.   
+
+$$ T_a = \prod (T_{\tau a})^{\frac{1}{\tau}} 
+= (e^{ \tau \partial_a })^\frac{1}{\tau} =  e^{ \partial_a }$$
+Maybe the use of translation in the differential could be extended to rotations.   so the finite diff would become a finite div. 
+
+
+$$e^{\tau \partial_B} =R_{\tau B} $$
+
+where B is a bivector.  Then we get 
+
+$$ \nabla =  \sum B  \partial_B  $$
+$$ \nabla = e^{B \tau \partial_B} =R_{\tau B} $$
+The geometric derivative is then 
 
 <!-- #endregion -->
 

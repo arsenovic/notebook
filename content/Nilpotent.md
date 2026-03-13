@@ -9,14 +9,19 @@ jupyter:
       format_version: '1.3'
       jupytext_version: 1.18.1
   kernelspec:
-    display_name: Python 3 (ipykernel)
+    display_name: arsenovic-notebook (3.12.9)
     language: python
     name: python3
 ---
 
+<div style="text-align: right;">
+written 06/25/2025<br>
+<a href="mailto:alex@810lab.com">alex@810lab.com</a><br>
+</div>
+
 <!-- #region -->
 # In Search of  Nilpotents
-alex arsenovic 6/19/25
+
 ## Intro 
 
 This writeup is a work in progress toward understanding nilpotent matrices in Geometric Algebra . 
@@ -31,6 +36,8 @@ $$ S = LL^T $$
 
 the $L$ can also be further decomposed into,
 $$ L = D e^N $$
+
+
 
 (aka LDL), where $D$ is diagonal and $N$ is nilpotent of degree $k$, meaning $N^k = 0$ while $N^j \ne 0$ for $1 \le j < k$. 
 I think  this can be interepreted as  decomposing $S$ into shears and strains. (see CA2GC 3-6)
@@ -52,7 +59,7 @@ Lets ignore the strains ($D$) for now, since we have failed at this many times o
 <!-- #endregion -->
 
 ### Shift matrix 
-Any nilpotent matrix  is similar to a a block-diagonal of shift matrices [wiki](https://en.wikipedia.org/wiki/Shift_matrix) . This seems like the ticket. A shift matrix is  a matrix with ones along the super diagonal. 
+Any nilpotent matrix  is similar to a a block-diagonal of shift matrices (see [wiki](https://en.wikipedia.org/wiki/Shift_matrix)). This seems like the ticket. A shift matrix is  a matrix with ones along the super diagonal. 
 
 $$N_5 = \begin{pmatrix}
 0 & 1 & 0 & 0 & 0 \\
@@ -86,6 +93,8 @@ The inner product can be expanded, to give an alternative interpretation for bot
 \end{pmatrix}$$
 
 but, not clear to reduce it to the shift matrix. i thought making on dimension null ($e_i^2=0$), might work but it didnt seem to.
+
+It could be done by adding the extra dimension, using ciruclar shift, then using a sub-space projection. The Devil is in the details. 
 
 
 ### Sum of positive and negative bivectors?

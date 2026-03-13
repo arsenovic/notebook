@@ -9,7 +9,7 @@ jupyter:
       format_version: '1.3'
       jupytext_version: 1.18.1
   kernelspec:
-    display_name: arsenovic-notebook
+    display_name: arsenovic-notebook (3.12.9)
     language: python
     name: python3
 ---
@@ -65,7 +65,7 @@ If we further assume $F$ is given by the plane-wave formula ,
 $$F(x)=e^{p\cdot x I }F_0.$$
 where:
 * $x$ is a spacetime position,
-*  $p=p_4+p_{\not{4}}\equiv k+w$ is the spacetime  propagation vector, and 
+* $p$ is the spacetime  propagation vector, and 
 * $I \equiv \gamma_{1234}$ is psuedo-scalar. 
 
 
@@ -98,17 +98,12 @@ $$F = F_+ +F_- = Fe_{+-}+Fe_{-+}$$
 ## Implementation
 
 ```python
- 
-```
-
-```python
 from kingdon import Algebra
 from kingdon.numerical import exp 
 import numpy as np 
 
 sta = Algebra(signature=[-1,-1,-1,1],start_index=1)
 locals().update(sta.blades)
-F = sta.random_bivector()
 I = sta.pseudoscalar([1])
 
 def norm(x):
@@ -181,13 +176,15 @@ def norm(x):
 
 def F(x):
     I = D.e0123
-    F0 = D.e01 + D.e13
+    F0 = D.e01 + .8*D.e23
+    Ka = lambda x:    I*(.01*D.e3 + 2*D.e0)
+    r = D.e3#+.1*D.e0
+    Kb = lambda x:    r>>Ka(x)
 
-    K = lambda x: (D.e123 - .8 * D.e012) 
-    return exp(x^K(x))* F0
+    return (exp(x*Ka(x))>> (F0))+ 1*(exp(x*Kb(x))>> F0)
     
-pga.graph(make_fields(F, e12_N=20,e0_bounds=7),  
-          grid=False,lineWidth=4,animate=True,scale=.35,height='300px')
+pga.graph(make_fields(F, e12_N=15,e12_bounds=3, e0_bounds=3,e3_N=3,e3_bounds=3),  
+          grid=False,lineWidth=2,animate=True,scale=.15,height='600px')
 ```
 
 <!-- #region -->

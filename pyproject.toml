@@ -30,6 +30,7 @@ dependencies = [
     "notebook>=7.5.1",
     #"kingdon>=1.4.0",
     "torch>=2.9.1",
+    "clifford>=1.5.1",
 ]
 
 [tool.setuptools]

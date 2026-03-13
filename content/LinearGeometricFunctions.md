@@ -13,6 +13,12 @@ jupyter:
     name: python3
 ---
 
+<div style="text-align: right;">
+written 01/01/2024?<br>
+<a href="mailto:alex@810lab.com">alex@810lab.com</a><br>
+</div>
+
+
 ## Linear Geometric Functions
 
 Some classes for interepreting linear operators and converting to geometric functions. 

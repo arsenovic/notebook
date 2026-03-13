@@ -9,7 +9,7 @@ jupyter:
       format_version: '1.3'
       jupytext_version: 1.18.1
   kernelspec:
-    display_name: arsenovic-notebook
+    display_name: arsenovic-notebook (3.12.9)
     language: python
     name: python3
 ---
@@ -52,6 +52,7 @@ $$ F_0= K (K\cdot B)$$
 Leading to the equation 
 $$ F_x = e^{K\wedge x}K (K\cdot B)$$
 
+
 ```python
 
 from kingdon import Algebra
@@ -80,41 +81,42 @@ f = lambda x:  exp(x^K)
 assert is_close(D(f)(x), K*f(x)) 
 #D(D(f))(x), -K*K*f(x) # why this not work?
 assert is_close(D(lambda x: exp(I*(k|x)))(x),-I*k*exp(I*(k|x))) # same as above
-
 Kf = lambda x: K*exp(x^K)
 assert is_close(round(D(Kf)(x)), -K**2*f(x)) # why doe we need a round here?
 ```
 
 ```python
-f = lambda x:  exp(x^K)
+A = sta.random_bivector()
+B = sta.random_bivector()
+R = (B/A).sqrt()
 
-```
-
-```python
-Kf = lambda x: K*f(x)
-round(D(Kf)(x)), -K**2*f(x)
-```
-
-```python
-div(sta,div(sta, f))(x),curl(sta,curl(sta, f))(x)
+R>>A, B
 
 
-```
-
-```python
-
-
-
-a = lambda x:  exp(x^K)*a0
-F=d(sta,a)
-
-a0, K, a0^K, K**2,round(F(x)), K|B
 
 
 ```
 
 ```python
-sta.random_trivector()*sta.random_vector()
+f = lambda x:exp(-I*(k|x)
+D(f)(x) , I*k* f(x), exp(I*(k|x))*I*k
+```
+
+```python
+exp(I*(k|x))
+
+```
+
+```python
+rho = sta.random_vector()
+(K+rho)**3, K**2+ rho**2 + 2*(K|rho)
+```
+
+```python
+
+f = lambda x:  exp(x^k)
+D(f)(x), -3*k*f(x)
+
 ```
 
 ```python
