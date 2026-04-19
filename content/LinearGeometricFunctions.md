@@ -142,8 +142,8 @@ class Skewmetric(MatrixOperator):
         '''
         convert a skewmetric matrix to its curling bivector
         '''
-        B = mat2Frame(self.M,I=self.I)[0]
-        A = mat2Frame(np.eye(self.rank),I=self.I)[0]
+        B = mat2Frame(self.M,layout=self.I.layout)[0]
+        A = mat2Frame(np.eye(self.rank),layout=self.I.layout)[0]
         F = sum([a*b for a,b in zip(A,B)])/2
         return F
 
@@ -171,12 +171,12 @@ class Symmetric(MatrixOperator):
         eigenvectors are scaled by their corresponding values
         '''
         w,v = np.linalg.eig(self.M)
-        return mat2Frame(v@np.diag(w),I=self.I)[0]
+        return mat2Frame(v@np.diag(w),layout=self.I.layout)[0]
     
     def as_vector_and_versor(self):
         w,v = np.linalg.eig(self.M)
         d   = sum([a*k for a,k in zip(w,self.I.basis())])
-        R,rs  = orthoMat2Versor(v,I= self.I)
+        R,rs  = orthoMat2Versor(v,layout=self.I.layout)
         return d,R
         
     def as_f(self):
@@ -186,7 +186,7 @@ class Symmetric(MatrixOperator):
         #V = self.symmetric_mat_2_eigenframe(M)
         #f_x = lambda x: sum([(x|k)/k*abs(k) for k in V])
         w,v = np.linalg.eig(self.M)
-        V   = mat2Frame(v,I=self.I)[0]
+        V   = mat2Frame(v,layout=self.I.layout)[0]
         f_x = lambda x: sum([(x|k)/k*a for k,a in zip(V,w)])
         f   = outermorphic(f_x)
         return f
@@ -211,10 +211,10 @@ from clifford import Cl
 n = 3
 M = np.random.randint(-100,100,n**2).reshape(n,n)
 
-layout,blades = Cl(n)
+layout,ablades = Cl(n)
 I      = layout.pseudoScalar
 linear = Linear(I=I, M=M)
-#linear.skewmetric.as_bivector()
+linear.skewmetric.as_bivector()
 
 ```
 
