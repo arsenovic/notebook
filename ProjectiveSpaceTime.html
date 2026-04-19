@@ -7797,7 +7797,7 @@ a.anchor-link {
 </head>
 <body class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
 <main>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=4341c25f">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=d6e2bcc0">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7822,7 +7822,7 @@ $$ \nabla e^{K\wedge x} = K e^{K\wedge x}   $$</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=a80db7da">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=e16bc374">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7860,6 +7860,31 @@ $$ \nabla e^{K\wedge x} = K e^{K\wedge x}   $$</p>
 <span class="n">Kf</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">K</span><span class="o">*</span><span class="n">exp</span><span class="p">(</span><span class="n">x</span><span class="o">^</span><span class="n">K</span><span class="p">)</span>
 <span class="k">assert</span> <span class="n">is_close</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">D</span><span class="p">(</span><span class="n">Kf</span><span class="p">)(</span><span class="n">x</span><span class="p">)),</span> <span class="o">-</span><span class="n">K</span><span class="o">**</span><span class="mi">2</span><span class="o">*</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">))</span> <span class="c1"># why doe we need a round here?</span>
 </pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr" tabindex="0">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">AssertionError</span>                            Traceback (most recent call last)
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[1]</span><span class="ansi-green-fg">, line 24</span>
+<span class="ansi-green-fg">     20</span> 
+<span class="ansi-green-fg">     21</span> 
+<span class="ansi-green-fg">     22</span> <span class="ansi-bold" style="color: rgb(0,135,0)">assert</span> is_close(I*(k|x) , x^K)
+<span class="ansi-green-fg">     23</span> f = <span class="ansi-bold" style="color: rgb(0,135,0)">lambda</span> x:  exp(x^K)
+<span class="ansi-green-fg">---&gt; </span><span class="ansi-green-fg">24</span> <span class="ansi-bold" style="color: rgb(0,135,0)">assert</span> is_close(D(f)(x), K*f(x))
+<span class="ansi-green-fg">     25</span> <span style="color: rgb(95,135,135)">#D(D(f))(x), -K*K*f(x) # why this not work?</span>
+<span class="ansi-green-fg">     26</span> <span class="ansi-bold" style="color: rgb(0,135,0)">assert</span> is_close(D(<span class="ansi-bold" style="color: rgb(0,135,0)">lambda</span> x: exp(I*(k|x)))(x),-I*k*exp(I*(k|x))) <span style="color: rgb(95,135,135)"># same as above</span>
+<span class="ansi-green-fg">     27</span> 
+
+<span class="ansi-red-fg">AssertionError</span>: </pre>
 </div>
 </div>
 </div>

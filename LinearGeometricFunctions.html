@@ -7797,7 +7797,7 @@ a.anchor-link {
 </head>
 <body class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
 <main>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=3925cf88">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=a08cb5c5">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7811,7 +7811,7 @@ written 01/01/2024?<br/>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=b8cd114b">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=bda0cedb">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7821,7 +7821,7 @@ written 01/01/2024?<br/>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=3b2596c9">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=a946cfda">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7946,8 +7946,8 @@ written 01/01/2024?<br/>
 <span class="w">        </span><span class="sd">'''</span>
 <span class="sd">        convert a skewmetric matrix to its curling bivector</span>
 <span class="sd">        '''</span>
-        <span class="n">B</span> <span class="o">=</span> <span class="n">mat2Frame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">M</span><span class="p">,</span><span class="n">I</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">I</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">A</span> <span class="o">=</span> <span class="n">mat2Frame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rank</span><span class="p">),</span><span class="n">I</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">I</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">B</span> <span class="o">=</span> <span class="n">mat2Frame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">M</span><span class="p">,</span><span class="n">layout</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">I</span><span class="o">.</span><span class="n">layout</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">A</span> <span class="o">=</span> <span class="n">mat2Frame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rank</span><span class="p">),</span><span class="n">layout</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">I</span><span class="o">.</span><span class="n">layout</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
         <span class="n">F</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span><span class="n">a</span><span class="o">*</span><span class="n">b</span> <span class="k">for</span> <span class="n">a</span><span class="p">,</span><span class="n">b</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">)])</span><span class="o">/</span><span class="mi">2</span>
         <span class="k">return</span> <span class="n">F</span>
 
@@ -7975,12 +7975,12 @@ written 01/01/2024?<br/>
 <span class="sd">        eigenvectors are scaled by their corresponding values</span>
 <span class="sd">        '''</span>
         <span class="n">w</span><span class="p">,</span><span class="n">v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eig</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">M</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">mat2Frame</span><span class="p">(</span><span class="n">v</span><span class="nd">@np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">w</span><span class="p">),</span><span class="n">I</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">I</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">mat2Frame</span><span class="p">(</span><span class="n">v</span><span class="nd">@np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">w</span><span class="p">),</span><span class="n">layout</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">I</span><span class="o">.</span><span class="n">layout</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
     
     <span class="k">def</span><span class="w"> </span><span class="nf">as_vector_and_versor</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">w</span><span class="p">,</span><span class="n">v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eig</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">M</span><span class="p">)</span>
         <span class="n">d</span>   <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span><span class="n">a</span><span class="o">*</span><span class="n">k</span> <span class="k">for</span> <span class="n">a</span><span class="p">,</span><span class="n">k</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">w</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">I</span><span class="o">.</span><span class="n">basis</span><span class="p">())])</span>
-        <span class="n">R</span><span class="p">,</span><span class="n">rs</span>  <span class="o">=</span> <span class="n">orthoMat2Versor</span><span class="p">(</span><span class="n">v</span><span class="p">,</span><span class="n">I</span><span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">I</span><span class="p">)</span>
+        <span class="n">R</span><span class="p">,</span><span class="n">rs</span>  <span class="o">=</span> <span class="n">orthoMat2Versor</span><span class="p">(</span><span class="n">v</span><span class="p">,</span><span class="n">layout</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">I</span><span class="o">.</span><span class="n">layout</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">d</span><span class="p">,</span><span class="n">R</span>
         
     <span class="k">def</span><span class="w"> </span><span class="nf">as_f</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -7990,7 +7990,7 @@ written 01/01/2024?<br/>
         <span class="c1">#V = self.symmetric_mat_2_eigenframe(M)</span>
         <span class="c1">#f_x = lambda x: sum([(x|k)/k*abs(k) for k in V])</span>
         <span class="n">w</span><span class="p">,</span><span class="n">v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eig</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">M</span><span class="p">)</span>
-        <span class="n">V</span>   <span class="o">=</span> <span class="n">mat2Frame</span><span class="p">(</span><span class="n">v</span><span class="p">,</span><span class="n">I</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">I</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">V</span>   <span class="o">=</span> <span class="n">mat2Frame</span><span class="p">(</span><span class="n">v</span><span class="p">,</span><span class="n">layout</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">I</span><span class="o">.</span><span class="n">layout</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
         <span class="n">f_x</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">sum</span><span class="p">([(</span><span class="n">x</span><span class="o">|</span><span class="n">k</span><span class="p">)</span><span class="o">/</span><span class="n">k</span><span class="o">*</span><span class="n">a</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">a</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">V</span><span class="p">,</span><span class="n">w</span><span class="p">)])</span>
         <span class="n">f</span>   <span class="o">=</span> <span class="n">outermorphic</span><span class="p">(</span><span class="n">f_x</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">f</span>
@@ -8010,7 +8010,7 @@ written 01/01/2024?<br/>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=245c0ada">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=1112f3cb">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8023,16 +8023,28 @@ written 01/01/2024?<br/>
 <span class="n">n</span> <span class="o">=</span> <span class="mi">3</span>
 <span class="n">M</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="n">n</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>
 
-<span class="n">layout</span><span class="p">,</span><span class="n">blades</span> <span class="o">=</span> <span class="n">Cl</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="n">layout</span><span class="p">,</span><span class="n">ablades</span> <span class="o">=</span> <span class="n">Cl</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
 <span class="n">I</span>      <span class="o">=</span> <span class="n">layout</span><span class="o">.</span><span class="n">pseudoScalar</span>
 <span class="n">linear</span> <span class="o">=</span> <span class="n">Linear</span><span class="p">(</span><span class="n">I</span><span class="o">=</span><span class="n">I</span><span class="p">,</span> <span class="n">M</span><span class="o">=</span><span class="n">M</span><span class="p">)</span>
-<span class="c1">#linear.skewmetric.as_bivector()</span>
+<span class="n">linear</span><span class="o">.</span><span class="n">skewmetric</span><span class="o">.</span><span class="n">as_bivector</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=96cae408">
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[2]:</div>
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
+<pre>-(17.5^e12) + (69.5^e13) - (66.5^e23)</pre>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=e50d1ce5">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8061,12 +8073,12 @@ written 01/01/2024?<br/>
 <div class="jp-OutputArea-child jp-OutputArea-executeResult">
 <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[3]:</div>
 <div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
-<pre>&lt;__main__.Linear at 0x7f844ec1a5a0&gt;</pre>
+<pre>&lt;__main__.Linear at 0x7f0814f49e20&gt;</pre>
 </div>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=73839092">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=b0b32905">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8106,24 +8118,26 @@ written 01/01/2024?<br/>
 <span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[4]</span><span class="ansi-green-fg">, line 11</span>
 <span class="ansi-green-fg">      7</span> I      = layout.pseudoScalar
 <span class="ansi-green-fg">      8</span> linear = Linear(I=I, M=M)
-<span class="ansi-green-fg">---&gt; </span><span class="ansi-green-fg">11</span> <span class="ansi-bold" style="color: rgb(0,135,0)">assert</span>(np.allclose(func2Mat(<span class="ansi-yellow-bg">linear</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">symmetric</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">as_f</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">)</span>,  I=I)[<span class="ansi-green-fg">0</span>], linear.Me))
+<span class="ansi-green-fg">      9</span> 
+<span class="ansi-green-fg">     10</span> 
+<span class="ansi-green-fg">---&gt; </span><span class="ansi-green-fg">11</span> <span class="ansi-bold" style="color: rgb(0,135,0)">assert</span>(np.allclose(func2Mat(linear.symmetric.as_f(),  I=I)[<span class="ansi-green-fg">0</span>], linear.Me))
 <span class="ansi-green-fg">     12</span> <span class="ansi-bold" style="color: rgb(0,135,0)">assert</span>(np.allclose(func2Mat(linear.skewmetric.as_f(), I=I)[<span class="ansi-green-fg">0</span>], linear.Mo))
 <span class="ansi-green-fg">     13</span> a,b = linear.symmetric.as_eigenframe()
+<span class="ansi-green-fg">     14</span> <span class="ansi-bold" style="color: rgb(0,135,0)">assert</span>(a|b==<span class="ansi-green-fg">0</span>)
 
-<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[1]</span><span class="ansi-green-fg">, line 162</span>, in <span class="ansi-cyan-fg">Symmetric.as_f</span><span class="ansi-blue-fg">(self)</span>
-<span class="ansi-green-fg">    159</span> <span style="color: rgb(95,135,135)">#V = self.symmetric_mat_2_eigenframe(M)</span>
-<span class="ansi-green-fg">    160</span> <span style="color: rgb(95,135,135)">#f_x = lambda x: sum([(x|k)/k*abs(k) for k in V])</span>
-<span class="ansi-green-fg">    161</span> w,v = np.linalg.eig(<span style="color: rgb(0,135,0)">self</span>.M)
-<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">162</span> V   = <span class="ansi-yellow-bg">mat2Frame</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">v</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg">I</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">I</span><span class="ansi-yellow-bg">)</span>[<span class="ansi-green-fg">0</span>]
-<span class="ansi-green-fg">    163</span> f_x = <span class="ansi-bold" style="color: rgb(0,135,0)">lambda</span> x: <span style="color: rgb(0,135,0)">sum</span>([(x|k)/k*a <span class="ansi-bold" style="color: rgb(0,135,0)">for</span> k,a <span class="ansi-bold" style="color: rgb(175,0,255)">in</span> <span style="color: rgb(0,135,0)">zip</span>(V,w)])
-<span class="ansi-green-fg">    164</span> f   = outermorphic(f_x)
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[1]</span><span class="ansi-green-fg">, line 28</span>, in <span class="ansi-cyan-fg">func2Mat</span><span class="ansi-blue-fg">(f, I)</span>
+<span class="ansi-green-fg">     24</span>     frame2Mat
+<span class="ansi-green-fg">     25</span>     '''
+<span class="ansi-green-fg">     26</span>     A = I.basis()
+<span class="ansi-green-fg">     27</span>     B = [f(a) <span class="ansi-bold" style="color: rgb(0,135,0)">for</span> a <span class="ansi-bold" style="color: rgb(0,135,0)">in</span> A]
+<span class="ansi-green-fg">---&gt; </span><span class="ansi-green-fg">28</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">return</span> frame2Mat(B=B, A=A,I=I)
 
-<span class="ansi-red-fg">TypeError</span>: mat2Frame() got an unexpected keyword argument 'I'</pre>
+<span class="ansi-red-fg">TypeError</span>: frame2Mat() got an unexpected keyword argument 'I'</pre>
 </div>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=3e87f4ff">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=54479e66">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8146,7 +8160,7 @@ written 01/01/2024?<br/>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=e02c133f">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=383c0b94">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8160,7 +8174,7 @@ written 01/01/2024?<br/>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=3638128c">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=4e9fa43d">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8175,7 +8189,7 @@ written 01/01/2024?<br/>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=868a45ae">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=1dfad5bd">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8191,7 +8205,7 @@ written 01/01/2024?<br/>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=cbe69035">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=d474f9d6">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8207,7 +8221,7 @@ written 01/01/2024?<br/>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=36e7e095">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=5481f220">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8221,7 +8235,7 @@ written 01/01/2024?<br/>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=82086009">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=13202dae">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8237,7 +8251,7 @@ written 01/01/2024?<br/>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=a0271196">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=931714db">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8251,7 +8265,7 @@ written 01/01/2024?<br/>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=f6b2d275">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=7c36e794">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8265,7 +8279,7 @@ written 01/01/2024?<br/>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=1c72d5b4">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=72463d6e">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8282,7 +8296,7 @@ written 01/01/2024?<br/>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=af4b850e">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=f00d0f39">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8296,7 +8310,7 @@ written 01/01/2024?<br/>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=113822f7">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=9f1ac329">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8310,7 +8324,7 @@ written 01/01/2024?<br/>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=9d3c04bb">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=7c1d5f6d">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8324,7 +8338,7 @@ written 01/01/2024?<br/>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=95d14a90">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=a56e5dfb">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8341,7 +8355,7 @@ written 01/01/2024?<br/>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=214286ac">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=79b50c14">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8355,7 +8369,7 @@ written 01/01/2024?<br/>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=0a1e75f4">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=3ee241e6">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8381,7 +8395,7 @@ written 01/01/2024?<br/>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=678de796">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=4a4c790d">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8398,7 +8412,7 @@ written 01/01/2024?<br/>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=b95017e3">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=4c27b0b8">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8413,7 +8427,7 @@ written 01/01/2024?<br/>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=7a550891">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=34cbf6eb">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8430,7 +8444,7 @@ written 01/01/2024?<br/>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=6642ed3f">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=069fe4d9">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8444,7 +8458,7 @@ written 01/01/2024?<br/>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=6122b716">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=7533fa50">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8473,7 +8487,7 @@ written 01/01/2024?<br/>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=4cf47bad">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=2b4b752e">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>

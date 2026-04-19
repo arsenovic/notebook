@@ -7797,204 +7797,101 @@ a.anchor-link {
 </head>
 <body class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
 <main>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=e6f65f55">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=beb2a2b3">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<div style="text-align: right;">
-written 01/19/2026<br/>
-<a href="mailto:alex@810lab.com">alex@810lab.com</a>
+<h2 id="Whitening">Whitening<a class="anchor-link" href="#Whitening">¶</a></h2><h3 id="Summary">Summary<a class="anchor-link" href="#Summary">¶</a></h3><p>Here, we model a gaussian distribution as an Affine operator. This is done by  using homogeneous coodinates which combines the mean and covariance into a single matrix. This leads to a compact representation  and intuitive  interpretation of the mahalonobis distance, pdf, etc.</p>
+<p>This concept was done in the 90s, see  "A distance between multivariate normal distributions based in an embedding into the siegel group". by  Miquel Calvo, Josep M. Oller.</p>
+<h3 id="Context">Context<a class="anchor-link" href="#Context">¶</a></h3><p>This idea came from the wiki page on statistical <a href="https://en.wikipedia.org/wiki/Whitening_transformation">whitening</a>:</p>
+<p>"<em>A whitening transformation or sphering transformation is a linear transformation that transforms a vector of random variables with a known covariance matrix into a set of new variables whose covariance is the identity matrix, meaning that they are uncorrelated and each have variance 1.[1] The transformation is called "whitening" because it changes the input vector into a white noise vector.</em>"</p>
+<h3 id="Setup">Setup<a class="anchor-link" href="#Setup">¶</a></h3><p>A multivariate Gaussian distribution in '$k$' dimensions is given by</p>
+<p>$$pdf(x) = \frac{1}{\sqrt{(2\pi)^k |\Sigma|}}
+e^{(x-\mu)^T\Sigma^{-1}(x-\mu)}$$</p>
+<p>the term in the exponent is known as the 'mahalonobis distance' which is basically a distance in units of standard deviations.</p>
+<p>$$d^2_m(x) =(x-\mu)^T\Sigma^{-1}(x-\mu) $$
+It can be re-written as a norm  by interpretting the covariance $\Sigma$ as an operator, and splitting the operation into two halves, loosely speaking. There are several canonical ways to decompose a matrix (SVD, cholesky, etc).   One way is
+$$\Sigma=AA^T$$
+This decomposition will be Cholesky if $A$ is  triangular, but we dont need to make that choice yet.</p>
+<h4 id="Side-Notes">Side Notes<a class="anchor-link" href="#Side-Notes">¶</a></h4><ul>
+<li><p>Notice that in 1-D, variance is written $\sigma^2$, while in n-D its just $\Sigma$. However, the units of covariance are that of $\Sigma^2$, so i would call this a math nomenclature bug. The fact that it should be $\Sigma^2$ actually suggests the decomposition,  shown above also.</p>
+</li>
+<li><p>For any matrix $A$, the product $AA^T$ is symmetric. For <em>any</em> matrix  $A$. crazy.</p>
+</li>
+</ul>
+<p>In either case, the inverse of $\Sigma$  (known as the precision matrix) is  given in terms of $A$ as<br/>
+$$\Sigma^{-1}=(A^T)^{-1}A^{-1} = (A^{-1})^{T}A^{-1}. $$</p>
+<p>The maha distance expressed in terms of this half operation $A$ is</p>
 </div>
 </div>
 </div>
 </div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=09a74e42">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=71c250e7">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h1 id="Maxwell's--Operator">Maxwell's  Operator<a class="anchor-link" href="#Maxwell's--Operator">¶</a></h1><h2 id="Summary">Summary<a class="anchor-link" href="#Summary">¶</a></h2><p>We explore  an operator related to Maxwell's equations, and try to respect differential geometry.</p>
-<h2 id="Idea">Idea<a class="anchor-link" href="#Idea">¶</a></h2><p>Consider the following operator :</p>
-<p>$$e^{\nabla} = 1+\nabla + \nabla^2 + \ldots$$</p>
-<p>Ignore the higher order terms for now. Apply it to the vector potential, $A$.</p>
 <p>\begin{align}
-e^{\nabla}A &amp;= A+\nabla A + \nabla^2 A = A+F + J
+d^2_m(x) &amp;=(x-\mu)^T\Sigma^{-1}(x-\mu) \\
+&amp;= (x-\mu)^T(A^{-1})^{T}A^{-1}(x-\mu)\\
+&amp;=|A^{-1}(x-\mu)|^2 
 \end{align}</p>
-<p>Which is interesting enough to look more at this operator.  Given a definition of the vector derivative in terms of a basis[1],</p>
-<p>$$\nabla \equiv \sum e^i \partial_i .$$
-where $e^i \equiv e_i^{-1}$, and $\partial_i \equiv \partial_{e_i}$ is the differential in the $e_i$ direction. This implies
-$$ e^{\nabla} = e^{ \sum e^i \partial_i}  \stackrel{?}{=} \prod e^{ e^i \partial_i}$$</p>
-<p>Lets reverse the order of logic and assume $\prod e^{ e^i \partial_i}$ is true. Then under what circumstance does the equality hold:
-$$ \prod e^{ e^i \partial_i}  \stackrel{?}{=} e^{ \sum e^i \partial_i}=e^{\nabla}  $$
-expanded in a cartesian frame in STA,
-$$ e^{  e^0 \partial_0}e^{  e^1 \partial_1}e^{  e^2 \partial_2}e^{  e^3 \partial_3} 
- \stackrel{?}{=} e^{  e^0 \partial_0 + e^1 \partial_1+  e^2 \partial_2+  e^3 \partial_3}  $$</p>
-<p>This is almost identical to the transmission line model used in [2]. In the transmission line case, the  equality was justified by the fact that the rotations were small (and in null bivectors).  However, the rotations relative magnitude is what produced the range of behavoir.</p>
+<p>Which can be interpreted as the norm of a vector after the  inverse of some affine transform, call it $g$.
+$$  g(x) = Ax+\mu, \qquad g^{-1}(x) = A^{-1}(x-\mu),$$
+$g$  is a combination of a linear transform $A$, followed by a translation of $\mu$. This suggests the interpretation of $g$ as a 'whitening' operator which transforms between a <em>standard</em> normal  and the distribution of interest. In other words,  it is an operator model for a distribution. This is analagous to the way  complex numbers are used in LTI system analysis, (as operators on a reference sinusoid) .</p>
+<h3 id="Matrix-Model">Matrix Model<a class="anchor-link" href="#Matrix-Model">¶</a></h3><p>The operation (linear+translation) can be implemented with a single affine transformation matrix $G$ using <a href="https://en.wikipedia.org/wiki/Affine_transformation#Augmented_matrix">homogenous coordinates</a>,<br/>
+$$
+g(x) = \downarrow G \mathbf{x} = \downarrow \underbrace{ \left[ \begin{array}{ccc|c} &amp; A &amp; &amp; \mathbf{\mu} \\ 0 &amp; \cdots &amp; 0 &amp; 1 \end{array} \right]}_{G}
+\underbrace{\begin{bmatrix} x \\ 1 \end{bmatrix}}_{\mathbf{x}}
+$$
+and
+$$
+g^{-1}(x) = \downarrow G^{-1}\mathbf{x}
+$$</p>
+<p>Where $\downarrow$ implies downprojection from affine space/homogeneous coordinates. In terms of the affine matrix $G$, The maha distance is,
+$$d_m^2 =|g^{-1}(x)|^2= 1-|G^{-1}\mathbf{x}|^2$$
+(the '$1-$' is just a little hack to make it work with the homogeneus coordinates which avoids the $\downarrow$, there are other ways to do this too). The formula for the pdf in terms of homogenous coordinates becomes,</p>
+<p>$$\text{pdf}(\mathbf{x}) = \frac{1}{(2\pi)^{k/2} |G|}
+e^{1-|G^{-1}\mathbf{x})|^2}$$
+(note $|G| = \sqrt{|\Sigma|}$), or put another way
+$$\text{pdf}(\mathbf{x}) = \frac{e}{(2\pi)^{k/2}}|G^{-1}|
+e^{-|G^{-1}\mathbf{x}|^2}$$</p>
+<p>So in some sense, we can say that $G$ <em>generates</em>  the pdf. kindof.</p>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=dca89260">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=63166618">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Curvature">Curvature<a class="anchor-link" href="#Curvature">¶</a></h2><p>For a <em>linear</em> vector manifold, the exponential of the differential, $e^{\tau \partial_a}$, implements a translation in the independent variable when operating on a function $f$.
-$$e^{\tau \partial_a}f = f(x+\tau a)    $$</p>
-<p>for a small $\tau$. Since translations commute,</p>
-<p>$$ f(x+\tau a +\epsilon b) = 
-e^{\tau \partial_a+\epsilon \partial_{b}}\stackrel{?}{=} 
-e^{\tau \partial_a}e^{\epsilon \partial_{b}} $$</p>
-<p>Again,  reverse the logic and assume the product of exponentials is true in general,</p>
-<p>$$e^{\tau \partial_a}e^{\epsilon \partial_{b}} \stackrel{?}{=} 
-e^{\tau \partial_a+\epsilon \partial_{b}} $$</p>
-<p>This is true when $\tau$ and $\epsilon$ are small, but small compared to what? Compared to the curvature. This is  what we are assuming by a <em>linear</em> vector manifold. One way to measure curvature, would be to move along $a$ then $b$, then back along $-a$ <em>then</em> $-b$. Basically reverse your steps in a different order  to get back to the start.<br>
-\begin{align*}
-\Delta f &amp;= e^{-\tau \partial_a}e^{-\epsilon \partial_b}e^{\tau \partial_a}e^{\epsilon \partial_b}f -f\\
-&amp;=( e^{-\tau \partial_a}e^{-\epsilon \partial_b}e^{\tau \partial_a}e^{\epsilon \partial_b}-1)f\\
-&amp;= (R\tilde{R} -1)f \\
-\end{align*}</br></p>
-<p>Another method is to compare the difference in $f$ at some nearby point, going either way .</p>
-<p>\begin{align*} 
-\Delta f &amp;= e^{\tau \partial_a}e^{\epsilon \partial_b}f -e^{\epsilon \partial_b}e^{\tau \partial_a}f \\
-&amp;= (R -\tilde R )f
-\end{align*}</p>
-<p>Lets see if we can re-work this in terms of conjugation, because conjugation is  dank.
-$$ e^{\tau \partial_a}e^{\epsilon \partial_b} fe^{\tilde{\epsilon \partial_b}}e^{\tilde{\tau \partial_a}} 
-  =f(x+\tau a +\epsilon b  -\epsilon b -\tau a ) =f(x)  $$
-which is a dumb thing to write when we are in a linear space.</p>
+<h3 id="Propagation">Propagation<a class="anchor-link" href="#Propagation">¶</a></h3><p>Normally, if we want to propagate a distribution through a linear operator,  you have two rules to implement; one for the covariance and another for the mean.
+$$ \Sigma' = F\Sigma F^T, \qquad \mu'  = F\mu$$
+but since
+$$ F\Sigma F^T = FAA^TF^T  $$
+The propagation of $A$ is the same as $\mu$. So in the affine representaion its  just one rule ( and one matrix multiply)
+$$ G' = FG$$</p>
+<p>Now, while this is nice,  it presents a practical problem if you want to get the covariance matrix out, or add two covariance matrices (<a href="https://mathoverflow.net/questions/364442/how-do-you-find-the-cholesky-decomposition-of-the-sum-of-two-positive-definite-m">see here</a>). In this case  you have to form  $AA^T$.</p>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=2167d1ce">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=9f3d7077">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Scalar-Curvature">Scalar Curvature<a class="anchor-link" href="#Scalar-Curvature">¶</a></h3><p>This section discusses scalar curvature using a non-standard convention for the differential. it is likely not of use.</p>
-<p>The forward differential in the a-direction $ \partial_a $ applied to a function $f$ over a linear manifold is defined by</p>
-<p>\begin{align}
-\partial_a f &amp;\equiv \frac{f(x+\tau a )- f(x)}{\tau} \\
-\end{align}</p>
-<p>Consider defining the backward differential with a reverse symmetry,<br/>
-\begin{align}
-\  f \partial_a &amp;\equiv \frac{f(x)-f(x-\tau a )}{\tau} \\
-\end{align}</p>
-<p>The central differential is then seen as an inner product</p>
-<p>\begin{align}
-\partial_a \cdot f \equiv \frac{1}{2}(\partial_a f + f\partial_a ) 
-=\frac{ f(x+\tau a ) - f(x-\tau a )}{2\tau}
-\end{align}
-The second order central differential is</p>
-<p>\begin{align}
- \partial_a \wedge f \equiv \frac{1}{2}(\partial_a f - f\partial_a ) =    
-\frac{f(x+\tau a ) -2f(x)+  f(x-\tau a )}{2 \tau}
-
-\end{align}
-Note that these operations are all grade-perserving, so the usuall interpretation of the inner/outer product as grade changing is not sustained.
-what is
-\begin{align}
-\partial_a f \partial_a \\
-\end{align}</p>
-<p>the conjugation gives</p>
-<p>\begin{align}
-e^{\tau \partial_a} fe^{-\tau \partial_a} &amp;=T_{\tau a}f \tilde T_{\tau a} 
-
-\end{align}</p>
+<p>Lets implement  this. Note there are some annoying book-keeping depending on how you decompose $\Sigma \rightarrow AA^T$ or $A^TA$, and so on.</p>
 </div>
 </div>
 </div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=73b36b15">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Exponetial-of-a--Differential">Exponetial of a  Differential<a class="anchor-link" href="#Exponetial-of-a--Differential">¶</a></h3><p>\begin{align}
-\partial_a f &amp;\equiv \frac{f(x+\tau a )- f(x)}{\tau} \\
-\partial_a f&amp;= \frac{1}{\tau}(T_{\tau a}-1)f \\
-1+ \tau \partial_a  &amp;= T_{\tau a} \\
-e^{\tau \partial_a} &amp;=T_{\tau a} 
-\end{align}</p>
-<p>The backward differential $  \partial_a $  is<br/>
-\begin{align}
-\  f \partial_a &amp;\equiv \frac{f(x)-f(x-\tau a )}{\tau} \\
-f \partial_a &amp;= f (1-T_{-\tau a})\frac{1}{\tau} \\
-1- \tau \partial_a  &amp;=T_{-\tau a}\\
-e^{-\tau \partial_a} &amp;=\tilde T_{\tau a} 
-\end{align}</p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=ddc2780f">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Domain-vs-Range">Domain vs Range<a class="anchor-link" href="#Domain-vs-Range">¶</a></h3><p>how do we know if an operator  will operator on the range of domain.</p>
-<p>For example take $f = x^2$
-$T_a f(x) = f(x)+a = x^2 +a $</p>
-<h3 id="Rotations-vs-Translations">Rotations vs Translations<a class="anchor-link" href="#Rotations-vs-Translations">¶</a></h3><p>Given that we defined the a-derivative applied to $f$ as,
-$$  \partial_a f \equiv  \frac{f(x+\tau a )- f(x)}{\tau} = \frac{1}{\tau}(T_{\tau a}-1)f $$</p>
-<p>Where $T$ is the translation operator. If we want to make a large translation, $a$ , we could add up many small translations.</p>
-<p>$$ T_a = \prod (T_{\tau a})^{\frac{1}{\tau}} 
-= (e^{ \tau \partial_a })^\frac{1}{\tau} =  e^{ \partial_a }$$
-Maybe the use of translation in the differential could be extended to rotations.   so the finite diff would become a finite div.</p>
-<p>$$e^{\tau \partial_B} =R_{\tau B} $$</p>
-<p>where B is a bivector.  Then we get</p>
-<p>$$ \nabla =  \sum B  \partial_B  $$
-$$ \nabla = e^{B \tau \partial_B} =R_{\tau B} $$
-The geometric derivative is then</p>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=5a00d47c">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=10aa876d">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Ortho-not-Normal">Ortho-not-Normal<a class="anchor-link" href="#Ortho-not-Normal">¶</a></h2>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=bb26e67a">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Curvature--on-a-sphere">Curvature  on a sphere<a class="anchor-link" href="#Curvature--on-a-sphere">¶</a></h2>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=c3d4f1e0">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=b276f4e0">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8002,74 +7899,81 @@ The geometric derivative is then</p>
 <div class="jp-InputPrompt jp-InputArea-prompt">In [1]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">kingdon</span><span class="w"> </span><span class="kn">import</span> <span class="n">Algebra</span><span class="p">,</span> <span class="n">calculus</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">kingdon.numerical</span><span class="w"> </span><span class="kn">import</span> <span class="n">exp</span>  <span class="k">as</span> <span class="n">exp_</span>
-<span class="n">exp</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">exp_</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">n</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span> <span class="c1"># precision control of exp</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span> 
+<span class="kn">from</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="kn">import</span> <span class="n">linalg</span> <span class="k">as</span> <span class="n">la</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="kn">import</span> <span class="n">e</span> 
+<span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
 
-<span class="n">pga</span> <span class="o">=</span> <span class="n">Algebra</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">start_index</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> 
-<span class="nb">locals</span><span class="p">()</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">pga</span><span class="o">.</span><span class="n">blades</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">rand_vec</span><span class="p">(</span><span class="n">n</span><span class="p">):</span> <span class="c1"># random vector </span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
 
-<span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="mi">3</span><span class="o">*</span><span class="n">x</span>
-<span class="n">x</span><span class="o">=</span> <span class="n">pga</span><span class="o">.</span><span class="n">random_vector</span><span class="p">()</span>
-<span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-<span class="k">lambda</span> <span class="n">f</span><span class="p">,</span><span class="n">a</span><span class="p">:</span> <span class="n">f</span><span class="o">+</span><span class="n">da</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="n">a</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">rand_mat</span><span class="p">(</span><span class="n">n</span><span class="p">):</span> <span class="c1"># random matrix </span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="n">n</span><span class="p">,</span><span class="n">n</span><span class="p">))</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">rand_spd</span><span class="p">(</span><span class="n">n</span><span class="p">):</span> <span class="c1"># random symmetric positive definite matrix </span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="n">n</span><span class="p">,</span><span class="n">n</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">A</span><span class="nd">@A</span><span class="o">.</span><span class="n">T</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">affinize</span><span class="p">(</span><span class="n">S</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">''' make affine matrix/homogenous vector from linear operator and/or translation vector '''</span>
+    <span class="k">if</span> <span class="n">S</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">x</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># return a homogenous vector </span>
+    <span class="k">else</span><span class="p">:</span> <span class="c1"># return a matrix </span>
+        <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">S</span><span class="p">)</span>
+        <span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>       
+        <span class="n">A</span><span class="p">[:</span><span class="n">n</span><span class="p">,</span> <span class="p">:</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="n">S</span>
+        <span class="k">if</span> <span class="n">x</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">A</span><span class="p">[:</span><span class="n">n</span><span class="p">,</span> <span class="n">n</span><span class="p">]</span>  <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">A</span> 
+
+<span class="k">def</span><span class="w"> </span><span class="nf">afg</span><span class="p">(</span><span class="n">Sigma</span><span class="p">,</span><span class="n">mu</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">''' create an affine matrix for a gaussian distribution'''</span>
+    <span class="n">L</span> <span class="o">=</span> <span class="n">la</span><span class="o">.</span><span class="n">cholesky</span><span class="p">(</span><span class="n">Sigma</span><span class="p">,</span><span class="n">upper</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">affinize</span><span class="p">(</span><span class="n">S</span><span class="o">=</span><span class="n">L</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">mu</span><span class="p">)</span>
+    
+<span class="c1">################## Tests #############################</span>
+<span class="n">n</span><span class="o">=</span><span class="mi">3</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">test_homogenous</span><span class="p">():</span>
+    <span class="c1"># homogenous matrix tests </span>
+    <span class="n">S</span>  <span class="o">=</span> <span class="n">rand_spd</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+    <span class="n">mu</span> <span class="o">=</span> <span class="n">rand_vec</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> 
+    <span class="n">x</span>  <span class="o">=</span> <span class="n">rand_vec</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> 
+    
+    <span class="n">X</span>  <span class="o">=</span> <span class="n">affinize</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">A</span>  <span class="o">=</span> <span class="n">affinize</span><span class="p">(</span><span class="n">S</span><span class="p">,</span><span class="n">mu</span><span class="p">)</span>
+    <span class="n">Ai</span> <span class="o">=</span> <span class="n">la</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+    <span class="n">Si</span> <span class="o">=</span> <span class="n">la</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">S</span><span class="p">)</span>
+    
+    <span class="k">assert</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">((</span> <span class="n">A</span><span class="nd">@X</span><span class="p">)[:</span><span class="n">n</span><span class="p">],(</span><span class="n">S</span><span class="nd">@x</span><span class="o">+</span><span class="n">mu</span><span class="p">)))</span> <span class="c1"># sanity checks</span>
+    <span class="k">assert</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">((</span><span class="n">Ai</span><span class="nd">@X</span><span class="p">)[:</span><span class="n">n</span><span class="p">],</span> <span class="n">Si</span><span class="nd">@x</span><span class="o">-</span><span class="n">Si</span><span class="nd">@mu</span><span class="p">))</span>
+<span class="n">test_homogenous</span><span class="p">()</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">test_affine_gaussian</span><span class="p">():</span>
+    <span class="n">F</span>     <span class="o">=</span> <span class="n">rand_mat</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+    <span class="n">x</span>     <span class="o">=</span> <span class="n">rand_vec</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+    <span class="n">Sigma</span> <span class="o">=</span> <span class="n">rand_spd</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+    <span class="n">iSigma</span> <span class="o">=</span> <span class="n">la</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">Sigma</span><span class="p">)</span>
+    <span class="n">mu</span>    <span class="o">=</span> <span class="n">rand_vec</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+    
+    <span class="n">X</span>     <span class="o">=</span> <span class="n">affinize</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">G</span>     <span class="o">=</span> <span class="n">afg</span><span class="p">(</span><span class="n">Sigma</span><span class="o">=</span><span class="n">Sigma</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="n">mu</span><span class="p">)</span>
+    <span class="n">A</span>     <span class="o">=</span> <span class="n">G</span><span class="p">[:</span><span class="n">n</span><span class="p">,:</span><span class="n">n</span><span class="p">]</span>
+    
+    <span class="n">iL</span>    <span class="o">=</span> <span class="n">la</span><span class="o">.</span><span class="n">cholesky</span><span class="p">(</span><span class="n">iSigma</span><span class="p">,</span><span class="n">upper</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">iG</span>    <span class="o">=</span> <span class="n">affinize</span><span class="p">(</span><span class="n">iL</span><span class="p">,</span> <span class="o">-</span><span class="n">iL</span><span class="nd">@mu</span><span class="p">)</span>
+    <span class="c1">#why not iG    = la.inv(G)#afg(Sigma=la.inv(Sigma), mu=-mu)#la.inv(G)</span>
+    <span class="c1">#np.allclose((G.T@G)[:n,:n] , Sigma)</span>
+    
+    <span class="k">assert</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">A</span><span class="o">.</span><span class="n">T</span><span class="nd">@A</span><span class="p">,</span> <span class="p">(</span><span class="n">G</span><span class="o">.</span><span class="n">T</span><span class="nd">@G</span><span class="p">)[:</span><span class="n">n</span><span class="p">,:</span><span class="n">n</span><span class="p">],</span> <span class="n">Sigma</span><span class="p">))</span>
+    <span class="k">assert</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">((</span><span class="n">x</span><span class="o">-</span><span class="n">mu</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="nd">@iSigma</span><span class="o">@</span><span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="n">mu</span><span class="p">),</span> <span class="p">(</span><span class="n">iG</span><span class="nd">@X</span><span class="p">)</span><span class="o">@</span><span class="p">(</span><span class="n">iG</span><span class="nd">@X</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">)</span><span class="c1"># maha tests </span>
+    <span class="k">assert</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span> <span class="n">la</span><span class="o">.</span><span class="n">det</span><span class="p">(</span><span class="n">Sigma</span><span class="p">),</span> <span class="n">la</span><span class="o">.</span><span class="n">det</span><span class="p">(</span><span class="n">G</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="p">,</span> <span class="n">math</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">G</span><span class="p">))</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span> <span class="c1"># det tests</span>
+    <span class="n">FGt</span> <span class="o">=</span> <span class="n">affinize</span><span class="p">(</span><span class="n">F</span><span class="p">)</span><span class="nd">@G</span><span class="o">.</span><span class="n">T</span>
+    <span class="k">assert</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span> <span class="p">(</span><span class="n">FGt</span><span class="nd">@FGt</span><span class="o">.</span><span class="n">T</span><span class="p">)[:</span><span class="n">n</span><span class="p">,:</span><span class="n">n</span><span class="p">],</span> <span class="n">F</span><span class="nd">@Sigma@F</span><span class="o">.</span><span class="n">T</span><span class="p">))</span> <span class="c1"># function tests </span>
+
+<span class="n">test_affine_gaussian</span><span class="p">()</span>
 </pre></div>
 </div>
-</div>
-</div>
-</div>
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[1]:</div>
-<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
-<pre>&lt;function __main__.&lt;lambda&gt;(f, a)&gt;</pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=1a2f7ca0">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Transmission-line-Model">Transmission line Model<a class="anchor-link" href="#Transmission-line-Model">¶</a></h2><p>\begin{align}
-R &amp;\equiv e_{30} − e_{13} \\
-X &amp;\equiv e_{12} − e_{20} \\
-G &amp;\equiv e_{30} + e_{13} \\
-B &amp;\equiv e_{12} + e_{20}
-\end{align}</p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=9b3b8107">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Others">Others<a class="anchor-link" href="#Others">¶</a></h2><p>How can split this up by div/curl:</p>
-<p>\begin{align}
-e^{\nabla}\cdot A &amp;= A + J \\
-e^{\nabla}\wedge A &amp;= F
-\end{align}</p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=92059ae2">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="References">References<a class="anchor-link" href="#References">¶</a></h2><p>[1]  Hestenes, D. (1984). <em>Clifford Algebra to Geometric Calculus: A Practical Language for Physics</em>. D. Reidel Publishing Company.</p>
-<p>[2]  A. Arsenovic, "Applications of Conformal Geometric Algebra to Transmission Line Theory," in IEEE Access, vol. 5, pp. 19920-19941, 2017, doi: 10.1109/ACCESS.2017.2727819.</p>
 </div>
 </div>
 </div>

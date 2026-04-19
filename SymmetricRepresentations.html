@@ -7796,205 +7796,7 @@ a.anchor-link {
 <!-- End of mermaid configuration --><link rel="stylesheet" href="static/style.css">
 </head>
 <body class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
-<main>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=e6f65f55">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<div style="text-align: right;">
-written 01/19/2026<br/>
-<a href="mailto:alex@810lab.com">alex@810lab.com</a>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=09a74e42">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h1 id="Maxwell's--Operator">Maxwell's  Operator<a class="anchor-link" href="#Maxwell's--Operator">¶</a></h1><h2 id="Summary">Summary<a class="anchor-link" href="#Summary">¶</a></h2><p>We explore  an operator related to Maxwell's equations, and try to respect differential geometry.</p>
-<h2 id="Idea">Idea<a class="anchor-link" href="#Idea">¶</a></h2><p>Consider the following operator :</p>
-<p>$$e^{\nabla} = 1+\nabla + \nabla^2 + \ldots$$</p>
-<p>Ignore the higher order terms for now. Apply it to the vector potential, $A$.</p>
-<p>\begin{align}
-e^{\nabla}A &amp;= A+\nabla A + \nabla^2 A = A+F + J
-\end{align}</p>
-<p>Which is interesting enough to look more at this operator.  Given a definition of the vector derivative in terms of a basis[1],</p>
-<p>$$\nabla \equiv \sum e^i \partial_i .$$
-where $e^i \equiv e_i^{-1}$, and $\partial_i \equiv \partial_{e_i}$ is the differential in the $e_i$ direction. This implies
-$$ e^{\nabla} = e^{ \sum e^i \partial_i}  \stackrel{?}{=} \prod e^{ e^i \partial_i}$$</p>
-<p>Lets reverse the order of logic and assume $\prod e^{ e^i \partial_i}$ is true. Then under what circumstance does the equality hold:
-$$ \prod e^{ e^i \partial_i}  \stackrel{?}{=} e^{ \sum e^i \partial_i}=e^{\nabla}  $$
-expanded in a cartesian frame in STA,
-$$ e^{  e^0 \partial_0}e^{  e^1 \partial_1}e^{  e^2 \partial_2}e^{  e^3 \partial_3} 
- \stackrel{?}{=} e^{  e^0 \partial_0 + e^1 \partial_1+  e^2 \partial_2+  e^3 \partial_3}  $$</p>
-<p>This is almost identical to the transmission line model used in [2]. In the transmission line case, the  equality was justified by the fact that the rotations were small (and in null bivectors).  However, the rotations relative magnitude is what produced the range of behavoir.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=dca89260">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Curvature">Curvature<a class="anchor-link" href="#Curvature">¶</a></h2><p>For a <em>linear</em> vector manifold, the exponential of the differential, $e^{\tau \partial_a}$, implements a translation in the independent variable when operating on a function $f$.
-$$e^{\tau \partial_a}f = f(x+\tau a)    $$</p>
-<p>for a small $\tau$. Since translations commute,</p>
-<p>$$ f(x+\tau a +\epsilon b) = 
-e^{\tau \partial_a+\epsilon \partial_{b}}\stackrel{?}{=} 
-e^{\tau \partial_a}e^{\epsilon \partial_{b}} $$</p>
-<p>Again,  reverse the logic and assume the product of exponentials is true in general,</p>
-<p>$$e^{\tau \partial_a}e^{\epsilon \partial_{b}} \stackrel{?}{=} 
-e^{\tau \partial_a+\epsilon \partial_{b}} $$</p>
-<p>This is true when $\tau$ and $\epsilon$ are small, but small compared to what? Compared to the curvature. This is  what we are assuming by a <em>linear</em> vector manifold. One way to measure curvature, would be to move along $a$ then $b$, then back along $-a$ <em>then</em> $-b$. Basically reverse your steps in a different order  to get back to the start.<br>
-\begin{align*}
-\Delta f &amp;= e^{-\tau \partial_a}e^{-\epsilon \partial_b}e^{\tau \partial_a}e^{\epsilon \partial_b}f -f\\
-&amp;=( e^{-\tau \partial_a}e^{-\epsilon \partial_b}e^{\tau \partial_a}e^{\epsilon \partial_b}-1)f\\
-&amp;= (R\tilde{R} -1)f \\
-\end{align*}</br></p>
-<p>Another method is to compare the difference in $f$ at some nearby point, going either way .</p>
-<p>\begin{align*} 
-\Delta f &amp;= e^{\tau \partial_a}e^{\epsilon \partial_b}f -e^{\epsilon \partial_b}e^{\tau \partial_a}f \\
-&amp;= (R -\tilde R )f
-\end{align*}</p>
-<p>Lets see if we can re-work this in terms of conjugation, because conjugation is  dank.
-$$ e^{\tau \partial_a}e^{\epsilon \partial_b} fe^{\tilde{\epsilon \partial_b}}e^{\tilde{\tau \partial_a}} 
-  =f(x+\tau a +\epsilon b  -\epsilon b -\tau a ) =f(x)  $$
-which is a dumb thing to write when we are in a linear space.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=2167d1ce">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Scalar-Curvature">Scalar Curvature<a class="anchor-link" href="#Scalar-Curvature">¶</a></h3><p>This section discusses scalar curvature using a non-standard convention for the differential. it is likely not of use.</p>
-<p>The forward differential in the a-direction $ \partial_a $ applied to a function $f$ over a linear manifold is defined by</p>
-<p>\begin{align}
-\partial_a f &amp;\equiv \frac{f(x+\tau a )- f(x)}{\tau} \\
-\end{align}</p>
-<p>Consider defining the backward differential with a reverse symmetry,<br/>
-\begin{align}
-\  f \partial_a &amp;\equiv \frac{f(x)-f(x-\tau a )}{\tau} \\
-\end{align}</p>
-<p>The central differential is then seen as an inner product</p>
-<p>\begin{align}
-\partial_a \cdot f \equiv \frac{1}{2}(\partial_a f + f\partial_a ) 
-=\frac{ f(x+\tau a ) - f(x-\tau a )}{2\tau}
-\end{align}
-The second order central differential is</p>
-<p>\begin{align}
- \partial_a \wedge f \equiv \frac{1}{2}(\partial_a f - f\partial_a ) =    
-\frac{f(x+\tau a ) -2f(x)+  f(x-\tau a )}{2 \tau}
-
-\end{align}
-Note that these operations are all grade-perserving, so the usuall interpretation of the inner/outer product as grade changing is not sustained.
-what is
-\begin{align}
-\partial_a f \partial_a \\
-\end{align}</p>
-<p>the conjugation gives</p>
-<p>\begin{align}
-e^{\tau \partial_a} fe^{-\tau \partial_a} &amp;=T_{\tau a}f \tilde T_{\tau a} 
-
-\end{align}</p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=73b36b15">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Exponetial-of-a--Differential">Exponetial of a  Differential<a class="anchor-link" href="#Exponetial-of-a--Differential">¶</a></h3><p>\begin{align}
-\partial_a f &amp;\equiv \frac{f(x+\tau a )- f(x)}{\tau} \\
-\partial_a f&amp;= \frac{1}{\tau}(T_{\tau a}-1)f \\
-1+ \tau \partial_a  &amp;= T_{\tau a} \\
-e^{\tau \partial_a} &amp;=T_{\tau a} 
-\end{align}</p>
-<p>The backward differential $  \partial_a $  is<br/>
-\begin{align}
-\  f \partial_a &amp;\equiv \frac{f(x)-f(x-\tau a )}{\tau} \\
-f \partial_a &amp;= f (1-T_{-\tau a})\frac{1}{\tau} \\
-1- \tau \partial_a  &amp;=T_{-\tau a}\\
-e^{-\tau \partial_a} &amp;=\tilde T_{\tau a} 
-\end{align}</p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=ddc2780f">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Domain-vs-Range">Domain vs Range<a class="anchor-link" href="#Domain-vs-Range">¶</a></h3><p>how do we know if an operator  will operator on the range of domain.</p>
-<p>For example take $f = x^2$
-$T_a f(x) = f(x)+a = x^2 +a $</p>
-<h3 id="Rotations-vs-Translations">Rotations vs Translations<a class="anchor-link" href="#Rotations-vs-Translations">¶</a></h3><p>Given that we defined the a-derivative applied to $f$ as,
-$$  \partial_a f \equiv  \frac{f(x+\tau a )- f(x)}{\tau} = \frac{1}{\tau}(T_{\tau a}-1)f $$</p>
-<p>Where $T$ is the translation operator. If we want to make a large translation, $a$ , we could add up many small translations.</p>
-<p>$$ T_a = \prod (T_{\tau a})^{\frac{1}{\tau}} 
-= (e^{ \tau \partial_a })^\frac{1}{\tau} =  e^{ \partial_a }$$
-Maybe the use of translation in the differential could be extended to rotations.   so the finite diff would become a finite div.</p>
-<p>$$e^{\tau \partial_B} =R_{\tau B} $$</p>
-<p>where B is a bivector.  Then we get</p>
-<p>$$ \nabla =  \sum B  \partial_B  $$
-$$ \nabla = e^{B \tau \partial_B} =R_{\tau B} $$
-The geometric derivative is then</p>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=5a00d47c">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=10aa876d">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Ortho-not-Normal">Ortho-not-Normal<a class="anchor-link" href="#Ortho-not-Normal">¶</a></h2>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=bb26e67a">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Curvature--on-a-sphere">Curvature  on a sphere<a class="anchor-link" href="#Curvature--on-a-sphere">¶</a></h2>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=c3d4f1e0">
+<main><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=2f93b000">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8002,17 +7804,29 @@ The geometric derivative is then</p>
 <div class="jp-InputPrompt jp-InputArea-prompt">In [1]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">kingdon</span><span class="w"> </span><span class="kn">import</span> <span class="n">Algebra</span><span class="p">,</span> <span class="n">calculus</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">kingdon.numerical</span><span class="w"> </span><span class="kn">import</span> <span class="n">exp</span>  <span class="k">as</span> <span class="n">exp_</span>
-<span class="n">exp</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">exp_</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">n</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span> <span class="c1"># precision control of exp</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># create  method to make a n-dimensional positive def symmetric amtrix </span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">kingdon</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">king</span> 
+<span class="kn">import</span><span class="w"> </span><span class="nn">scipy</span> 
 
-<span class="n">pga</span> <span class="o">=</span> <span class="n">Algebra</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">start_index</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> 
-<span class="nb">locals</span><span class="p">()</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">pga</span><span class="o">.</span><span class="n">blades</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">symmetric_matrix</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="p">(</span><span class="n">A</span> <span class="o">+</span> <span class="n">A</span><span class="o">.</span><span class="n">T</span><span class="p">)</span> 
+    <span class="c1">#A += n * np.eye(n)  # make it positive definite</span>
+    <span class="k">return</span> <span class="n">A</span>
 
-<span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="mi">3</span><span class="o">*</span><span class="n">x</span>
-<span class="n">x</span><span class="o">=</span> <span class="n">pga</span><span class="o">.</span><span class="n">random_vector</span><span class="p">()</span>
-<span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-<span class="k">lambda</span> <span class="n">f</span><span class="p">,</span><span class="n">a</span><span class="p">:</span> <span class="n">f</span><span class="o">+</span><span class="n">da</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="n">a</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">skew2bivector</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">alg</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">alg</span><span class="o">.</span><span class="n">bivector</span><span class="p">(</span><span class="n">G</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">tril_indices</span><span class="p">(</span><span class="n">G</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">k</span><span class="o">=-</span><span class="mi">1</span><span class="p">)])</span>  
+
+<span class="n">n</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">alg</span> <span class="o">=</span> <span class="n">king</span><span class="o">.</span><span class="n">Algebra</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+
+<span class="n">Sigma</span> <span class="o">=</span> <span class="n">symmetric_matrix</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="n">w</span><span class="p">,</span> <span class="n">v</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigh</span><span class="p">(</span><span class="n">Sigma</span><span class="p">)</span>
+<span class="n">G</span>     <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">logm</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+<span class="n">B</span>     <span class="o">=</span> <span class="n">skew2bivector</span><span class="p">(</span><span class="n">G</span><span class="p">,</span><span class="n">alg</span><span class="p">)</span>
+<span class="n">d</span>     <span class="o">=</span> <span class="n">alg</span><span class="o">.</span><span class="n">vector</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+<span class="n">d</span><span class="o">+</span><span class="n">B</span>
 </pre></div>
 </div>
 </div>
@@ -8025,51 +7839,54 @@ The geometric derivative is then</p>
 <div class="jp-OutputArea-child jp-OutputArea-executeResult">
 <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[1]:</div>
 <div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
-<pre>&lt;function __main__.&lt;lambda&gt;(f, a)&gt;</pre>
+<pre>-1.61 𝐞₁ + -0.773 𝐞₂ + 2.84 𝐞₃ + (-0.08371449257624478-1.5064970164421487j) 𝐞₁₂ + (-0.6866888512186429+0.18365761010284284j) 𝐞₁₃ + (-0.531327833008872-0.237359357940838j) 𝐞₂₃</pre>
 </div>
 </div>
 </div>
 </div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=1a2f7ca0">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=99d545bb">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Transmission-line-Model">Transmission line Model<a class="anchor-link" href="#Transmission-line-Model">¶</a></h2><p>\begin{align}
-R &amp;\equiv e_{30} − e_{13} \\
-X &amp;\equiv e_{12} − e_{20} \\
-G &amp;\equiv e_{30} + e_{13} \\
-B &amp;\equiv e_{12} + e_{20}
-\end{align}</p>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [2]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">scipy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">logm</span><span class="p">(</span><span class="n">vecs</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">()</span>
+</pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=9b3b8107">
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr" tabindex="0">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[2]</span><span class="ansi-green-fg">, line 1</span>
+<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">1</span> scipy.linalg.logm(vecs).round()
+
+<span class="ansi-red-fg">NameError</span>: name 'vecs' is not defined</pre>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=94ada1af">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Others">Others<a class="anchor-link" href="#Others">¶</a></h2><p>How can split this up by div/curl:</p>
-<p>\begin{align}
-e^{\nabla}\cdot A &amp;= A + J \\
-e^{\nabla}\wedge A &amp;= F
-\end{align}</p>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span>
+</pre></div>
 </div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=92059ae2">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="References">References<a class="anchor-link" href="#References">¶</a></h2><p>[1]  Hestenes, D. (1984). <em>Clifford Algebra to Geometric Calculus: A Practical Language for Physics</em>. D. Reidel Publishing Company.</p>
-<p>[2]  A. Arsenovic, "Applications of Conformal Geometric Algebra to Transmission Line Theory," in IEEE Access, vol. 5, pp. 19920-19941, 2017, doi: 10.1109/ACCESS.2017.2727819.</p>
 </div>
 </div>
 </div>
