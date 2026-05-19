@@ -7797,13 +7797,13 @@ a.anchor-link {
 </head>
 <body class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
 <main>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=beb2a2b3">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=5353dc9e">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Whitening">Whitening<a class="anchor-link" href="#Whitening">¶</a></h2><h3 id="Summary">Summary<a class="anchor-link" href="#Summary">¶</a></h3><p>Here, we model a gaussian distribution as an Affine operator. This is done by  using homogeneous coodinates which combines the mean and covariance into a single matrix. This leads to a compact representation  and intuitive  interpretation of the mahalonobis distance, pdf, etc.</p>
+<h2 id="Whitening">Whitening<a class="anchor-link" href="#Whitening">¶</a></h2><h3 id="Summary">Summary<a class="anchor-link" href="#Summary">¶</a></h3><p>Here, we model a gaussian distribution as an Affine operator. This is done by  using homogeneous coodinates which combines the mean and covariance into a single matrix. This leads to a compact representation of propagation,  and intuitive  interpretation of the mahalonobis distance, pdf, etc.</p>
 <p>This concept was done in the 90s, see  "A distance between multivariate normal distributions based in an embedding into the siegel group". by  Miquel Calvo, Josep M. Oller.</p>
 <h3 id="Context">Context<a class="anchor-link" href="#Context">¶</a></h3><p>This idea came from the wiki page on statistical <a href="https://en.wikipedia.org/wiki/Whitening_transformation">whitening</a>:</p>
 <p>"<em>A whitening transformation or sphering transformation is a linear transformation that transforms a vector of random variables with a known covariance matrix into a set of new variables whose covariance is the identity matrix, meaning that they are uncorrelated and each have variance 1.[1] The transformation is called "whitening" because it changes the input vector into a white noise vector.</em>"</p>
@@ -7815,12 +7815,10 @@ e^{(x-\mu)^T\Sigma^{-1}(x-\mu)}$$</p>
 It can be re-written as a norm  by interpretting the covariance $\Sigma$ as an operator, and splitting the operation into two halves, loosely speaking. There are several canonical ways to decompose a matrix (SVD, cholesky, etc).   One way is
 $$\Sigma=AA^T$$
 This decomposition will be Cholesky if $A$ is  triangular, but we dont need to make that choice yet.</p>
-<h4 id="Side-Notes">Side Notes<a class="anchor-link" href="#Side-Notes">¶</a></h4><ul>
-<li><p>Notice that in 1-D, variance is written $\sigma^2$, while in n-D its just $\Sigma$. However, the units of covariance are that of $\Sigma^2$, so i would call this a math nomenclature bug. The fact that it should be $\Sigma^2$ actually suggests the decomposition,  shown above also.</p>
-</li>
-<li><p>For any matrix $A$, the product $AA^T$ is symmetric. For <em>any</em> matrix  $A$. crazy.</p>
-</li>
-</ul>
+<h4 id="Side-Notes">Side Notes<a class="anchor-link" href="#Side-Notes">¶</a></h4><hr/>
+<p>Notice that in 1-D, variance is written $\sigma^2$, while in n-D its just $\Sigma$. However, the units of covariance are that of $\Sigma^2$, so i would call this a math nomenclature bug. The fact that it should be $\Sigma^2$ actually suggests the decomposition,  shown above also.</p>
+<p>For any matrix $A$, the product $AA^T$ is symmetric. For <em>any</em> matrix  $A$. crazy.</p>
+<hr/>
 <p>In either case, the inverse of $\Sigma$  (known as the precision matrix) is  given in terms of $A$ as<br/>
 $$\Sigma^{-1}=(A^T)^{-1}A^{-1} = (A^{-1})^{T}A^{-1}. $$</p>
 <p>The maha distance expressed in terms of this half operation $A$ is</p>
@@ -7828,7 +7826,7 @@ $$\Sigma^{-1}=(A^T)^{-1}A^{-1} = (A^{-1})^{T}A^{-1}. $$</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=71c250e7">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=c8a733a4">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7864,7 +7862,7 @@ e^{-|G^{-1}\mathbf{x}|^2}$$</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=63166618">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=05b3bf26">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7881,7 +7879,7 @@ $$ G' = FG$$</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=9f3d7077">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=77684e87">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7891,7 +7889,18 @@ $$ G' = FG$$</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=b276f4e0">
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=78aa544a">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="Code">Code<a class="anchor-link" href="#Code">¶</a></h2>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=9cb776bf">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>

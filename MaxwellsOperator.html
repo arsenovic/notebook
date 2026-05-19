@@ -7797,7 +7797,7 @@ a.anchor-link {
 </head>
 <body class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
 <main>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=e6f65f55">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=d21ba6d5">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7811,7 +7811,7 @@ written 01/19/2026<br/>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=09a74e42">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=23f08a64">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7838,200 +7838,7 @@ $$ e^{  e^0 \partial_0}e^{  e^1 \partial_1}e^{  e^2 \partial_2}e^{  e^3 \partial
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=dca89260">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Curvature">Curvature<a class="anchor-link" href="#Curvature">¶</a></h2><p>For a <em>linear</em> vector manifold, the exponential of the differential, $e^{\tau \partial_a}$, implements a translation in the independent variable when operating on a function $f$.
-$$e^{\tau \partial_a}f = f(x+\tau a)    $$</p>
-<p>for a small $\tau$. Since translations commute,</p>
-<p>$$ f(x+\tau a +\epsilon b) = 
-e^{\tau \partial_a+\epsilon \partial_{b}}\stackrel{?}{=} 
-e^{\tau \partial_a}e^{\epsilon \partial_{b}} $$</p>
-<p>Again,  reverse the logic and assume the product of exponentials is true in general,</p>
-<p>$$e^{\tau \partial_a}e^{\epsilon \partial_{b}} \stackrel{?}{=} 
-e^{\tau \partial_a+\epsilon \partial_{b}} $$</p>
-<p>This is true when $\tau$ and $\epsilon$ are small, but small compared to what? Compared to the curvature. This is  what we are assuming by a <em>linear</em> vector manifold. One way to measure curvature, would be to move along $a$ then $b$, then back along $-a$ <em>then</em> $-b$. Basically reverse your steps in a different order  to get back to the start.<br>
-\begin{align*}
-\Delta f &amp;= e^{-\tau \partial_a}e^{-\epsilon \partial_b}e^{\tau \partial_a}e^{\epsilon \partial_b}f -f\\
-&amp;=( e^{-\tau \partial_a}e^{-\epsilon \partial_b}e^{\tau \partial_a}e^{\epsilon \partial_b}-1)f\\
-&amp;= (R\tilde{R} -1)f \\
-\end{align*}</br></p>
-<p>Another method is to compare the difference in $f$ at some nearby point, going either way .</p>
-<p>\begin{align*} 
-\Delta f &amp;= e^{\tau \partial_a}e^{\epsilon \partial_b}f -e^{\epsilon \partial_b}e^{\tau \partial_a}f \\
-&amp;= (R -\tilde R )f
-\end{align*}</p>
-<p>Lets see if we can re-work this in terms of conjugation, because conjugation is  dank.
-$$ e^{\tau \partial_a}e^{\epsilon \partial_b} fe^{\tilde{\epsilon \partial_b}}e^{\tilde{\tau \partial_a}} 
-  =f(x+\tau a +\epsilon b  -\epsilon b -\tau a ) =f(x)  $$
-which is a dumb thing to write when we are in a linear space.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=2167d1ce">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Scalar-Curvature">Scalar Curvature<a class="anchor-link" href="#Scalar-Curvature">¶</a></h3><p>This section discusses scalar curvature using a non-standard convention for the differential. it is likely not of use.</p>
-<p>The forward differential in the a-direction $ \partial_a $ applied to a function $f$ over a linear manifold is defined by</p>
-<p>\begin{align}
-\partial_a f &amp;\equiv \frac{f(x+\tau a )- f(x)}{\tau} \\
-\end{align}</p>
-<p>Consider defining the backward differential with a reverse symmetry,<br/>
-\begin{align}
-\  f \partial_a &amp;\equiv \frac{f(x)-f(x-\tau a )}{\tau} \\
-\end{align}</p>
-<p>The central differential is then seen as an inner product</p>
-<p>\begin{align}
-\partial_a \cdot f \equiv \frac{1}{2}(\partial_a f + f\partial_a ) 
-=\frac{ f(x+\tau a ) - f(x-\tau a )}{2\tau}
-\end{align}
-The second order central differential is</p>
-<p>\begin{align}
- \partial_a \wedge f \equiv \frac{1}{2}(\partial_a f - f\partial_a ) =    
-\frac{f(x+\tau a ) -2f(x)+  f(x-\tau a )}{2 \tau}
-
-\end{align}
-Note that these operations are all grade-perserving, so the usuall interpretation of the inner/outer product as grade changing is not sustained.
-what is
-\begin{align}
-\partial_a f \partial_a \\
-\end{align}</p>
-<p>the conjugation gives</p>
-<p>\begin{align}
-e^{\tau \partial_a} fe^{-\tau \partial_a} &amp;=T_{\tau a}f \tilde T_{\tau a} 
-
-\end{align}</p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=73b36b15">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Exponetial-of-a--Differential">Exponetial of a  Differential<a class="anchor-link" href="#Exponetial-of-a--Differential">¶</a></h3><p>\begin{align}
-\partial_a f &amp;\equiv \frac{f(x+\tau a )- f(x)}{\tau} \\
-\partial_a f&amp;= \frac{1}{\tau}(T_{\tau a}-1)f \\
-1+ \tau \partial_a  &amp;= T_{\tau a} \\
-e^{\tau \partial_a} &amp;=T_{\tau a} 
-\end{align}</p>
-<p>The backward differential $  \partial_a $  is<br/>
-\begin{align}
-\  f \partial_a &amp;\equiv \frac{f(x)-f(x-\tau a )}{\tau} \\
-f \partial_a &amp;= f (1-T_{-\tau a})\frac{1}{\tau} \\
-1- \tau \partial_a  &amp;=T_{-\tau a}\\
-e^{-\tau \partial_a} &amp;=\tilde T_{\tau a} 
-\end{align}</p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=ddc2780f">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Domain-vs-Range">Domain vs Range<a class="anchor-link" href="#Domain-vs-Range">¶</a></h3><p>how do we know if an operator  will operator on the range of domain.</p>
-<p>For example take $f = x^2$
-$T_a f(x) = f(x)+a = x^2 +a $</p>
-<h3 id="Rotations-vs-Translations">Rotations vs Translations<a class="anchor-link" href="#Rotations-vs-Translations">¶</a></h3><p>Given that we defined the a-derivative applied to $f$ as,
-$$  \partial_a f \equiv  \frac{f(x+\tau a )- f(x)}{\tau} = \frac{1}{\tau}(T_{\tau a}-1)f $$</p>
-<p>Where $T$ is the translation operator. If we want to make a large translation, $a$ , we could add up many small translations.</p>
-<p>$$ T_a = \prod (T_{\tau a})^{\frac{1}{\tau}} 
-= (e^{ \tau \partial_a })^\frac{1}{\tau} =  e^{ \partial_a }$$
-Maybe the use of translation in the differential could be extended to rotations.   so the finite diff would become a finite div.</p>
-<p>$$e^{\tau \partial_B} =R_{\tau B} $$</p>
-<p>where B is a bivector.  Then we get</p>
-<p>$$ \nabla =  \sum B  \partial_B  $$
-$$ \nabla = e^{B \tau \partial_B} =R_{\tau B} $$
-The geometric derivative is then</p>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=5a00d47c">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=10aa876d">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Ortho-not-Normal">Ortho-not-Normal<a class="anchor-link" href="#Ortho-not-Normal">¶</a></h2>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=bb26e67a">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Curvature--on-a-sphere">Curvature  on a sphere<a class="anchor-link" href="#Curvature--on-a-sphere">¶</a></h2>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=c3d4f1e0">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [1]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">kingdon</span><span class="w"> </span><span class="kn">import</span> <span class="n">Algebra</span><span class="p">,</span> <span class="n">calculus</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">kingdon.numerical</span><span class="w"> </span><span class="kn">import</span> <span class="n">exp</span>  <span class="k">as</span> <span class="n">exp_</span>
-<span class="n">exp</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">exp_</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">n</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span> <span class="c1"># precision control of exp</span>
-
-<span class="n">pga</span> <span class="o">=</span> <span class="n">Algebra</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">start_index</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> 
-<span class="nb">locals</span><span class="p">()</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">pga</span><span class="o">.</span><span class="n">blades</span><span class="p">)</span>
-
-<span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="mi">3</span><span class="o">*</span><span class="n">x</span>
-<span class="n">x</span><span class="o">=</span> <span class="n">pga</span><span class="o">.</span><span class="n">random_vector</span><span class="p">()</span>
-<span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-<span class="k">lambda</span> <span class="n">f</span><span class="p">,</span><span class="n">a</span><span class="p">:</span> <span class="n">f</span><span class="o">+</span><span class="n">da</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="n">a</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[1]:</div>
-<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
-<pre>&lt;function __main__.&lt;lambda&gt;(f, a)&gt;</pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=1a2f7ca0">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=5d97eb37">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8047,7 +7854,7 @@ B &amp;\equiv e_{12} + e_{20}
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=9b3b8107">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=1ed0ace3">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8062,7 +7869,7 @@ e^{\nabla}\wedge A &amp;= F
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=92059ae2">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=e74be668">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
