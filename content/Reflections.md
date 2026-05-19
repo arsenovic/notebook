@@ -253,7 +253,7 @@ k.normalized()
 
 ```python
 
-
+def mystery(s): return "".join(sorted(set(s), reverse=True))
  
-
+print(mystery("programming"))
 ```

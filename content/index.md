@@ -27,14 +27,16 @@ written 01/17/2026<br>
 
 ## Pages
 
-- [Plane Waves](PlaneWaves.html)
+
 - [Operationalizing Coordinates](OperatorCoords.html)
+- [Affine Gaussian](Gaussian.html)
+- [Nilpotents in GA](Nilpotent.html)
+- [Curvature](Curvature.html)
+- [Plane Waves](PlaneWaves.html)
+- [Linear Geometric Functions](LinearGeometricFunctions.html)
 - [Operator Class](OperatorClass.html)
 - [Reflection Coefficient in STA](Reflections.html)
 - [Maxwells Operator](MaxwellsOperator.html)
-- [Nilpotents](Nilpotent.html)
-- [Linear Geometric Functions](LinearGeometricFunctions.html)
-
 
 
 ## Contact/About Me

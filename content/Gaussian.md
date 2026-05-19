@@ -9,7 +9,7 @@ jupyter:
       format_version: '1.3'
       jupytext_version: 1.18.1
   kernelspec:
-    display_name: Python 3 (ipykernel)
+    display_name: arsenovic-notebook (3.12.9)
     language: python
     name: python3
 ---
@@ -18,7 +18,7 @@ jupyter:
 ## Whitening  
 
 ### Summary
-Here, we model a gaussian distribution as an Affine operator. This is done by  using homogeneous coodinates which combines the mean and covariance into a single matrix. This leads to a compact representation  and intuitive  interpretation of the mahalonobis distance, pdf, etc. 
+Here, we model a gaussian distribution as an Affine operator. This is done by  using homogeneous coodinates which combines the mean and covariance into a single matrix. This leads to a compact representation of propagation,  and intuitive  interpretation of the mahalonobis distance, pdf, etc. 
 
 This concept was done in the 90s, see  "A distance between multivariate normal distributions based in an embedding into the siegel group". by  Miquel Calvo, Josep M. Oller.
 
@@ -42,10 +42,12 @@ It can be re-written as a norm  by interpretting the covariance $\Sigma$ as an o
 $$\Sigma=AA^T$$
 This decomposition will be Cholesky if $A$ is  triangular, but we dont need to make that choice yet. 
 #### Side Notes
+---
+Notice that in 1-D, variance is written $\sigma^2$, while in n-D its just $\Sigma$. However, the units of covariance are that of $\Sigma^2$, so i would call this a math nomenclature bug. The fact that it should be $\Sigma^2$ actually suggests the decomposition,  shown above also. 
 
-* Notice that in 1-D, variance is written $\sigma^2$, while in n-D its just $\Sigma$. However, the units of covariance are that of $\Sigma^2$, so i would call this a math nomenclature bug. The fact that it should be $\Sigma^2$ actually suggests the decomposition,  shown above also. 
+For any matrix $A$, the product $AA^T$ is symmetric. For *any* matrix  $A$. crazy.
 
-* For any matrix $A$, the product $AA^T$ is symmetric. For *any* matrix  $A$. crazy.
+----
 
 In either case, the inverse of $\Sigma$  (known as the precision matrix) is  given in terms of $A$ as  
 $$\Sigma^{-1}=(A^T)^{-1}A^{-1} = (A^{-1})^{T}A^{-1}. $$
@@ -102,6 +104,9 @@ Now, while this is nice,  it presents a practical problem if you want to get the
 
 
 Lets implement  this. Note there are some annoying book-keeping depending on how you decompose $\Sigma \rightarrow AA^T$ or $A^TA$, and so on.
+
+
+## Code 
 
 ```python
 import numpy as np 

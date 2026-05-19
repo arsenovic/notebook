@@ -14,7 +14,6 @@ jupyter:
     name: python3
 ---
 
-<!-- #region -->
 Here we re-interpret a plane wave in terms of the projective geometric algebra.
 
 Consider  the form of a EM plane wave given in Hestenes' Spacetime Algebra 
@@ -29,19 +28,12 @@ The generator re-expressed in a couple ways.
 
 $$  I(k\cdot x) =K\wedge x =   I(k\cdot x) =  k\wedge X  $$
 
-Through the lense of PGA, we can interepret  $X=Ix$ as a point in spacetime, and $k$ a  plane. Then k\wedge X is the signed distance between a point and plane, which parameterizes the duality rotation. 
+Through the lense of PGA, we can interepret  $X=Ix$ as a point in spacetime, and $k$ a  plane. Then $ k\wedge X$ is the signed distance between a point and plane, which parameterizes the duality rotation. 
 
-From this perspective time-harmonic analysis requires  $\omega \equiv k\cdot \gamma_0 \gamma_0^{-1}   $ to be a constant. This produces a projective geometry on the $\omega$ plane.  
+From this perspective time-harmonic analysis requires  $\omega \equiv k\cdot \gamma_0 \gamma_0^{-1}   $ to be a constant. This produces a projective hyperbolic geometry on the $\omega$ plane.  
 
-[Previously](PlaneWaves.html) we considered interpretting the generator as,  
-
-
-
-This equation is interpreted as a duality rotation of a fixed bivector $F_0$, parameterized by $K$, with $x$ being  an independent variable.  The vector derivative of this is ,
-$$ \nabla e^{K\wedge x} = K e^{K\wedge x}   $$
-
+[Pr
  
-<!-- #endregion -->
 
 ```python
 
